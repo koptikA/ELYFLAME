@@ -21,8 +21,9 @@
 </header>
 <main id="main">
 <svg class="page-ribbon" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1440 6000">
-  <defs><linearGradient id="page-ribbon-gradient" x1="0" y1="0" x2="1" y2="1" spreadMethod="reflect"><stop stop-color="#E9008D"/><stop offset="1" stop-color="#FDA63D"/></linearGradient></defs>
-  <path class="ribbon-line" pathLength="1000" d="M 1200 90 C 1000 400 1420 460 1300 800 S 1200 1300 1340 1700 S 1190 2300 1320 2800 S 1220 3700 1320 4300 S 1190 5200 1320 5940"/>
+  <defs><linearGradient id="page-ribbon-gradient"><stop stop-color="#E9008D"/><stop offset="1" stop-color="#FDA63D"/></linearGradient>
+  <mask id="ribbon-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><path class="ribbon-line" pathLength="1000" d="M 0 0"/></mask></defs>
+  <g class="ribbon-satin" mask="url(#ribbon-reveal)"></g>
 </svg>
 <section class="hero" id="home" aria-labelledby="hero-title">
   <div class="hero-top"><p class="eyebrow"><span class="dot"></span> Buffalo Grove, Illinois</p><p class="eyebrow">Artistry in motion. Confidence for life.</p></div>

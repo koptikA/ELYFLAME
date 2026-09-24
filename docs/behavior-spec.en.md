@@ -30,7 +30,9 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 
 ## 3. Ribbon
 
-- One thin SVG line (2–3 px) in the #E9008D → #FDA63D gradient, behind the content. There are no other decorative lines on the page.
+- One satin ribbon in SVG, behind the content. There are no other decorative lines on the page.
+- A script builds the ribbon along a centerline: up to 12 px wide on desktop and 8 px on mobile, narrowing almost to a thread where it twists. It twists every 320 px of path (220 px on mobile). The color shifts smoothly from magenta #E9008D to orange #FDA63D and back over 1,600 px (1,100 px on mobile). The back side is paler and matte, the edges darker, and the flat stretches get a highlight.
+- A mask does the drawing: a wide line along the same centerline whose visible length changes with scroll.
 - Route: starts as a big loop in the hero, crosses the page between sections, passes behind headlines and illustrations, and makes large loops at section transitions, like the curled E in the logo. It never crosses body text.
 - **Drawing on scroll.** The visible length follows the scroll position, with the tip staying about 70% down the viewport. Scrolling back up rewinds it.
 - Implementation: a CSS scroll-driven animation. Keyframes are recalculated only when the layout changes (ResizeObserver, font loading, window resize); there are no scroll handlers.

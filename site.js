@@ -155,6 +155,36 @@ form.addEventListener('submit',async event=>{
 // Layout-only geometry; CSS drives the draw/rewind. No scroll handler.
 const main=document.querySelector('main'),ribbon=document.querySelector('.page-ribbon'),ribbonLine=ribbon.querySelector('path');
 const ribbonTiming=document.createElement('style');document.head.append(ribbonTiming);
+// Satin ribbon along the same path: width follows |cos(twist)| so it narrows where it flips,
+// the back side is paler, edges darken, flats get a highlight. Consecutive quads of one colour share a path,
+// so later parts of the ribbon still draw over earlier ones where it crosses itself.
+const satin=ribbon.querySelector('.ribbon-satin'),MAGENTA=[233,0,141],ORANGE=[253,166,61],WHITE=[255,255,255];
+const mixRgb=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+function drawSatin(length,mobile){
+  const step=mobile?5:7,maxW=mobile?8:12,flip=mobile?220:320,hue=mobile?1100:1600,pts=[];
+  for(let s=0;s<=length;s+=step){const p=ribbonLine.getPointAtLength(s);pts.push([p.x,p.y,s]);}
+  const n=pts.length-1,runs=[],f=q=>q[0].toFixed(1)+','+q[1].toFixed(1);
+  const edge=i=>{
+    const a=pts[Math.max(0,i-1)],b=pts[Math.min(n,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;
+    const c=Math.cos(pts[i][2]/flip*Math.PI),w=maxW*(.12+.88*Math.abs(c))/2,[x,y]=pts[i];
+    return{a:[x-dy/l*w,y+dx/l*w],b:[x+dy/l*w,y-dx/l*w],c,s:pts[i][2]};
+  };
+  let prev=edge(0);
+  for(let i=1;i<=n;i++){
+    const cur=edge(i),lit=Math.abs(cur.c);
+    let col=mixRgb(MAGENTA,ORANGE,.5-.5*Math.cos(cur.s/hue*2*Math.PI));
+    if(cur.c<0)col=mixRgb(col,WHITE,.28);
+    col=col.map(v=>v*(.72+.28*lit));
+    if(lit>.92)col=mixRgb(col,WHITE,.22*(lit-.92)/.08);
+    const key=col.map(v=>Math.round(v/6)*6).join(','),quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
+    if(runs.length&&runs[runs.length-1][0]===key)runs[runs.length-1][1]+=quad;else runs.push([key,quad]);prev=cur;
+  }
+  satin.replaceChildren(...runs.map(([rgb,d])=>{
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',d);path.setAttribute('fill',`rgb(${rgb})`);path.setAttribute('stroke',`rgb(${rgb})`);path.setAttribute('stroke-width','.6');
+    return path;
+  }));
+}
 function layoutRibbon(){
   const width=main.clientWidth,height=main.offsetHeight,mobile=width<=760,mainTop=main.getBoundingClientRect().top;
   const bounds=el=>{const r=el.getBoundingClientRect();return{x:r.left-main.getBoundingClientRect().left,y:r.top-mainTop,w:r.width,h:r.height};};
@@ -180,7 +210,7 @@ function layoutRibbon(){
   });
   d+=` C ${x} ${y+40} ${x} ${height-65} ${x} ${height-40} C ${x} ${height-12} ${width*.8} ${height-12} ${width*.65} ${height-12}`;
   ribbon.setAttribute('viewBox',`0 0 ${width} ${height}`);ribbonLine.setAttribute('d',d);
-  const length=ribbonLine.getTotalLength(),samples=[];
+  const length=ribbonLine.getTotalLength(),samples=[];drawSatin(length,mobile);
   // Bound sampling work even as content makes the page longer.
   const sampleStep=Math.max(24,length/160);
   for(let distance=0;distance<=length;distance+=sampleStep)samples.push({distance,y:ribbonLine.getPointAtLength(distance).y});

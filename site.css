@@ -193,3 +193,7 @@ h2 em,.stage h2 em{color:inherit}
   #booking-dialog{width:100%;max-width:100%;height:100dvh;max-height:100dvh;margin:0;border:0;padding:24px 20px 32px}
   #booking-dialog .close-dialog{top:-12px}
 }
+
+/* Satin ribbon: .ribbon-line is now the reveal mask; the satin shapes are drawn by site.js. */
+.ribbon-line{stroke:#fff;stroke-width:32px;opacity:1}
+@media(max-width:760px){.ribbon-line{stroke-width:22px;opacity:1}}
