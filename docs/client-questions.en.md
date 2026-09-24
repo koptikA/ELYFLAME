@@ -2,10 +2,6 @@
 
 Prepared by Design (Alena K) from the SOW and the market research. The questions are ordered by priority. Every unanswered item becomes a placeholder in the design.
 
-## Urgent
-
-**A personal contact is exposed on elyflame.com.** The domain currently runs an empty WordPress site with a single "Hello world!" post (https://elyflame.com/?p=1), and the post shows the owner's personal email address as its author. Please change the author's display name in WordPress or delete the post before launch. The issue goes away once the new site replaces WordPress.
-
 ## Decisions for Kiryl (PM)
 
 **D1. How deep the trial booking goes in v1.**
@@ -29,9 +25,9 @@ Design recommendation: **C** for launch, **B** in phase 2. For parents, C feels 
 
 **Kiryl's decision:** ___
 
-**D5. Admin panel at launch.** The SOW puts an admin panel in project 1 (item 11, FE+BE, full access, `/[admin-path]`). The primary scenario doesn't need it if submissions go to email or a Google Sheet (D3). Do we build it for October 12, and if so, what should it do: show trial requests, edit programs and the schedule, or something else?
+**D5. Do we need an admin panel for launch?** The SOW includes an admin panel in project 1 (item 11). If trial requests simply arrive by email or in a Google Sheet (see D3), the academy can manage without it at first. If we do build it for launch, design needs to know what it's for, for example viewing trial requests or editing classes and the schedule, since those screens would need to be designed too.
 
-Design recommendation: skip it at launch if D3 settles on email or a spreadsheet.
+Design recommendation: no admin panel at launch if requests go to email or a Google Sheet.
 
 **Kiryl's decision:** ___
 
@@ -76,11 +72,10 @@ Design recommendation: skip it at launch if D3 settles on email or a spreadsheet
 22. Photos of the gym and equipment.
 23. Tagline: do we keep "Where Grace Meets Fire", or do you have your own?
 
-## Technical
-
-24. Is the Instagram account `elyflamerg_yuvkhimenko` a Business or Creator account? A live feed on the site needs one of these. For launch, we propose a curated gallery plus a "Follow" button, with the live feed in phase 2.
-25. Who manages the elyflame.com domain and the WordPress hosting right now? We need access for the migration.
-
 ## Minor
 
-26. The SOW footer says "© 2027", but the site launches in 2026. OK to show the current year and update it automatically?
+24. The SOW footer says "© 2027", but the site launches in 2026. OK to show the current year and update it automatically?
+
+## Recommendation
+
+**The current site at elyflame.com.** The domain runs a WordPress site with a single "Hello world!" post. On the post page (https://elyflame.com/?p=1), the owner's personal email is visible in the author byline and in the author page URL. If that isn't intentional, the post can be deleted or switched to a draft. The issue goes away once the new site replaces WordPress.

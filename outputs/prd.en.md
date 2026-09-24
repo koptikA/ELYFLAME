@@ -103,7 +103,7 @@ Without analytics, the first three metrics can't be measured `[confirm: D2]`. Li
 - D5. Is the admin panel (SOW item 11) needed by October 12 if requests go to email or a spreadsheet?
 
 **For the client** (numbers follow `docs/client-questions.en.md`, which has the full list):
-- Urgent: the owner's personal email is visible on the current WordPress site.
+- Recommendation: the owner's personal email is visible in the post author byline on the current elyflame.com.
 - 1. Which group matters most for filling classes.
 - 3–4. Is the trial paid ($10) or free (`/free-trial`); does the $10 count toward the first month; can we take payment online.
 - 5. Where the class finder sends a 6-year-old with no experience: level 3 (ages 6–7) or level 4 (6+).
@@ -112,4 +112,3 @@ Without analytics, the first three metrics can't be measured `[confirm: D2]`. Li
 - 9–13. Schedule, office hours, class location, entrance and parking, whether parents can watch, phone number.
 - 14–18. Coach bios and photos, the "P" judging mark, USA Gymnastics membership, athletes' results, parent reviews.
 - 19–22. Original photos and videos, parental photo release, copy (policies, FAQ, Privacy, Terms), facility photos.
-- 25. Access to the elyflame.com domain and hosting.
