@@ -26,6 +26,8 @@ Run `python -m http.server 4173 --bind 127.0.0.1` from this folder, then open ht
 
 ## Before production
 
+- Footer and header links point to pages that don't exist yet: `/privacy`, `/terms`, `/register`, and the parent portal at `app.elyflame.com` (project 2).
+
 This is a design prototype, not the complete production PRD. Confirm D1–D5 and the outstanding questions in `docs/client-questions.en.md`, particularly booking/payment arrangements, age overlap and program placement. Levels 3–6 are retained in the config for later client-approved matching; they cannot currently become the selected level.
 
 Implement `/api/trial` with server validation, rate limiting, spam protection, approved data handling and email delivery. Replace the local simulation with a checked server response, connect payment links after academy confirmation, and revise the confirmation wording to match the actual booking status. Test both JavaScript and no-JavaScript submissions on that backend. Replace all sample days and packing items with approved content.

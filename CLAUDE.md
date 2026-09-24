@@ -9,7 +9,7 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 - Decisions: `docs/decisions.md`. Add a row when a change affects scope or style, or departs from the SOW (`docs/sow.md`).
 - Open questions: `docs/client-questions.md`. Cite them by number (D1–D5 for the PM, 1–24 for the client).
 - Prototype: `index.html`, `site.css`, `site.js` at the root.
-- Pipeline commands: `.claude/commands/` (`/brief` → `/research` → `/prd` → `/stitch`).
+- Pipeline commands: `.claude/commands/` (`/brief` → `/research` → `/prd`).
 
 ## Documents
 
