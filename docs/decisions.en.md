@@ -12,6 +12,9 @@
 | Sep 24 | Fonts: Cinzel for headings, Manrope for body text | Cinzel echoes the logo wordmark; Manrope reads well at 16 px on mobile | Alena |
 | Sep 24 | We don't use Fluid Functionalism as code. We borrow its state and motion principles, and Fluid Hover only on desktop. Fluid is a good fit for the portal (project 2) | The SOW stack is vanilla; Fluid's sizing is built for dense apps | Alena |
 | Sep 24 | Browser features first: `<dialog>`, `<details>`, `scroll-snap`, built-in form validation, and CSS scroll-driven animations. GSAP only if needed. Type and spacing scales come from Utopia | Performance, accessibility, less code | Alena |
+| Sep 24 | Prices follow the SOW: $10 for the trial and the price on the Stretching page. Children's program prices aren't published at launch | The client hasn't given prices or permission to publish them (question 8). If they allow it, a pricing block comes in phase 2 | Alena |
+| Sep 24 | Blocks without client content are hidden; no "Coming soon" placeholders. In the mockups each such block has two states: with content and hidden. Launch minimum: 1 coach with photo and bio, the schedule, address and phone, 6+ real photos | The October 12 launch doesn't move; an empty placeholder undermines parents' trust | Alena |
+| Sep 24 | Success metrics: trial requests per month (main), mobile visitor-to-request conversion, share of requests through the class finder ≥ 50%, trial-to-registration rate, 30+ Google reviews by Jan 12, 2027. Lighthouse ≥ 90 is an acceptance requirement, not a metric | Metrics measure the site's results; the SOW requires Lighthouse for sign-off | Alena |
 | — | Trial booking depth: A (request), B (instant booking), or C (hybrid). Recommendation: C for launch, B in phase 2 | — | **Waiting on Kiryl (D1)** |
 | — | Analytics (D2) and where submissions go (D3) | — | **Waiting on Kiryl** |
 
