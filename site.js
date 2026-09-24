@@ -189,10 +189,13 @@ function layoutRibbon(){
   const width=main.clientWidth,height=main.offsetHeight,mobile=width<=760,mainTop=main.getBoundingClientRect().top;
   const bounds=el=>{const r=el.getBoundingClientRect();return{x:r.left-main.getBoundingClientRect().left,y:r.top-mainTop,w:r.width,h:r.height};};
   const photo=bounds(document.querySelector('.hero-photo')),left=width*(mobile?.025:.035),right=width*(mobile?.975:.965);
+  const art=bounds(document.querySelector('.gymnast-art')),anchor=bounds(document.querySelector('.ribbon-anchor'));
+  const startX=anchor.x+anchor.w/2,startY=anchor.y+anchor.h/2;
   const gradient=ribbon.querySelector('linearGradient');
   Object.entries({gradientUnits:'userSpaceOnUse',x1:photo.x,y1:photo.y,x2:photo.x+photo.w,y2:photo.y+photo.h}).forEach(([key,value])=>gradient.setAttribute(key,value));
   let x=right,y=photo.y+photo.h+25;
-  let d=`M ${photo.x+photo.w*.8} ${photo.y-18} C ${photo.x-photo.w*.28} ${photo.y-70} ${photo.x-photo.w*.2} ${photo.y+photo.h*.8} ${photo.x+photo.w*.7} ${photo.y+photo.h*.72} C ${photo.x+photo.w*1.3} ${photo.y+photo.h*.65} ${photo.x+photo.w*.88} ${photo.y+photo.h*.05} ${photo.x+photo.w*.58} ${photo.y+photo.h*.48} C ${photo.x+photo.w*.28} ${photo.y+photo.h} ${right} ${photo.y+photo.h+60} ${x} ${y}`;
+  // Leave the stick tip along the stick (up and to the right), then sweep to the right edge.
+  let d=`M ${startX} ${startY} C ${startX+art.h*.05} ${startY-art.h*.14} ${right} ${startY-art.h*.1} ${right} ${art.y+art.h*.43} C ${right} ${art.y+art.h*.65} ${photo.x+photo.w*.76} ${art.y+art.h*.75} ${photo.x+photo.w*.83} ${art.y+art.h*.49} C ${photo.x+photo.w*.90} ${art.y+art.h*.35} ${right} ${photo.y+photo.h+60} ${x} ${y}`;
   [...main.querySelectorAll(':scope > section')].slice(1).filter(el=>el.getClientRects().length>0).forEach((section,index)=>{
     const box=bounds(section),transitionY=box.y+(mobile?47:65),nextX=section.id==='about'?left:index%2===0?left:right;
     const mid=width*.5,spread=width*(mobile?.23:.27),loop=mobile?32:49;

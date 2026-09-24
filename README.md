@@ -8,7 +8,8 @@ Run `python -m http.server 4173 --bind 127.0.0.1` from this folder, then open ht
 
 ## Implemented
 
-- Responsive homepage with Cinzel headlines, whitespace, apparatus art, a dark stage, and a gray `Hero_Photo_Placeholder`. No generated people.
+- Responsive homepage with Cinzel headlines, whitespace, apparatus art, and a dark stage. The hero shows a gymnast silhouette traced from `assets/gymnast/sheet-2.jpg` (a generated illustration, not a photo). Clip paths cut it into body, free leg and stick arm; on load the leg rises from the hip and the arm flicks from the shoulder once (1.6 s), then the ribbon fades in. Reduced motion shows the final pose.
+- A `.ribbon-anchor` at the stick tip (21.6% / 0.7% of the figure box) marks where the page ribbon starts; `layoutRibbon()` leaves it along the stick, up and to the right.
 - One continuous 2.5 px magenta-to-orange SVG ribbon. Large hero and section-transition loops cross reserved whitespace and wrap the apparatus illustration. CSS scroll-driven animation draws and rewinds it. JavaScript recalculates geometry/keyframes only on layout changes; there is no scroll handler. Unsupported browsers and reduced-motion preferences show the full line. No second decorative line in Stretching.
 - Six levels in one `levels` array in `site.js`, with the requested labels, ages, programs, apparatus and result copy. Ages 3–5 use levels 1–2; ages 6+ use coach assessment and tint levels 3–6. Competitive experience is hidden/disabled for ages 3–5 and resets when switching to those ages. Recreational experience adds the readiness note. Mobile levels form a vertical path; the spark moves in 0.65 seconds and respects reduced motion.
 - Native booking dialog from every trial link. The finder prefills program, age and experience; Stretching prefills its program. One form is moved into the dialog, avoiding duplicate IDs and preserving entered values. Escape, focus containment and focus return use the native dialog behavior.

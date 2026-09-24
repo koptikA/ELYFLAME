@@ -42,7 +42,7 @@ label,select,input,textarea,summary,.about-point h3{font-size:16px}
 .section{padding-top:140px}
 .hero{min-height:800px}
 .hero-title{max-width:78%}
-.hero-photo{position:absolute;right:7%;top:112px;width:32%;height:445px;background:var(--placeholder);display:grid;place-items:center;z-index:0}
+.hero-photo{position:absolute;right:7%;top:112px;width:32%;height:445px;background:transparent;display:grid;place-items:center;z-index:0}
 .hero-photo>span{text-align:center;font-size:13px;color:var(--ink-muted);max-width:85%;overflow-wrap:anywhere}
 .hero-photo small{display:block;font-size:11px;margin-top:8px}
 .hero-bottom{margin-top:42px}
@@ -197,3 +197,19 @@ h2 em,.stage h2 em{color:inherit}
 /* Satin ribbon: .ribbon-line is now the reveal mask; the satin shapes are drawn by site.js. */
 .ribbon-line{stroke:#fff;stroke-width:32px;opacity:1}
 @media(max-width:760px){.ribbon-line{stroke-width:22px;opacity:1}}
+
+/* Hero gymnast: one traced silhouette in three clipped parts. Leg and stick arm move once on load, then rest. */
+.hero-photo{height:520px;top:96px}
+.gymnast-art{position:relative;height:100%;aspect-ratio:1113/1825}
+.gymnast{display:block;width:100%;height:100%;overflow:visible;fill:var(--ink)}
+.ribbon-anchor{position:absolute;left:21.6%;top:.7%;width:0;height:0;pointer-events:none}
+.gymnast{animation:gymnast-rise 1.6s cubic-bezier(.3,.7,.2,1) .3s both}
+.gymnast-leg{transform-box:view-box;transform-origin:535px 965px;animation:gymnast-leg 1.6s cubic-bezier(.3,.7,.2,1) .3s both}
+.gymnast-arm{transform-box:view-box;transform-origin:263px 607px;animation:gymnast-arm 1.6s ease-in-out .3s both}
+@keyframes gymnast-rise{from{transform:translateY(2%)}to{transform:none}}
+@keyframes gymnast-leg{from{transform:rotate(130deg)}to{transform:none}}
+@keyframes gymnast-arm{0%{transform:rotate(-14deg)}55%{transform:rotate(5deg)}100%{transform:none}}
+@media(max-width:760px){.hero-photo{height:300px;top:auto;margin-top:28px}}
+/* The ribbon appears from the stick once the gymnast settles (reduced motion shows it at once). */
+.page-ribbon{animation:ribbon-appear .5s ease-out 1.7s both}
+@keyframes ribbon-appear{from{opacity:0}to{opacity:1}}
