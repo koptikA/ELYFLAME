@@ -226,3 +226,21 @@ h2 em,.stage h2 em{color:inherit}
 .site-footer .footer-pending summary:after{color:var(--on-stage-muted)}
 .footer-logo{mix-blend-mode:lighten;width:150px;height:150px}
 @media(max-width:760px){.mobile-trial{outline:0}}
+
+/* Hero entrance (hero-reveal.js). Text starts hidden only when JS runs; a failsafe shows it after 4 s regardless. */
+.serega-gentle,.serega-emotional{display:inline-block}
+.serega-gentle{perspective:900px;transform-style:preserve-3d}
+.serega-gentle__word,.serega-emotional__word{display:inline-block;white-space:nowrap}
+.serega-gentle__unit,.serega-emotional__unit{display:inline-block;transform-origin:50% 55%;white-space:pre;will-change:opacity,transform}
+.serega-gentle__unit{backface-visibility:hidden}
+.serega-emotional__unit{will-change:opacity,filter,transform}
+.js .hero [data-reveal],.js .hero [data-reveal-accent]{opacity:0;animation:reveal-failsafe 0s 4s forwards}
+.js .hero .hero-copy>*{opacity:0;transform:translateY(15px);transition:opacity .5s cubic-bezier(.2,.8,.2,1),transform .5s cubic-bezier(.2,.8,.2,1);animation:reveal-failsafe 0s 4s forwards}
+.js .hero.is-in .hero-copy>*{opacity:1;transform:none}
+.js .hero.is-in .hero-copy>:nth-child(2){transition-delay:.12s}
+.js .hero.is-in .hero-copy>:nth-child(3){transition-delay:.24s}
+@keyframes reveal-failsafe{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.serega-gentle__unit,.serega-emotional__unit{will-change:auto}}
+/* The leg waits for hero-reveal.js (html.play); the inline head script adds .play after 2.5 s as a failsafe. */
+.js .gymnast-leg{animation-play-state:paused}
+.play .gymnast-leg{animation-play-state:running}

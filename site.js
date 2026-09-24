@@ -160,9 +160,29 @@ const ribbonTiming=document.createElement('style');document.head.append(ribbonTi
 // so later parts of the ribbon still draw over earlier ones where it crosses itself.
 const satin=ribbon.querySelector('.ribbon-satin'),MAGENTA=[233,0,141],ORANGE=[253,166,61],WHITE=[255,255,255];
 const mixRgb=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+// Sample the ribbon path in JS: getPointAtLength() costs ~1 ms per call and blocked page load for seconds.
+// Our paths use only absolute M, C and L commands, so we flatten them into a polyline and walk it by distance.
+function flatten(d){
+  const tok=d.match(/[MCL]|-?\d*\.?\d+(?:e[-+]?\d+)?/g),pts=[];let i=0,cmd='',x=0,y=0;
+  while(i<tok.length){
+    if(/[MCL]/.test(tok[i]))cmd=tok[i++];
+    if(cmd==='M'||cmd==='L'){x=+tok[i++];y=+tok[i++];pts.push([x,y]);}
+    else{const[a,b,c,e,f,g]=tok.slice(i,i+6).map(Number);i+=6;
+      const n=Math.max(8,Math.ceil((Math.hypot(a-x,b-y)+Math.hypot(c-a,e-b)+Math.hypot(f-c,g-e))/12));
+      for(let k=1;k<=n;k++){const t=k/n,u=1-t;pts.push([u*u*u*x+3*u*u*t*a+3*u*t*t*c+t*t*t*f,u*u*u*y+3*u*u*t*b+3*u*t*t*e+t*t*t*g]);}
+      x=f;y=g;}
+  }
+  const cum=[0];for(let k=1;k<pts.length;k++)cum.push(cum[k-1]+Math.hypot(pts[k][0]-pts[k-1][0],pts[k][1]-pts[k-1][1]));
+  let j=0;
+  return{length:cum[cum.length-1],at(s){ // s must not decrease between calls
+    while(j<cum.length-2&&cum[j+1]<s)j++;
+    const t=(s-cum[j])/((cum[j+1]-cum[j])||1),[x0,y0]=pts[j],[x1,y1]=pts[j+1]||pts[j];
+    return[x0+(x1-x0)*t,y0+(y1-y0)*t];}};
+}
 function drawSatin(length,mobile){
   const step=mobile?5:7,maxW=mobile?8:12,flip=mobile?220:320,hue=mobile?1100:1600,pts=[];
-  for(let s=0;s<=length;s+=step){const p=ribbonLine.getPointAtLength(s);pts.push([p.x,p.y,s]);}
+  const walk=flatten(ribbonLine.getAttribute('d'));
+  for(let s=0;s<=length;s+=step){const[x,y]=walk.at(s);pts.push([x,y,s]);}
   const n=pts.length-1,runs=[],f=q=>q[0].toFixed(1)+','+q[1].toFixed(1);
   const edge=i=>{
     const a=pts[Math.max(0,i-1)],b=pts[Math.min(n,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;
@@ -211,16 +231,18 @@ function layoutRibbon(){
       x=left;y=art.y+art.h;
     }
   });
-  // Finale: the ribbon enters the dark closing section from above and winds into a spiral on the right, where it fades out.
-  const finale=bounds(document.querySelector('.closing')),R=mobile?30:Math.min(finale.h*.3,130);
-  const cx=finale.x+finale.w*(mobile?.84:.78),cy=mobile?finale.y+70:finale.y+finale.h*.5;
-  d+=` C ${x} ${y+40} ${x} ${finale.y-40} ${x} ${finale.y+10} C ${x} ${finale.y+50} ${cx-R*1.6} ${cy-R} ${cx} ${cy-R}`;
-  for(let i=1;i<=48;i++){const t=i/48,a=-Math.PI/2+t*3*Math.PI,r=R*(1-.8*t);d+=` L ${(cx+r*Math.cos(a)).toFixed(1)} ${(cy+r*Math.sin(a)).toFixed(1)}`;}
+  // Finale: the ribbon sweeps down the right side of the dark closing section and slips behind the footer
+  // (the SVG ends at the bottom of <main>, so everything below is hidden by the footer's top edge).
+  const finale=bounds(document.querySelector('.closing'));
+  // Down the current side, then cross to the right edge in the gap just above the closing section.
+  d+=` C ${x} ${y+40} ${x} ${finale.y-110} ${x} ${finale.y-70} C ${x} ${finale.y-20} ${right} ${finale.y-40} ${right} ${finale.y+20}`;
+  if(mobile)d+=` C ${right} ${finale.y+finale.h*.5} ${right} ${height-40} ${right} ${height+140}`;
+  else d+=` C ${right} ${finale.y+finale.h*.3} ${finale.x+finale.w*.62} ${finale.y+finale.h*.4} ${finale.x+finale.w*.72} ${finale.y+finale.h*.62} C ${finale.x+finale.w*.8} ${finale.y+finale.h*.82} ${finale.x+finale.w*.78} ${height-10} ${finale.x+finale.w*.74} ${height+140}`;
   ribbon.setAttribute('viewBox',`0 0 ${width} ${height}`);ribbonLine.setAttribute('d',d);
-  const length=ribbonLine.getTotalLength(),samples=[];drawSatin(length,mobile);
+  const walk=flatten(d),length=walk.length,samples=[];drawSatin(length,mobile);
   // Bound sampling work even as content makes the page longer.
   const sampleStep=Math.max(24,length/160);
-  for(let distance=0;distance<=length;distance+=sampleStep)samples.push({distance,y:ribbonLine.getPointAtLength(distance).y});
+  for(let distance=0;distance<=length;distance+=sampleStep)samples.push({distance,y:walk.at(distance)[1]});
   const range=document.documentElement.scrollHeight-innerHeight,documentTop=mainTop+scrollY,frames=[];let cursor=0;
   for(let percent=0;percent<=100;percent++){
     const target=percent===0?photo.y+photo.h*.5:range*percent/100+innerHeight*.75-documentTop;

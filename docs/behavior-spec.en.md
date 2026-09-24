@@ -38,6 +38,8 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 - Implementation: a CSS scroll-driven animation. Keyframes are recalculated only when the layout changes (ResizeObserver, font loading, window resize); there are no scroll handlers.
 - Unsupported browsers and reduced motion show the whole line, static.
 - On mobile, the line stays clear of text and crosses the page between sections.
+- The ribbon starts at the tip of the gymnast's stick in the hero. At the end it sweeps down the right side of the dark "Let's light the spark" section and slips behind the top edge of the footer.
+- The script samples the path itself (`flatten()`); the browser's `getPointAtLength()` is too slow.
 - In Figma, draw the final state: the whole line.
 
 ## 4. Champion's Path (Class Finder)
@@ -146,9 +148,19 @@ Default, hover, focus, loading (spinner, button disabled), and error.
 
 The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`), a short paragraph, the Book a Trial button, and the line "Ages 3 & up · $10 trial lesson". A large placeholder for an athlete photo or a silent looping video sits on the right on desktop and under the headline on mobile. The Ribbon loop wraps around its edge.
 
+### 6.1 Gymnast and Hero Entrance
+
+- On the right is a gymnast silhouette (an illustration, not a photo) with a floor shadow. The Ribbon starts at the tip of her stick.
+- Once per load, after fonts are ready: the headline rises letter by letter (Serega Gentle), the gymnast's free leg rises from the hip (1.6 s), "fire." lands with a spring accent (Serega Emotional) as the leg nears the top, then the paragraph, button, and caption rise in.
+- With reduced motion, everything is in place at once. If the script fails to load, the text appears after 4 s and the leg rises after 2.5 s.
+
 ## 7. Coaches and Safety
 
 A section after "More than movement". Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio. A safety row: "National judge, USA Gymnastics (founder)" `[confirm: question 15]`, "SafeSport", and "CPR" `[confirm: question 14]`. The whole section has `data-requires-content` and stays hidden on the live site until the client sends content.
+
+## 7.1 Finale
+
+The "Let's light the spark" section and the footer form one dark stage with a glow. The section holds a line about booking, the Book a Trial button, and an email link. With JS running, the separate light booking section `#trial` is hidden and booking happens in the dialog; without JS it stays as the fallback form.
 
 ## 8. FAQ
 
