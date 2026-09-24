@@ -179,9 +179,11 @@ function flatten(d){
     const t=(s-cum[j])/((cum[j+1]-cum[j])||1),[x0,y0]=pts[j],[x1,y1]=pts[j+1]||pts[j];
     return[x0+(x1-x0)*t,y0+(y1-y0)*t];}};
 }
-function drawSatin(length,mobile){
+function drawSatin(length,mobile){paintSatin(satin,ribbonLine.getAttribute('d'),mobile);}
+// Paints a satin ribbon along path d into group g (used by the page ribbon and the footer wordmark).
+function paintSatin(g,d,mobile){
   const step=mobile?5:7,maxW=mobile?8:12,flip=mobile?220:320,hue=mobile?1100:1600,pts=[];
-  const walk=flatten(ribbonLine.getAttribute('d'));
+  const walk=flatten(d),length=walk.length;
   for(let s=0;s<=length;s+=step){const[x,y]=walk.at(s);pts.push([x,y,s]);}
   const n=pts.length-1,runs=[],f=q=>q[0].toFixed(1)+','+q[1].toFixed(1);
   const edge=i=>{
@@ -199,7 +201,7 @@ function drawSatin(length,mobile){
     const fade=Math.min(1,(length-cur.s)/(mobile?160:260)).toFixed(1),key=col.map(v=>Math.round(v/6)*6).join(',')+'|'+fade,quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
     if(runs.length&&runs[runs.length-1][0]===key)runs[runs.length-1][1]+=quad;else runs.push([key,quad]);prev=cur;
   }
-  satin.replaceChildren(...runs.map(([rgb,d])=>{
+  g.replaceChildren(...runs.map(([rgb,d])=>{
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');
     const [c,o]=rgb.split('|');path.setAttribute('d',d);path.setAttribute('fill',`rgb(${c})`);path.setAttribute('stroke',`rgb(${c})`);path.setAttribute('stroke-width','.6');if(o<1)path.setAttribute('opacity',o);
     return path;
@@ -231,13 +233,13 @@ function layoutRibbon(){
       x=left;y=art.y+art.h;
     }
   });
-  // Finale: the ribbon sweeps down the right side of the dark closing section and slips behind the footer
+  // Finale: the ribbon sweeps down the right side of the dark closing section and slips behind the footer at the right edge
   // (the SVG ends at the bottom of <main>, so everything below is hidden by the footer's top edge).
   const finale=bounds(document.querySelector('.closing'));
   // Down the current side, then cross to the right edge in the gap just above the closing section.
   d+=` C ${x} ${y+40} ${x} ${finale.y-110} ${x} ${finale.y-70} C ${x} ${finale.y-20} ${right} ${finale.y-40} ${right} ${finale.y+20}`;
   if(mobile)d+=` C ${right} ${finale.y+finale.h*.5} ${right} ${height-40} ${right} ${height+140}`;
-  else d+=` C ${right} ${finale.y+finale.h*.3} ${finale.x+finale.w*.62} ${finale.y+finale.h*.4} ${finale.x+finale.w*.72} ${finale.y+finale.h*.62} C ${finale.x+finale.w*.8} ${finale.y+finale.h*.82} ${finale.x+finale.w*.78} ${height-10} ${finale.x+finale.w*.74} ${height+140}`;
+  else d+=` C ${right} ${finale.y+finale.h*.3} ${finale.x+finale.w*.62} ${finale.y+finale.h*.4} ${finale.x+finale.w*.72} ${finale.y+finale.h*.62} C ${finale.x+finale.w*.8} ${finale.y+finale.h*.82} ${right} ${height-60} ${right} ${height+140}`;
   ribbon.setAttribute('viewBox',`0 0 ${width} ${height}`);ribbonLine.setAttribute('d',d);
   const walk=flatten(d),length=walk.length,samples=[];drawSatin(length,mobile);
   // Bound sampling work even as content makes the page longer.
@@ -249,7 +251,30 @@ function layoutRibbon(){
     while(cursor<samples.length-1&&samples[cursor].y<target)cursor++;
     frames.push(`${percent}%{stroke-dashoffset:${percent===100?0:Math.max(0,1000*(1-samples[cursor].distance/length)).toFixed(3)}}`);
   }
-  ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();
+  ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutWordmark();
+}
+// Footer wordmark: ELYFLAME spans the footer, and the ribbon comes back in from the right edge, weaving over one letter
+// and under the next. A named view timeline on .footer-wordmark reveals it as the footer scrolls in.
+const wordmark=document.querySelector('.footer-wordmark');
+function layoutWordmark(){
+  if(!wordmark)return;
+  const W=wordmark.clientWidth,mobile=innerWidth<=760,fs=W/(mobile?5.2:6),pad=mobile?16:28,H=Math.round(fs*.95+2*pad),base=pad+fs*.8,mid=base-fs*.35;
+  wordmark.innerHTML=`<svg class="wordmark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">
+    <defs><mask id="wordmark-reveal" maskUnits="userSpaceOnUse" x="-80" y="-80" width="${W+160}" height="${H+160}"><path class="wordmark-reveal" pathLength="1"/></mask><clipPath id="wordmark-over"></clipPath></defs>
+    <g class="wordmark-under" mask="url(#wordmark-reveal)"></g>
+    <text x="${pad}" y="${base}" font-size="${fs.toFixed(1)}" textLength="${W-2*pad}" lengthAdjust="spacingAndGlyphs">ELYFLAME</text>
+    <g clip-path="url(#wordmark-over)"><g class="wordmark-over" mask="url(#wordmark-reveal)"></g></g></svg>`;
+  const svg=wordmark.firstElementChild,text=svg.querySelector('text'),amp=fs*.26,chars=[...Array(8).keys()].map(i=>text.getExtentOfChar(i));
+  // Through-points right to left: in from past the right edge, then alternately above and below the middle of each letter.
+  const P=[[W+40,mid-amp],[W+10,mid-amp*.8],...chars.slice().reverse().map((c,k)=>[c.x+c.width/2,mid+(k%2?-amp:amp)]),[pad*.4,mid-amp*.2],[-30,mid-amp*.6]];
+  let d=`M ${P[0][0]} ${P[0][1]}`;
+  for(let i=0;i<P.length-1;i++){const a=P[Math.max(0,i-1)],b=P[i],c=P[i+1],e=P[Math.min(P.length-1,i+2)];
+    d+=` C ${(b[0]+(c[0]-a[0])/6).toFixed(1)} ${(b[1]+(c[1]-a[1])/6).toFixed(1)} ${(c[0]-(e[0]-b[0])/6).toFixed(1)} ${(c[1]-(e[1]-b[1])/6).toFixed(1)} ${c[0].toFixed(1)} ${c[1].toFixed(1)}`;}
+  svg.querySelector('.wordmark-reveal').setAttribute('d',d);
+  // The ribbon passes over every other letter (E, Y, L, M) and under the rest.
+  svg.querySelector('#wordmark-over').innerHTML=chars.filter((c,i)=>i%2===0).map(c=>`<rect x="${c.x-2}" y="0" width="${c.width+4}" height="${H}"/>`).join('');
+  paintSatin(svg.querySelector('.wordmark-under'),d,mobile);
+  paintSatin(svg.querySelector('.wordmark-over'),d,mobile);
 }
 let layoutFrame;
 function scheduleLayout(){cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(layoutRibbon);}

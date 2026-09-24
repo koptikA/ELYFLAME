@@ -250,3 +250,12 @@ h2 em,.stage h2 em{color:inherit}
 .finder-controls select{appearance:none;-webkit-appearance:none;margin:0;min-height:52px;padding:12px 44px 12px 16px;background:linear-gradient(45deg,transparent 50%,var(--ink) 50%) calc(100% - 22px) 50%/6px 6px no-repeat,linear-gradient(135deg,var(--ink) 50%,transparent 50%) calc(100% - 16px) 50%/6px 6px no-repeat,var(--paper-raised);border:1px solid var(--line-strong);border-radius:0;color:var(--ink);font-size:16px;transition:border-color .2s}
 .finder-controls select:hover{border-color:var(--ink)}
 .finder-controls select:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-color:var(--ink)}
+
+/* Footer wordmark with the ribbon woven through it (layoutWordmark in site.js). */
+.footer-wordmark{grid-column:1/-1;margin-top:24px;view-timeline:--wordmark}
+.wordmark{display:block;overflow:visible}
+.wordmark text{font-family:Cinzel,Georgia,serif;fill:color-mix(in srgb,var(--on-stage) 13%,transparent)}
+.wordmark-reveal{fill:none;stroke:#fff;stroke-width:32px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:0}
+@media(max-width:760px){.wordmark-reveal{stroke-width:22px}}
+@supports(animation-timeline:view()){.wordmark-reveal{animation:wordmark-unfurl linear both;animation-timeline:--wordmark;animation-range:entry 0% entry 100%}}
+@keyframes wordmark-unfurl{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
