@@ -28,5 +28,7 @@
 | Sep 25 | The site says "National judge, USA Gymnastics" and "USA Gymnastics member club". Certifications (SafeSport, CPR) are shared on a parent's request only | — | Client (questions 15–16) |
 | Sep 25 | Contacts: (224) 804-8324; calls Mon–Fri 9 am–10 pm, Sat 9 am–5 pm, Sun closed; entrance, parking, drop-off and pick-up at door #11; parents watch the trial lesson only | — | Client (questions 10–13) |
 | Sep 25 | Illustrations are a brand layer: a gymnast silhouette in the hero and the "team" in the footer (generated illustrations, not photos). Real photos go where trust matters | No one mistakes an illustration for a student; there are no photos yet | Alena (departs from SOW 3.1; confirm with the client) |
+| Sep 25 | Anything the client hasn't provided yet is shown as a placeholder in square brackets | "Use a placeholder for all the info that are not given for right now" | Client |
+| Sep 25 | Languages: an EN · RU · UA switcher; `tools/i18n.py` builds `/ru/` and `/uk/` from the English page; Cyrillic headings in Cormorant SC; the menu folds into the burger on tablets | Cinzel has no Cyrillic; the Russian menu items don't fit on one row | Alena |
 
 **Headings in HTML.** For Ivan: type headings in normal case ("Our Coaches"), not in all caps. Cinzel already renders lowercase letters as small caps, and screen readers won't spell the text out letter by letter.

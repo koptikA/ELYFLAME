@@ -5,6 +5,8 @@
   <title>ElyFlame — Where Grace Meets Fire</title>
   <meta name="description" content="Discover rhythmic gymnastics at ElyFlame Academy in Buffalo Grove. Find your child's starting point, explore our programs, and plan a trial lesson.">
   <meta name="theme-color" content="#f8f5ef">
+  <link rel="canonical" href="https://elyflame.com/">
+  <link rel="alternate" hreflang="en" href="https://elyflame.com/"><link rel="alternate" hreflang="ru" href="https://elyflame.com/ru/"><link rel="alternate" hreflang="uk" href="https://elyflame.com/uk/"><link rel="alternate" hreflang="x-default" href="https://elyflame.com/">
   <link rel="icon" href="assets/brand/Just_Logo__no_background_.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,9 +16,10 @@
 <a class="skip" href="#main">Skip to content</a>
 <div class="announcement"><span>Trial lessons for ages 3 and up.</span><a href="#journey">Find your first class <span aria-hidden="true">→</span></a></div>
 <header class="header">
-  <a class="brand" href="#" aria-label="ElyFlame Academy home"><img src="assets/brand/Just_Logo__no_background_.png" width="40" height="47" alt=""><span><span translate="no">ELYFLAME</span><small>ACADEMY OF RHYTHMIC GYMNASTICS</small></span></a>
+  <a class="brand" href="#" aria-label="ElyFlame Academy home"><img src="assets/brand/Just_Logo__no_background_.png" width="40" height="47" alt=""><span translate="no"><span>ELYFLAME</span><small>ACADEMY OF RHYTHMIC GYMNASTICS</small></span></a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Menu"><span class="burger" aria-hidden="true"></span></button>
   <nav id="navigation" aria-label="Main navigation"><a href="#home">Home</a><a href="#about">About</a><a href="#parents">Parents' Info</a><a href="#stretching">Stretching</a><a href="#contact">Contact</a></nav>
+  <div class="lang" translate="no"><a href="./" hreflang="en" lang="en" title="English" aria-current="page">EN</a><a href="ru/" hreflang="ru" lang="ru" title="Русский">RU</a><a href="uk/" hreflang="uk" lang="uk" title="Українська">UA</a></div>
   <a class="button header-cta" href="#trial">Book a Trial <span aria-hidden="true">→</span></a>
 </header>
 <main id="main">
@@ -89,7 +92,7 @@
      <div class="field"><label for="child-name">Your child’s name</label><input id="child-name" name="childName" required minlength="2" maxlength="50" autocomplete="off"><p class="field-error" id="child-name-error" hidden></p></div>
      <div class="field"><label for="trial-age">Your child’s age</label><input id="trial-age" name="age" type="number" min="3" max="99" step="1" required inputmode="numeric"><p class="field-error" id="trial-age-error" hidden></p></div>
      <div class="field"><label for="trial-experience">Rhythmic gymnastics experience</label><select id="trial-experience" name="experience" required><option value="none">None</option><option value="some">Some recreational</option><option value="competitive">Competitive</option></select><p class="field-error" id="trial-experience-error" hidden></p></div>
-     <div class="field"><label for="program">Program</label><select id="program" name="program" required><option>Recreational</option><option>Competitive</option><option>Stretching &amp; Flexibility</option></select><p class="field-error" id="program-error" hidden></p></div>
+     <div class="field"><label for="program">Program</label><select id="program" name="program" required><option value="Recreational">Recreational</option><option value="Competitive">Competitive</option><option value="Stretching &amp; Flexibility">Stretching &amp; Flexibility</option></select><p class="field-error" id="program-error" hidden></p></div>
      <div class="field field-wide"><label for="preferred-day">Trial day and time</label><select id="preferred-day" name="preferredDay" required aria-describedby="schedule-hint"><option value="">Select a trial time</option><option>Tuesday 6:00 PM [sample]</option><option>Thursday 6:00 PM [sample]</option><option>Monday 5:00 PM [sample]</option><option>Friday 7:00 PM [sample]</option></select><p id="schedule-hint" class="field-hint">Sample times; the academy confirms every trial.</p><p class="field-error" id="preferred-day-error" hidden></p></div><fieldset class="field field-wide payment"><legend>Trial fee: $10</legend><label class="checkbox-label"><input type="radio" name="payment" value="online" checked><span>Pay online now (recommended)</span></label><label class="checkbox-label"><input type="radio" name="payment" value="academy"><span>Pay at the academy</span></label></fieldset>
      <div class="field field-wide"><label for="parent">Parent’s name</label><input id="parent" name="parent" required minlength="2" maxlength="80" autocomplete="name"><p class="field-error" id="parent-error" hidden></p></div>
      <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" required autocomplete="tel-national" inputmode="tel" placeholder="(555) 123-4567" aria-describedby="phone-hint"><p id="phone-hint" class="field-hint">A 10-digit US phone number.</p><p class="field-error" id="phone-error" hidden></p></div>

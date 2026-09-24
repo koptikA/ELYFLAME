@@ -6,13 +6,17 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 
 - Stack: plain HTML, CSS, and JS with no dependencies. Forms submit without JS; JS adds validation, the class finder, and the modal.
 - The site has one primary button, Book a Trial. There's no Register in the header.
-- A block without client content isn't shown (`data-requires-content` attribute). No "Coming soon" placeholders.
+- Anything the client hasn't provided yet appears on the site as a placeholder in square brackets: "[Coach name]", "[Credentials]", trial times marked [sample], the "What to bring" list (the client's request, Sep 25). Gray boxes stand in for photos. These blocks carry `data-requires-content` so they get checked before launch. No "Coming soon" banners.
 - With the system "reduce motion" setting on, all animations and transitions are off and the Ribbon is a complete static line.
 - Body text is 16 px or larger; labels are 14 px or larger.
 - Functional text (class finder, form, FAQ) says "your child". "She/her" appears in at most 1–2 emotional headlines `[confirm: tone with the client]`.
 - No generated photos of people. Until real photos arrive, use gray placeholders.
 - Mobile layout applies up to 760 px, as in the prototype.
-- Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`), a switcher in the header, `hreflang` both ways `[confirm: who translates the copy]`. Addresses and the brand name carry `translate="no"`. After its animation the headline is plain text again, so browser translation sees words, not letters.
+- Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`). An EN · RU · UA switcher sits in the header, next to the burger on mobile; the current language is underlined. Each version has `hreflang` for all three and its own `canonical` `[confirm: who proofreads the translations]`.
+- `tools/i18n.py` builds the Russian and Ukrainian pages from the English one, using the string tables in the script; don't edit `ru/` or `uk/` by hand. Program names stay English in the form's option values; only the visible text is translated.
+- Cyrillic headings are set in Cormorant SC (Cinzel has no Cyrillic), and the hero headline is a little smaller in Russian and Ukrainian so it clears the gymnast. The ELYFLAME logo stays in Cinzel everywhere.
+- On tablets (761–1100 px) the menu folds into the burger in every language: the Russian and Ukrainian items don't fit on one row with the switcher and the button. The header button is shorter in Russian and Ukrainian: «Записаться» / «Записатися».
+- Browser translation: the switcher, the logo, and the addresses carry `translate="no"`. So does the hero headline while its letters animate; then the attribute comes off and the translator sees plain text, not single letters.
 
 ## 2. Header, Menu, Bottom Bar, Footer
 
@@ -159,7 +163,7 @@ The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`
 
 ## 7. Coaches and Safety
 
-A section after "More than movement". Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. The section has `data-requires-content` and stays hidden on the live site until the client sends bios.
+A section after "More than movement". Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. Until bios arrive, the section shows placeholders (the client's request, Sep 25); `data-requires-content` marks it for a check before launch.
 
 ## 7.1 Finale
 

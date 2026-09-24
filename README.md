@@ -1,6 +1,6 @@
 # ElyFlame — website concept
 
-An English-language, responsive design implementation of the approved Ribbon / Champion’s Path / Stage direction. Plain HTML, CSS, and JavaScript; no build step or dependencies.
+A responsive design implementation of the approved Ribbon / Champion’s Path / Stage direction in English, Russian, and Ukrainian. Plain HTML, CSS, and JavaScript; no dependencies. The English `index.html` and `site.js` are the source; `python tools/i18n.py` regenerates `ru/` and `uk/` from them.
 
 ## Preview
 
@@ -21,7 +21,7 @@ Run `python -m http.server 4173 --bind 127.0.0.1` from this folder, then open ht
 - **Local-only booking simulation:** submit waits briefly, then displays the requested “You're booked!” view, option-C payment explanation, safe-text booking summary and placeholder packing list. Both form and confirmation explicitly identify the prototype. No network request, email, payment, local storage or real reservation is made. Edit returns to the preserved fields.
 - Without JavaScript the form remains in `#trial`, uses native validation and has `method="post" action="/api/trial"`. **That endpoint is only a placeholder and is not implemented by the static preview server.**
 - Two coach entries with gray `.coach-photo` placeholders, credentials/bio placeholders and a safety row. The section carries `data-requires-content`. Adding `data-production` to `<body>` hides marked content previews.
-- SOW navigation, quiet Login, footer logo/contact placeholders/page links/social links/2026 credit and post-trial registration link. Login, registration and legal anchors reveal explicit content placeholders rather than pretending those services exist.
+- SOW navigation and an EN · RU · UA language switcher; no Login or Register until the parent portal. Footer logo, contacts, call hours, page links, social links, legal links and the 2026 credit.
 - Parent FAQ, map directions, keyboard focus, semantic headings, and a mobile trial dock that yields to a visible inline trial button.
 
 ## Before production
