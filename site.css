@@ -251,11 +251,15 @@ h2 em,.stage h2 em{color:inherit}
 .finder-controls select:hover{border-color:var(--ink)}
 .finder-controls select:focus-visible{outline:3px solid var(--pink);outline-offset:3px;border-color:var(--ink)}
 
-/* Footer wordmark with the ribbon woven through it (layoutWordmark in site.js). */
-.footer-wordmark{grid-column:1/-1;margin-top:24px;view-timeline:--wordmark}
-.wordmark{display:block;overflow:visible}
-.wordmark text{font-family:Cinzel,Georgia,serif;fill:color-mix(in srgb,var(--on-stage) 13%,transparent)}
-.wordmark-reveal{fill:none;stroke:#fff;stroke-width:32px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:0}
-@media(max-width:760px){.wordmark-reveal{stroke-width:22px}}
-@supports(animation-timeline:view()){.wordmark-reveal{animation:wordmark-unfurl linear both;animation-timeline:--wordmark;animation-range:entry 0% entry 100%}}
-@keyframes wordmark-unfurl{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+/* Footer team (layoutTeam in site.js): light silhouettes on the dark footer, the ribbon strung between two sticks. */
+.footer-team{grid-column:1/-1;margin-top:28px;view-timeline:--team}
+.team{display:block;overflow:visible}
+.team-kid{fill:var(--on-stage);opacity:.9}
+.team-reveal{fill:none;stroke:#fff;stroke-width:32px;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:0}
+@media(max-width:760px){.team-reveal{stroke-width:22px}}
+@supports(animation-timeline:view()){
+  .team-kid{animation:team-rise linear both;animation-timeline:--team}
+  .team-reveal{animation:team-unfurl linear both;animation-timeline:--team;animation-range:entry 30% entry 100%}
+}
+@keyframes team-rise{from{opacity:0;transform:translateY(14px)}to{opacity:.9;transform:none}}
+@keyframes team-unfurl{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}

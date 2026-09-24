@@ -10,6 +10,7 @@ Run `python -m http.server 4173 --bind 127.0.0.1` from this folder, then open ht
 
 - Hero entrance (`hero-reveal.js`, ES module — preview over http): headline letters (Serega Gentle), the "fire." accent (Serega Emotional) and the gymnast's leg start together; libraries in `lib/`.
 - Dark finale: the closing section and the footer form one stage; the ribbon sweeps down its right side and slips behind the footer.
+- Footer team: traced silhouettes from `assets/gymnast/team-sheet.jpg` (sprite `assets/gymnast/team.svg`) with the satin ribbon strung between two sticks; a view timeline makes them rise in.
 
 - Responsive homepage with Cinzel headlines, whitespace, apparatus art, and a dark stage. The hero shows a gymnast silhouette traced from `assets/gymnast/sheet-2.jpg` (a generated illustration, not a photo). coloured with clip paths (skin, sleeveless magenta leotard, dark hair, dark stick) and standing on a soft floor shadow. On load the free leg rises from the hip once (1.6 s); the stick stays still, so the ribbon is attached from the first frame. Reduced motion shows the final pose.
 - A `.ribbon-anchor` at the stick tip (21.6% / 0.7% of the figure box) marks where the page ribbon starts; `layoutRibbon()` leaves it along the stick, up and to the right.

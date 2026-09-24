@@ -162,6 +162,8 @@ A section after "More than movement". Two coach entries: a gray photo placeholde
 
 The "Let's light the spark" section and the footer form one dark stage with a glow. The section holds a line about booking, the Book a Trial button, and an email link. With JS running, the separate light booking section `#trial` is hidden and booking happens in the dialog; without JS it stays as the fallback form.
 
+At the bottom of the footer stands the "team": a row of light silhouettes of girls with a ball, hoop, clubs, and rope (12 on desktop, 6 on mobile; sprite `assets/gymnast/team.svg`, an illustration, not photos). The satin ribbon is strung like a garland between the sticks of the two end girls. As the footer scrolls in, the girls rise in one by one and the ribbon draws from right to left.
+
 ## 8. FAQ
 
 An accordion built on `<details>`: each question opens and closes on its own, and the first one starts open. Works without JS.

@@ -181,7 +181,7 @@ function flatten(d){
 }
 function drawSatin(length,mobile){paintSatin(satin,ribbonLine.getAttribute('d'),mobile);}
 // Paints a satin ribbon along path d into group g (used by the page ribbon and the footer wordmark).
-function paintSatin(g,d,mobile){
+function paintSatin(g,d,mobile,fadeEnd=true){
   const step=mobile?5:7,maxW=mobile?8:12,flip=mobile?220:320,hue=mobile?1100:1600,pts=[];
   const walk=flatten(d),length=walk.length;
   for(let s=0;s<=length;s+=step){const[x,y]=walk.at(s);pts.push([x,y,s]);}
@@ -198,7 +198,7 @@ function paintSatin(g,d,mobile){
     if(cur.c<0)col=mixRgb(col,WHITE,.28);
     col=col.map(v=>v*(.72+.28*lit));
     if(lit>.92)col=mixRgb(col,WHITE,.22*(lit-.92)/.08);
-    const fade=Math.min(1,(length-cur.s)/(mobile?160:260)).toFixed(1),key=col.map(v=>Math.round(v/6)*6).join(',')+'|'+fade,quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
+    const fade=fadeEnd?Math.min(1,(length-cur.s)/(mobile?160:260)).toFixed(1):'1.0',key=col.map(v=>Math.round(v/6)*6).join(',')+'|'+fade,quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
     if(runs.length&&runs[runs.length-1][0]===key)runs[runs.length-1][1]+=quad;else runs.push([key,quad]);prev=cur;
   }
   g.replaceChildren(...runs.map(([rgb,d])=>{
@@ -251,30 +251,32 @@ function layoutRibbon(){
     while(cursor<samples.length-1&&samples[cursor].y<target)cursor++;
     frames.push(`${percent}%{stroke-dashoffset:${percent===100?0:Math.max(0,1000*(1-samples[cursor].distance/length)).toFixed(3)}}`);
   }
-  ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutWordmark();
+  ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutTeam();
 }
-// Footer wordmark: ELYFLAME spans the footer, and the ribbon comes back in from the right edge, weaving over one letter
-// and under the next. A named view timeline on .footer-wordmark reveals it as the footer scrolls in.
-const wordmark=document.querySelector('.footer-wordmark');
-function layoutWordmark(){
-  if(!wordmark)return;
-  const W=wordmark.clientWidth,mobile=innerWidth<=760,fs=W/(mobile?5.2:6),pad=mobile?16:28,H=Math.round(fs*.95+2*pad),base=pad+fs*.8,mid=base-fs*.35;
-  wordmark.innerHTML=`<svg class="wordmark" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">
-    <defs><mask id="wordmark-reveal" maskUnits="userSpaceOnUse" x="-80" y="-80" width="${W+160}" height="${H+160}"><path class="wordmark-reveal" pathLength="1"/></mask><clipPath id="wordmark-over"></clipPath></defs>
-    <g class="wordmark-under" mask="url(#wordmark-reveal)"></g>
-    <text x="${pad}" y="${base}" font-size="${fs.toFixed(1)}" textLength="${W-2*pad}" lengthAdjust="spacingAndGlyphs">ELYFLAME</text>
-    <g clip-path="url(#wordmark-over)"><g class="wordmark-over" mask="url(#wordmark-reveal)"></g></g></svg>`;
-  const svg=wordmark.firstElementChild,text=svg.querySelector('text'),amp=fs*.26,chars=[...Array(8).keys()].map(i=>text.getExtentOfChar(i));
-  // Through-points right to left: in from past the right edge, then alternately above and below the middle of each letter.
-  const P=[[W+40,mid-amp],[W+10,mid-amp*.8],...chars.slice().reverse().map((c,k)=>[c.x+c.width/2,mid+(k%2?-amp:amp)]),[pad*.4,mid-amp*.2],[-30,mid-amp*.6]];
-  let d=`M ${P[0][0]} ${P[0][1]}`;
+// Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).
+// The satin ribbon is strung between the sticks of the two end girls and waves over the others' heads.
+// A named view timeline on .footer-team makes the girls rise in one by one and draws the ribbon from right to left.
+const team=document.querySelector('.footer-team');
+const KIDS={1:[196,708],2:[414,618],3:[369,649],4:[305,608],5:[401,627],6:[410,693,8,6],7:[323,635],8:[357,626],9:[314,631],10:[347,659],11:[395,659],12:[282,745,24,6]};
+function layoutTeam(){
+  if(!team)return;
+  const W=team.clientWidth,mobile=innerWidth<=760,order=mobile?[12,1,3,10,5,6]:[12,1,3,7,10,2,5,8,11,4,9,6];
+  const kidH=mobile?120:240,top=mobile?22:36,H=kidH+top+4,floor=H-2,sc=kidH/745,pad=mobile?4:12;
+  const widths=order.map(k=>KIDS[k][0]*sc),gap=(W-2*pad-widths.reduce((a,b)=>a+b,0))/(order.length-1);
+  let x=pad;const kids=order.map((k,i)=>{const[w,h,tx,ty]=KIDS[k],kid={k,x,y:floor-h*sc,w:w*sc,h:h*sc,tip:tx===undefined?null:[x+tx*sc,floor-h*sc+ty*sc]};x+=w*sc+gap;return kid;});
+  const tipL=kids[0].tip,tipR=kids[kids.length-1].tip,amp=mobile?10:18;
+  // Through-points right to left: a wave above the heads, dipping in the gaps between the girls.
+  const P=[tipR];
+  for(let i=kids.length-2;i>=1;i--){const k=kids[i];P.push([k.x+k.w/2,top*.5+(i%2?amp:-amp*.4)]);}
+  P.push(tipL);
+  let d=`M ${P[0][0].toFixed(1)} ${P[0][1].toFixed(1)}`;
   for(let i=0;i<P.length-1;i++){const a=P[Math.max(0,i-1)],b=P[i],c=P[i+1],e=P[Math.min(P.length-1,i+2)];
     d+=` C ${(b[0]+(c[0]-a[0])/6).toFixed(1)} ${(b[1]+(c[1]-a[1])/6).toFixed(1)} ${(c[0]-(e[0]-b[0])/6).toFixed(1)} ${(c[1]-(e[1]-b[1])/6).toFixed(1)} ${c[0].toFixed(1)} ${c[1].toFixed(1)}`;}
-  svg.querySelector('.wordmark-reveal').setAttribute('d',d);
-  // The ribbon passes over every other letter (E, Y, L, M) and under the rest.
-  svg.querySelector('#wordmark-over').innerHTML=chars.filter((c,i)=>i%2===0).map(c=>`<rect x="${c.x-2}" y="0" width="${c.width+4}" height="${H}"/>`).join('');
-  paintSatin(svg.querySelector('.wordmark-under'),d,mobile);
-  paintSatin(svg.querySelector('.wordmark-over'),d,mobile);
+  team.innerHTML=`<svg class="team" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">
+    <defs><mask id="team-reveal" maskUnits="userSpaceOnUse" x="-80" y="-80" width="${W+160}" height="${H+160}"><path class="team-reveal" pathLength="1" d="${d}"/></mask></defs>
+    ${kids.map((k,i)=>`<use class="team-kid" href="assets/gymnast/team.svg#kid-${k.k}" x="${k.x.toFixed(1)}" y="${k.y.toFixed(1)}" width="${k.w.toFixed(1)}" height="${k.h.toFixed(1)}" style="animation-range:entry ${10+i*4}% entry ${45+i*4}%"/>`).join('')}
+    <g class="team-ribbon" mask="url(#team-reveal)"></g></svg>`;
+  paintSatin(team.querySelector('.team-ribbon'),d,mobile,false);
 }
 let layoutFrame;
 function scheduleLayout(){cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(layoutRibbon);}
