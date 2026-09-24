@@ -195,6 +195,11 @@ h2 em,.stage h2 em{color:inherit}
 }
 
 /* Satin ribbon: .ribbon-line is now the reveal mask; the satin shapes are drawn by site.js. */
+/* About composition only: one cropped hoop, with the ball overlapping the foreground. */
+.about-art .orbit-one{width:74%;height:94%;left:2%;top:-12%;transform:rotate(28deg)}
+.about-art .orbit-two,.about-art .orbit-three{display:none}
+.about-art .ball{width:33%;height:auto;aspect-ratio:1;right:14%;bottom:14%;z-index:1}
+
 .ribbon-line{stroke:#fff;stroke-width:32px;opacity:1}
 @media(max-width:760px){.ribbon-line{stroke-width:22px;opacity:1}}
 
@@ -267,3 +272,13 @@ h2 em,.stage h2 em{color:inherit}
 /* Footer legal links (pages come with the production build). */
 .site-footer .footer-legal{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;gap:12px 32px}
 .footer-legal a{color:var(--on-stage-muted)}
+
+/* Finder: labels may wrap (for example in translation); the selects still line up on one baseline. */
+.finder-controls{align-items:end}
+/* Footer logo: the JPG has dark padding, so pull it up and left to align with the column tops and text edge. */
+.footer-logo{margin:-16px 0 -12px -18px}
+/* Booking: payment choice. */
+#trial-form .payment{border:0;padding:0;margin:0;display:grid;gap:10px}
+#trial-form .payment legend{font-size:14px;font-weight:600;margin-bottom:6px;padding:0}
+#trial-form .payment input[type=radio]{appearance:auto;width:20px;height:20px;min-height:0;padding:0;margin:2px 0 0;border:0;flex:0 0 20px;accent-color:var(--pink)}
+.footer-contact a{display:block;margin-bottom:8px}

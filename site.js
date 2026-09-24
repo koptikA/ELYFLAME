@@ -6,11 +6,11 @@ const levels = [
   {level:5,label:'Find expression',ages:'Ages 7+',program:'Competitive',apparatus:'+ Ribbon (all five)',title:'Let expression unfold.',text:'The ribbon completes the apparatus repertoire as skills and flexibility develop.'},
   {level:6,label:'Take the stage',ages:'Ages 8+',program:'Competitive',apparatus:'All apparatus',title:'Bring ambition to the floor.',text:'A pathway toward serious competitive gymnastics, with placement assessed by the coach.'}
 ];
-// Sample schedules only; replace with the academy's approved availability.
+// Sample trial times only; the academy sets the real ones (they are not published as a class schedule).
 const programs = [
-  {name:'Recreational',days:['Monday','Wednesday']},
-  {name:'Competitive',days:['Tuesday','Thursday']},
-  {name:'Stretching & Flexibility',days:['Friday','Saturday']}
+  {name:'Recreational',days:['Monday 5:00 PM','Wednesday 5:00 PM']},
+  {name:'Competitive',days:['Tuesday 6:00 PM','Thursday 6:00 PM']},
+  {name:'Stretching & Flexibility',days:['Friday 7:00 PM']}
 ];
 const age=document.querySelector('#age'),experience=document.querySelector('#experience'),path=document.querySelector('.path');
 path.innerHTML='<span class="path-spark" aria-hidden="true">✦</span>'+levels.map(l=>`<div class="level" data-level="${l.level}"><span class="level-number">${l.level}</span><div class="level-description"><p>${l.label}</p><small>${l.ages}</small><small class="apparatus">${l.apparatus}</small></div></div>`).join('')+'<span class="assessment-stop" hidden>Start with a coach assessment</span>';
@@ -54,14 +54,14 @@ document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('c
 const dialog=document.querySelector('#booking-dialog'),form=document.querySelector('#trial-form'),panel=document.querySelector('#booking-panel');
 const entry=document.querySelector('#booking-entry'),confirmation=document.querySelector('#booking-confirmation'),submit=document.querySelector('#booking-submit');
 const status=document.querySelector('#form-status'),summary=document.querySelector('#error-summary'),program=document.querySelector('#program'),day=document.querySelector('#preferred-day');
-const fields=[...form.querySelectorAll('input,select')],hints=new Map(fields.map(field=>[field.id,field.getAttribute('aria-describedby')||'']));
+const fields=[...form.querySelectorAll('input:not([type=radio]),select')],hints=new Map(fields.map(field=>[field.id,field.getAttribute('aria-describedby')||'']));
 let initialized=false,submitting=false,submissionVersion=0;
 form.noValidate=true;
 document.querySelector('#dialog-content').append(panel);document.querySelector('#booking-home').hidden=true;
 document.querySelector('.enhanced-trial').hidden=false;document.querySelector('#trial').classList.add('enhanced');
 function populateDays(){
   const previous=day.value,schedule=programs.find(p=>p.name===program.value);
-  day.replaceChildren(new Option('Select a preferred day',''));
+  day.replaceChildren(new Option('Select a trial time',''));
   (schedule?.days||[]).forEach(value=>day.add(new Option(`${value} [sample]`,value)));
   if(schedule?.days.includes(previous))day.value=previous;
 }
@@ -90,7 +90,7 @@ function errorFor(field){
     case 'trial-age':return !value?"Enter your child's age":!Number.isInteger(Number(value))||Number(value)<3||Number(value)>99?"Enter your child's age as a whole number from 3 to 99":'';
     case 'trial-experience':return !['none','some','competitive'].includes(value)?"Select your child's gymnastics experience":'';
     case 'program':return !programs.some(p=>p.name===value)?'Select a program':'';
-    case 'preferred-day':return !programs.find(p=>p.name===program.value)?.days.includes(value)?'Select a preferred day for this program':'';
+    case 'preferred-day':return !programs.find(p=>p.name===program.value)?.days.includes(value)?'Select a trial time for this program':'';
     case 'parent':return value.length<2||value.length>80?'Enter the parent’s name using 2 to 80 characters':'';
     case 'phone':return value.replace(/\D/g,'').length!==10?'Enter a 10-digit US phone number':'';
     case 'email':return !value||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)?'Enter an email address, like name@example.com':'';
@@ -123,7 +123,7 @@ document.querySelector('#phone').addEventListener('input',event=>{
   let position=0,count=0;while(position<input.value.length&&count<digitsBefore){if(/\d/.test(input.value[position]))count++;position++;}input.setSelectionRange(position,position);
 });
 function bookingRows(){
-  return [['Child',form.elements.childName.value],['Age',form.elements.age.value],['Experience',form.elements.experience.selectedOptions[0].text],['Program',program.value],['Preferred day',`${day.value} [sample]`],['Parent',form.elements.parent.value],['Phone',form.elements.phone.value],['Email',form.elements.email.value],['Trial fee','$10, after academy confirmation']];
+  return [['Child',form.elements.childName.value],['Age',form.elements.age.value],['Experience',form.elements.experience.selectedOptions[0].text],['Program',program.value],['Trial time',`${day.value} [sample]`],['Payment',form.elements.payment.value==='online'?'$10 online (prototype: Stripe Checkout goes here)':'$10 at the academy'],['Parent',form.elements.parent.value],['Phone',form.elements.phone.value],['Email',form.elements.email.value]];
 }
 function resetLoading(){
   fields.forEach(field=>field.disabled=false);submitting=false;submit.disabled=false;form.removeAttribute('aria-busy');
