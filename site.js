@@ -138,7 +138,8 @@ function showConfirmation(rows){
 form.addEventListener('submit',async event=>{
   event.preventDefault();if(submitting)return;
   fields.forEach(field=>setError(field,errorFor(field)));refreshErrorSummary();
-  if(!summary.hidden){status.textContent='Check the highlighted fields.';summary.focus();return;}
+  // In the dialog, keep the title in view: scroll to top, then focus the summary without scrolling.
+  if(!summary.hidden){status.textContent='Check the highlighted fields.';if(dialog.open){dialog.scrollTop=0;summary.focus({preventScroll:true});}else summary.focus();return;}
   const version=++submissionVersion,rows=bookingRows();
   submitting=true;submit.disabled=true;form.setAttribute('aria-busy','true');
   form.querySelector('.submit-label').textContent='Booking…';form.querySelector('.spinner').hidden=false;form.querySelector('.submit-arrow').hidden=true;status.textContent='Preparing your prototype confirmation…';fields.forEach(field=>field.disabled=true);
