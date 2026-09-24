@@ -12,10 +12,11 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 - Functional text (class finder, form, FAQ) says "your child". "She/her" appears in at most 1–2 emotional headlines `[confirm: tone with the client]`.
 - No generated photos of people. Until real photos arrive, use gray placeholders.
 - Mobile layout applies up to 760 px, as in the prototype.
+- Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`), a switcher in the header, `hreflang` both ways `[confirm: who translates the copy]`. Addresses and the brand name carry `translate="no"`. After its animation the headline is plain text again, so browser translation sees words, not letters.
 
 ## 2. Header, Menu, Bottom Bar, Footer
 
-**Header** stays on screen while scrolling: logo on the left, navigation Home · About · Parents' Info · Stretching · Contact, a quiet Login link, and the Book a Trial button.
+**Header** stays on screen while scrolling: logo on the left, navigation Home · About · Parents' Info · Stretching · Contact, and the Book a Trial button. No Login link until the portal launches (project 2).
 
 **Mobile menu** opens with the Menu button.
 - `aria-expanded` on the button reflects the state.
@@ -26,7 +27,7 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 - While hidden, it can't be clicked or reached by screen readers (`inert`, `aria-hidden`).
 - There's no bottom bar on desktop.
 
-**Footer** per the SOW: full logo, tagline, address, phone `[confirm: question 13]`, email, hours `[confirm: question 10]`, links to all pages, Privacy and Terms, Instagram and Facebook, "© [current year] ElyFlame Academy. Site by Kirakito Technologies", and the "Already had your trial? Register" link. The year updates automatically.
+**Footer:** logo, tagline, address, phone (224) 804-8324, email, call hours (Mon–Fri 9 am–10 pm, Sat 9 am–5 pm, Sun closed), page links, Instagram and Facebook, a Privacy Policy · Terms of Use row, and "© [current year] ElyFlame Academy. Site by Kirakito Technologies". No Register link: after the trial the Head Coach sends the Adobe form. The year updates automatically.
 
 ## 3. Ribbon
 
@@ -102,7 +103,7 @@ Book a Trial in the result opens the form and fills in the program (Recreational
 
 ## 5. Trial Booking Form
 
-Booking follows option C `[confirm: D1]`: the parent picks a preferred day, the academy confirms, and then the parent gets an email with a link to pay $10.
+Booking is a hybrid (Kiryl's decision, D1): the parent fills in the details, picks a trial day and time, and pays $10, online via Stripe (preferred) or at the academy. The request goes to the academy, which confirms the time or texts the parent to reschedule.
 
 ### 5.1 Opening
 
@@ -120,7 +121,8 @@ Error messages are Design's proposal.
 | Child's age | required, 3–99; prefilled from the class finder | Enter your child's age / Age must be between 3 and 99 |
 | Experience | required: None / Some recreational / Competitive | Select your child's experience |
 | Program | required: Recreational / Competitive / Stretching & Flexibility; prefilled from the class finder, editable | Select a program |
-| Preferred day | required; days from the program's schedule `[confirm: question 9]` | Select a preferred day |
+| Trial day and time | required; fixed trial slots per program from the config `[confirm: real slots]` | Select a trial time for this program |
+| Payment | radio buttons: Pay online now (recommended), the default / Pay at the academy | — |
 | Parent's name | required, 2–80 characters | Enter your name |
 | Phone | required, US mask (XXX) XXX-XXXX | Enter a phone number, like (555) 123-4567 |
 | Email | required, valid address | Enter an email address, like name@example.com |
@@ -140,7 +142,7 @@ Default, hover, focus, loading (spinner, button disabled), and error.
 
 ### 5.5 After Submitting
 
-- Success: "You're booked!", "We'll contact you within 24 hours to confirm your trial. After that, you'll get a link to pay the $10 trial fee.", a summary (child, program, day, contact details), and a "What to bring" list `[confirm: list from the client]`.
+- Success: "Your trial request is in!", "The academy will confirm your trial time within 24 hours. If the time doesn't work, they'll text you to find another.", a summary (child, program, time, payment method, contact details), and a "What to bring" list `[confirm: list from the client]`. With online payment, Stripe Checkout opens before this screen.
 - Server error (SOW): "Oops. Something went wrong. Please try again or call us at [phone]."
 - In the prototype nothing is sent; only the success view is shown.
 
@@ -156,7 +158,7 @@ The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`
 
 ## 7. Coaches and Safety
 
-A section after "More than movement". Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio. A safety row: "National judge, USA Gymnastics (founder)" `[confirm: question 15]`, "SafeSport", and "CPR" `[confirm: question 14]`. The whole section has `data-requires-content` and stays hidden on the live site until the client sends content.
+A section after "More than movement". Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. The section has `data-requires-content` and stays hidden on the live site until the client sends bios.
 
 ## 7.1 Finale
 
@@ -170,8 +172,6 @@ An accordion built on `<details>`: each question opens and closes on its own, an
 
 ## 9. What Could Change This Behavior
 
-- D1, booking depth: option B adds slot selection and payment up front; option A makes it a request only.
-- Question 5: if the client assigns levels 3–6 by age, the path gets new active states.
-- Questions 9, 10, and 13: schedule, hours, and phone number.
-- Question 7: where Register leads, our own form or an external platform.
+- The real trial slots and the Stripe account.
+- Who translates the Russian and Ukrainian copy.
 - The "she/her" tone is the client's call.
