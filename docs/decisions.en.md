@@ -16,6 +16,6 @@
 | Sep 24 | Blocks without client content are hidden; no "Coming soon" placeholders. In the mockups each such block has two states: with content and hidden. Launch minimum: 1 coach with photo and bio, the schedule, address and phone, 6+ real photos | The October 12 launch doesn't move; an empty placeholder undermines parents' trust | Alena |
 | Sep 24 | Success metrics: trial requests per month (main), mobile visitor-to-request conversion, share of requests through the class finder ≥ 50%, trial-to-registration rate, 30+ Google reviews by Jan 12, 2027. Lighthouse ≥ 90 is an acceptance requirement, not a metric | Metrics measure the site's results; the SOW requires Lighthouse for sign-off | Alena |
 | — | Trial booking depth: A (request), B (instant booking), or C (hybrid). Recommendation: C for launch, B in phase 2 | — | **Waiting on Kiryl (D1)** |
-| — | Analytics (D2) and where submissions go (D3) | — | **Waiting on Kiryl** |
+| — | Analytics (D2), where submissions go (D3), enrollment targets (D4), admin panel at launch (D5) | — | **Waiting on Kiryl** |
 
 **Headings in HTML.** For Ivan: type headings in normal case ("Our Coaches"), not in all caps. Cinzel already renders lowercase letters as small caps, and screen readers won't spell the text out letter by letter.

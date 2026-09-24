@@ -15,11 +15,25 @@ Prepared by Design (Alena K) from the SOW and the market research. The questions
 
 Design recommendation: **C** for launch, **B** in phase 2. For parents, C feels almost the same as B, and it doesn't depend on the client setting up online payments by October 12.
 
+**Kiryl's decision:** ___
+
 **D2. Analytics.** The SOW doesn't include analytics, and without it we can't measure the main metric: trial bookings. We need to choose a tool (Google Analytics 4, or a cookie-banner-free option like Plausible) and set up events: Book a Trial clicks, form opened, form submitted, class finder used, phone taps, and Get Directions clicks.
+
+**Kiryl's decision:** ___
 
 **D3. Where submissions go.** Should trial and contact requests go only to the academy's email, or also to a Google Sheet or CRM so none get lost? Submissions include a child's name and age, so wherever they're stored has to meet the security requirements in the SOW.
 
+**Kiryl's decision:** ___
+
 **D4. Enrollment targets for the site's metrics.** We need three numbers from the client: how many new students the academy needs per month (open spots per program), how many trial lessons happen per month today, and what share of trial families go on to register. The target metrics in the brief and PRD depend on these numbers, and they stay as placeholders until we have them.
+
+**Kiryl's decision:** ___
+
+**D5. Admin panel at launch.** The SOW puts an admin panel in project 1 (item 11, FE+BE, full access, `/[admin-path]`). The primary scenario doesn't need it if submissions go to email or a Google Sheet (D3). Do we build it for October 12, and if so, what should it do: show trial requests, edit programs and the schedule, or something else?
+
+Design recommendation: skip it at launch if D3 settles on email or a spreadsheet.
+
+**Kiryl's decision:** ___
 
 ## Audience and priorities
 
