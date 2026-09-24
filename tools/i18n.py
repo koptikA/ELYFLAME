@@ -25,13 +25,15 @@ SITE = 'https://elyflame.com/'
 # (English fragment exactly as in index.html, Russian, Ukrainian)
 HTML = [
     ('<title>ElyFlame — Where Grace Meets Fire</title>',
-     '<title>ElyFlame — академия художественной гимнастики в~Buffalo Grove</title>',
-     '<title>ElyFlame — академія художньої гімнастики в~Buffalo Grove</title>'),
+     '<title>ElyFlame — академия художественной гимнастики в~Баффало-Гров</title>',
+     '<title>ElyFlame — академія художньої гімнастики в~Баффало-Гров</title>'),
     ("content=\"Discover rhythmic gymnastics at ElyFlame Academy in Buffalo Grove. Find your child's starting point, explore our programs, and plan a trial lesson.\"",
-     'content="Художественная гимнастика в~ElyFlame Academy, Buffalo Grove. Подберите уровень для ребёнка, узнайте о~программах и~запишитесь на~пробное занятие."',
-     'content="Художня гімнастика в~ElyFlame Academy, Buffalo Grove. Підберіть рівень для дитини, дізнайтеся про програми й~запишіться на~пробне заняття."'),
+     'content="Художественная гимнастика в~ElyFlame Academy, Баффало-Гров (Buffalo Grove, Иллинойс). Подберите уровень для ребёнка, узнайте о~программах и~запишитесь на~пробное занятие."',
+     'content="Художня гімнастика в~ElyFlame Academy, Баффало-Гров (Buffalo Grove, Іллінойс). Підберіть рівень для дитини, дізнайтеся про програми й~запишіться на~пробне заняття."'),
     ('>Skip to content<', '>Перейти к~содержанию<', '>Перейти до вмісту<'),
-    ('<span>Trial lessons for ages 3 and up.</span>', '<span>Пробные занятия для детей от~3~лет</span>', '<span>Пробні заняття для дітей від~3~років</span>'),
+    ('<span>$10 trial lesson · pay online or at the academy</span>', '<span>Пробное занятие~— 10~$ · оплата онлайн или в~академии</span>', '<span>Пробне заняття~— 10~$ · оплата онлайн або в~академії</span>'),
+    ('<small>ACADEMY OF RHYTHMIC GYMNASTICS</small>', '<small>АКАДЕМИЯ ХУДОЖЕСТВЕННОЙ ГИМНАСТИКИ</small>', '<small>АКАДЕМІЯ ХУДОЖНЬОЇ ГІМНАСТИКИ</small>'),
+    ('<span class="dot"></span> Buffalo Grove, Illinois<', '<span class="dot"></span> Баффало-Гров, Иллинойс<', '<span class="dot"></span> Баффало-Гров, Іллінойс<'),
     ('Find your first class <span', 'Подобрать группу <span', 'Підібрати групу <span'),
     ('aria-label="ElyFlame Academy home"', 'aria-label="ElyFlame Academy, на~главную"', 'aria-label="ElyFlame Academy, на~головну"'),
     ('aria-label="Menu"', 'aria-label="Меню"', 'aria-label="Меню"'),
@@ -43,18 +45,17 @@ HTML = [
     ('>Contact</a>', '>Контакты</a>', '>Контакти</a>'),
     ('class="button header-cta" href="#trial">Book a Trial <span', 'class="button header-cta" href="#trial">Записаться <span', 'class="button header-cta" href="#trial">Записатися <span'),
     ('Book a Trial <span aria-hidden="true">→</span>', 'Записаться на~пробное <span aria-hidden="true">→</span>', 'Записатися на~пробне <span aria-hidden="true">→</span>'),
-    ('Book a Trial <span>$10 →</span>', 'Записаться на~пробное <span>10~$ →</span>', 'Записатися на~пробне <span>10~$ →</span>'),
     ('Artistry in motion. Confidence for life.', 'Искусство в~движении. Уверенность на~всю жизнь.', 'Мистецтво в~русі. Впевненість на~все життя.'),
-    ('aria-label="Where grace meets fire."', 'aria-label="Где грация встречает огонь"', 'aria-label="Де грація зустрічає вогонь"'),
+    ('aria-label="Where grace meets fire."', 'aria-label="Где грация встречает огонь."', 'aria-label="Де грація зустрічає вогонь."'),
     ('<span data-reveal>Where grace</span>', '<span data-reveal>Где грация</span>', '<span data-reveal>Де грація</span>'),
-    ('<span data-reveal>meets</span> <em data-reveal-accent>fire.</em>', '<span data-reveal>встречает</span> <em data-reveal-accent>огонь</em>', '<span data-reveal>зустрічає</span> <em data-reveal-accent>вогонь</em>'),
+    ('<span data-reveal>meets</span> <em data-reveal-accent>fire.</em>', '<span data-reveal>встречает</span> <em data-reveal-accent>огонь.</em>', '<span data-reveal>зустрічає</span> <em data-reveal-accent>вогонь.</em>'),
     ('aria-label="Illustration of a young rhythmic gymnast with a ribbon"', 'aria-label="Иллюстрация: юная гимнастка с~лентой"', 'aria-label="Ілюстрація: юна гімнастка зі стрічкою"'),
     ('<p>Rhythmic gymnastics for girls 6 and up on the path to competition,<br>with first classes from age 3.</p>',
      '<p>Художественная гимнастика для девочек от~6~лет на~пути к~соревнованиям.<br>Первые занятия~— с~3~лет.</p>',
      '<p>Художня гімнастика для дівчаток від~6~років на~шляху до~змагань.<br>Перші заняття~— з~3~років.</p>'),
-    ('<span class="trial-note">Ages 3 & up <i>·</i> $10 trial lesson</span>',
-     '<span class="trial-note">От~3~лет <i>·</i> Пробное занятие~— 10~$</span>',
-     '<span class="trial-note">Від~3~років <i>·</i> Пробне заняття~— 10~$</span>'),
+    ('<span class="trial-note">$10 trial lesson <i>·</i> the academy confirms your time</span>',
+     '<span class="trial-note">Пробное занятие~— 10~$ <i>·</i> время подтвердит академия</span>',
+     '<span class="trial-note">Пробне заняття~— 10~$ <i>·</i> час підтвердить академія</span>'),
     ('<span>Find the right class</span>', '<span>Найти свою группу</span>', '<span>Знайти свою групу</span>'),
     ('aria-label="Our approach"', 'aria-label="Наш подход"', 'aria-label="Наш підхід"'),
     ('<span>Small beginnings</span>', '<span>С~малого</span>', '<span>З~малого</span>'),
@@ -62,7 +63,7 @@ HTML = [
     ('<span>Brave first steps</span>', '<span>Смелые первые шаги</span>', '<span>Сміливі перші кроки</span>'),
     ('<span>A personal path</span>', '<span>Свой путь</span>', '<span>Свій шлях</span>'),
     ('>The champion’s path<', '>Путь чемпионки<', '>Шлях чемпіонки<'),
-    ('<h2>Every journey starts<br>with <em>one spark.</em></h2>', '<h2>Каждый путь<br>начинается <em>с~искры</em></h2>', '<h2>Кожен шлях<br>починається <em>з~іскри</em></h2>'),
+    ('<h2>Every journey starts<br>with <em>one spark.</em></h2>', '<h2>Каждый путь<br>начинается <em>с~искры.</em></h2>', '<h2>Кожен шлях<br>починається <em>з~іскри.</em></h2>'),
     ('<p>Your child’s first steps or next challenge.<br>Let’s find a place to begin.</p>',
      '<p>Первые шаги ребёнка или новый вызов.<br>Подберём, с~чего начать.</p>',
      '<p>Перші кроки дитини чи новий виклик.<br>Підберемо, з~чого почати.</p>'),
@@ -81,7 +82,7 @@ HTML = [
     ('>Competitive experience<', '>Выступали на~соревнованиях<', '>Виступали на~змаганнях<'),
     ('aria-label="Six levels of growth"', 'aria-label="Шесть уровней роста"', 'aria-label="Шість рівнів розвитку"'),
     ('>Possible starting point / Level 2<', '>Возможный старт / Уровень~2<', '>Можливий старт / Рівень~2<'),
-    ('>Let curiosity lead.<', '>Пусть ведёт любопытство<', '>Хай веде цікавість<'),
+    ('>Let curiosity lead.<', '>Пусть ведёт любопытство.<', '>Хай веде цікавість.<'),
     ('>Playful movement, growing confidence, and a first friendship with the rope and ball.<',
      '>Игра и~движение, растущая уверенность и~первая дружба со~скакалкой и~мячом.<',
      '>Гра й~рух, дедалі більша впевненість і~перша дружба зі~скакалкою та~м’ячем.<'),
@@ -104,7 +105,7 @@ HTML = [
      '<p>Від~гри й~перших спроб до~зосередженості змагальної програми.</p>'),
     ('Explore your child&#8217;s path <span', 'Подобрать уровень для ребёнка <span', 'Підібрати рівень для дитини <span'),
     ('>Our coaches / Content preview<', '>Наши тренеры / Предпросмотр<', '>Наші тренери / Попередній перегляд<'),
-    ('<h2>Guidance with<br><em>heart and purpose.</em></h2>', '<h2>Наставники<br><em>с~душой и~целью</em></h2>', '<h2>Наставники<br><em>з~душею та~метою</em></h2>'),
+    ('<h2>Guidance with<br><em>heart and purpose.</em></h2>', '<h2>Наставники<br><em>с~душой и~целью.</em></h2>', '<h2>Наставники<br><em>з~душею та~метою.</em></h2>'),
     ('aria-label="Coach photo placeholder">Coach photo<', 'aria-label="Место для фото тренера">Фото тренера<', 'aria-label="Місце для фото тренера">Фото тренера<'),
     ('<h3>[Coach name]</h3>', '<h3>[Имя тренера]</h3>', '<h3>[Ім’я тренера]</h3>'),
     ('>[Credentials]<', '>[Квалификация]<', '>[Кваліфікація]<'),
@@ -115,7 +116,7 @@ HTML = [
      '>Предпросмотр: профили тренеров и~квалификацию публикуем только после подтверждения академии<',
      '>Попередній перегляд: профілі тренерів і~кваліфікацію публікуємо лише після підтвердження академії<'),
     ('<p class="eyebrow">Stretching &amp; Flexibility</p>', '<p class="eyebrow">Растяжка и~гибкость</p>', '<p class="eyebrow">Розтяжка та~гнучкість</p>'),
-    ('<h2>Great things<br>begin with<br><em>a stretch.</em></h2>', '<h2>Большое<br>начинается<br><em>с~растяжки</em></h2>', '<h2>Велике<br>починається<br><em>з~розтяжки</em></h2>'),
+    ('<h2>Great things<br>begin with<br><em>a stretch.</em></h2>', '<h2>Большое<br>начинается<br><em>с~растяжки.</em></h2>', '<h2>Велике<br>починається<br><em>з~розтяжки.</em></h2>'),
     ('<p>For dancers, skaters, and athletes from other sports, and for adults.</p>',
      '<p>Для танцоров, фигуристов, спортсменов из~других видов спорта и~взрослых.</p>',
      '<p>Для танцівників, фігуристів, спортсменів з~інших видів спорту й~дорослих.</p>'),
@@ -153,19 +154,19 @@ HTML = [
      '<p>После пробного главный тренер пришлёт форму регистрации. Ребёнок начнёт заниматься, когда форма будет заполнена и~первый платёж внесён.</p>',
      '<p>Після пробного головний тренер надішле форму реєстрації. Дитина почне займатися, коли форму буде заповнено й~перший платіж внесено.</p>'),
     ('>Visit us<', '>Приходите<', '>Приходьте<'),
-    ('<h2>See you<br><em>in Buffalo Grove.</em></h2>', '<h2>До встречи<br><em>в~Buffalo Grove</em></h2>', '<h2>До зустрічі<br><em>у~Buffalo Grove</em></h2>'),
+    ('<h2>See you<br><em>in Buffalo Grove.</em></h2>', '<h2>До встречи<br><em>в~Баффало-Гров.</em></h2>', '<h2>До зустрічі<br><em>у~Баффало-Гров.</em></h2>'),
     ('>Silk Road International School building<', '>Здание Silk Road International School<', '>Будівля Silk Road International School<'),
     ('Get directions <span', 'Проложить маршрут <span', 'Прокласти маршрут <span'),
     ('>Calls: Mon–Fri 9 am–10 pm, Sat 9 am–5 pm, Sun closed<', '>Звонки: пн–пт 9:00–22:00, сб 9:00–17:00, вс~— выходной<', '>Дзвінки: пн–пт 9:00–22:00, сб 9:00–17:00, нд~— вихідний<'),
     ('>Entrance, parking, drop-off and pick-up: door #11<', '>Вход, парковка, где оставить и~забрать ребёнка: дверь №~11<', '>Вхід, парковка, де залишити й~забрати дитину: двері №~11<'),
-    ('>Her story is just beginning.<', '>Её история только начинается<', '>Її історія тільки починається<'),
-    ('<h2>Let’s light <em>the spark.</em></h2>', '<h2>Зажжём <em>искру</em></h2>', '<h2>Запалимо <em>іскру</em></h2>'),
+    ('>Her story is just beginning.<', '>Её история только начинается.<', '>Її історія тільки починається.<'),
+    ('<h2>Let’s light <em>the spark.</em></h2>', '<h2>Зажжём <em>искру.</em></h2>', '<h2>Запалимо <em>іскру.</em></h2>'),
     ('<p>Tell us about your child, pick a trial time, and pay the $10 fee online. The academy confirms every trial.</p>',
      '<p>Расскажите о~ребёнке, выберите время пробного занятия и~оплатите 10~$ онлайн. Академия подтвердит каждую запись.</p>',
      '<p>Розкажіть про дитину, оберіть час пробного заняття й~оплатіть 10~$ онлайн. Академія підтвердить кожен запис.</p>'),
     ('Questions first? Write to <a', 'Есть вопросы? Напишите на~<a', 'Є питання? Напишіть на~<a'),
     ('>Your first step / $10 trial lesson<', '>Первый шаг / Пробное занятие за~10~$<', '>Перший крок / Пробне заняття за~10~$<'),
-    ('<h2>A new beginning<br><em>starts here.</em></h2>', '<h2>Всё начинается<br><em>здесь</em></h2>', '<h2>Усе починається<br><em>тут</em></h2>'),
+    ('<h2>A new beginning<br><em>starts here.</em></h2>', '<h2>Всё начинается<br><em>здесь.</em></h2>', '<h2>Усе починається<br><em>тут.</em></h2>'),
     ('<h2 id="booking-title">Book a Trial</h2>', '<h2 id="booking-title">Запись на~пробное занятие</h2>', '<h2 id="booking-title">Запис на~пробне заняття</h2>'),
     ('>Prototype preview — nothing is sent, paid, or reserved. Times shown are samples.<',
      '>Прототип: ничего не~отправляется, не~оплачивается и~не~бронируется. Время указано для примера.<',
@@ -198,7 +199,7 @@ HTML = [
     ('<span>I agree to be contacted about my child’s trial lesson.</span>', '<span>Разрешаю связаться со~мной по~поводу пробного занятия</span>', '<span>Дозволяю зв’язатися зі~мною щодо пробного заняття</span>'),
     ('<span class="submit-label">Book a Trial</span>', '<span class="submit-label">Записаться</span>', '<span class="submit-label">Записатися</span>'),
     ('<p class="eyebrow">A new beginning</p>', '<p class="eyebrow">Новое начало</p>', '<p class="eyebrow">Новий початок</p>'),
-    ('>Your trial request is in!<', '>Заявка на~пробное занятие отправлена<', '>Заявку на~пробне заняття надіслано<'),
+    ('>Your trial request is in.<', '>Заявка на~пробное занятие отправлена.<', '>Заявку на~пробне заняття надіслано.<'),
     ("<p>The academy will confirm your trial time within 24 hours. If the time doesn't work, they'll text you to find another.</p>",
      '<p>Академия подтвердит время в~течение 24~часов. Если время не~подойдёт, вам напишут SMS и~предложат другое.</p>',
      '<p>Академія підтвердить час протягом 24~годин. Якщо час не~підійде, вам напишуть SMS і~запропонують інший.</p>'),
@@ -210,7 +211,7 @@ HTML = [
     ('<li>[Required footwear or equipment — confirm]</li>', '<li>[Обувь или инвентарь~— уточнить]</li>', '<li>[Взуття чи інвентар~— уточнити]</li>'),
     ('>Edit your details<', '>Изменить данные<', '>Змінити дані<'),
     ('alt="ElyFlame Academy of Rhythmic Gymnastics"', 'alt="ElyFlame Academy, академия художественной гимнастики"', 'alt="ElyFlame Academy, академія художньої гімнастики"'),
-    ('<p>Where grace meets fire.</p>', '<p>Где грация встречает огонь</p>', '<p>Де грація зустрічає вогонь</p>'),
+    ('<p>Where grace meets fire.</p>', '<p>Где грация встречает огонь.</p>', '<p>Де грація зустрічає вогонь.</p>'),
     ('<p>Calls: Mon–Fri 9 am–10 pm<br>Sat 9 am–5 pm · Sun closed</p>', '<p>Звонки: пн–пт 9:00–22:00<br>сб 9:00–17:00 · вс~— выходной</p>', '<p>Дзвінки: пн–пт 9:00–22:00<br>сб 9:00–17:00 · нд~— вихідний</p>'),
     ('aria-label="Footer navigation"', 'aria-label="Разделы сайта"', 'aria-label="Розділи сайту"'),
     ('aria-label="Legal"', 'aria-label="Правовая информация"', 'aria-label="Правова інформація"'),
@@ -240,12 +241,12 @@ JS = [
     ("'+ Clubs'", "'+~булавы'", "'+~булави'"),
     ("'+ Ribbon (all five)'", "'+~лента (все пять)'", "'+~стрічка (усі п’ять)'"),
     ("'All apparatus'", "'Все предметы'", "'Усі предмети'"),
-    ("'A little spark of something big.'", "'Маленькая искра большого пути'", "'Маленька іскра великого шляху'"),
-    ("'Let curiosity lead.'", "'Пусть ведёт любопытство'", "'Хай веде цікавість'"),
-    ("'A new chapter begins.'", "'Начинается новая глава'", "'Починається новий розділ'"),
-    ("'Make room for the next challenge.'", "'Место для нового вызова'", "'Місце для нового виклику'"),
-    ("'Let expression unfold.'", "'Пусть раскроется выразительность'", "'Хай розкриється виразність'"),
-    ("'Bring ambition to the floor.'", "'Амбиции~— на~ковёр'", "'Амбіції~— на~килим'"),
+    ("'A little spark of something big.'", "'Маленькая искра большого пути.'", "'Маленька іскра великого шляху.'"),
+    ("'Let curiosity lead.'", "'Пусть ведёт любопытство.'", "'Хай веде цікавість.'"),
+    ("'A new chapter begins.'", "'Начинается новая глава.'", "'Починається новий розділ.'"),
+    ("'Make room for the next challenge.'", "'Место для нового вызова.'", "'Місце для нового виклику.'"),
+    ("'Let expression unfold.'", "'Пусть раскроется выразительность.'", "'Хай розкриється виразність.'"),
+    ("'Bring ambition to the floor.'", "'Амбиции~— на~ковёр.'", "'Амбіції~— на~килим.'"),
     ("'An introduction to movement, coordination, and playful exploration with the rope.'",
      "'Знакомство с~движением, координацией и~скакалкой в~игре.'",
      "'Знайомство з~рухом, координацією та~скакалкою в~грі.'"),
@@ -267,7 +268,7 @@ JS = [
     ('>Start with a coach assessment<', '>Начнём с~оценки тренера<', '>Почнемо з~оцінки тренера<'),
     ("'Starting point / Coach assessment'", "'Старт / Оценка тренера'", "'Старт / Оцінка тренера'"),
     ('`Possible starting point / Level ${', '`Возможный старт / Уровень~${', '`Можливий старт / Рівень~${'),
-    ("'Every path is individual.'", "'У~каждого свой путь'", "'У~кожного свій шлях'"),
+    ("'Every path is individual.'", "'У~каждого свой путь.'", "'У~кожного свій шлях.'"),
     ('"Age is only part of the picture. Tell us about your child\'s experience, and the coach will help find a suitable starting level at the trial."',
      '"Возраст~— только часть картины. Расскажите об~опыте ребёнка, и~на~пробном занятии тренер поможет подобрать уровень."',
      '"Вік~— лише частина картини. Розкажіть про досвід дитини, і~на~пробному занятті тренер допоможе підібрати рівень."'),
@@ -308,18 +309,39 @@ JS = [
      "'Не~вдалося надіслати. Дані збережено, спробуйте ще раз.'"),
 ]
 
-# Latin text that stays on translated pages: names, addresses, contacts.
-KEEP = ['ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'ACADEMY OF RHYTHMIC GYMNASTICS', 'Buffalo Grove', 'Illinois',
+# Latin text that stays on translated pages: names, the postal address, contacts. In running text and headings the town is
+# written in Cyrillic (Баффало-Гров); the address keeps Latin so parents can type it into a map.
+KEEP = ['ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'Buffalo Grove',
         'Radcliffe Road', 'Silk Road International School', 'USA Gymnastics', 'Instagram', 'Facebook',
         'Kirakito Technologies', 'academy@elyflame.com', 'name@example.com', 'Stripe Checkout', 'SMS',
         'English', 'Stretching & Flexibility']
 
 
-def switcher(lang):
+LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
+LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
+GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
+         '<path d="M1.5 8h13M8 1.5c2 2.2 2 10.8 0 13M8 1.5c-2 2.2-2 10.8 0 13"/></svg>')
+CHEVRON = '<svg class="lang-chevron" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m4 6 4 4 4-4"/></svg>'
+
+
+def links(lang, text):
     here = {'en': {'en': './', 'ru': 'ru/', 'uk': 'uk/'}}.get(lang) or {'en': '../', 'ru': '../ru/', 'uk': '../uk/', lang: './'}
-    links = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
-    return ''.join(f'<a href="{here[code]}" hreflang="{code}" lang="{code}" title="{name}"'
-                   + (' aria-current="page"' if code == lang else '') + f'>{label}</a>' for code, name, label in links)
+    return [f'<a href="{here[code]}" hreflang="{code}" lang="{code}"' + (' aria-current="page"' if code == lang else '')
+            + f'>{text(name, label)}</a>' for code, name, label in LANGUAGES]
+
+
+def lang_menu(lang):
+    """Header: a globe, the current code and a chevron; the list shows the languages by their own names."""
+    code = {c: label for c, _, label in LANGUAGES}[lang]
+    items = ''.join(f'<li>{a}</li>' for a in links(lang, lambda name, label: name))
+    return (f'<details class="lang-menu" translate="no"><summary aria-label="{LANGUAGE[lang]}: {code}">{GLOBE}{code}{CHEVRON}'
+            f'</summary><ul>{items}</ul></details>')
+
+
+def lang_pills(lang):
+    """Phone menu sheet: a segmented switcher, one tap per language."""
+    return (f'<div class="lang-pills" role="group" aria-label="{LANGUAGE[lang]}" translate="no">'
+            + ''.join(links(lang, lambda name, label: label)) + '</div>')
 
 
 def swap(text, rows, col, nbsp, where):
@@ -380,16 +402,19 @@ def js_leftovers(js):
 def main():
     read = lambda name: io.open(os.path.join(ROOT, name), encoding='utf-8').read()
     html_src, js_src = read('index.html'), read('site.js')
-    en_switch = switcher('en')
-    assert en_switch in html_src, 'The switcher in index.html differs from switcher("en"); keep them in sync.'
+    for block in (lang_menu('en'), lang_pills('en')):
+        assert block in html_src, 'The language switcher in index.html differs from lang_menu()/lang_pills(); keep them in sync.'
     problems = []
     for lang, col in LANGS.items():
         html = swap(html_src, HTML, col, '&nbsp;', 'index.html')
         html = replace_once(html, '<html lang="en">', f'<html lang="{lang}">')
         html = replace_once(html, '<!doctype html>', '<!doctype html>\n<!-- Generated by tools/i18n.py from ../index.html. Edit the English source or the tables in the script, then run it again. -->')
         html = replace_once(html, f'<link rel="canonical" href="{SITE}">', f'<link rel="canonical" href="{SITE}{lang}/">')
-        html = replace_once(html, en_switch, switcher(lang))
-        html = replace_once(html, 'family=Cinzel:wght@400;500;600&', 'family=Cinzel:wght@400;500;600&family=Cormorant+SC:wght@400;500;600&')
+        html = replace_once(html, lang_menu('en'), lang_menu(lang))
+        html = replace_once(html, lang_pills('en'), lang_pills(lang))
+        html = replace_once(html, 'href="/privacy"', f'href="/{lang}/privacy"')
+        html = replace_once(html, 'href="/terms"', f'href="/{lang}/terms"')
+        html = replace_once(html, 'family=Cinzel:wght@400;500;600&', 'family=Cinzel:wght@400;500;600&family=Spectral+SC:wght@400;500&')
         html = replace_once(html, 'href="site.css"', 'href="../site.css"')
         html = replace_once(html, 'src="hero-reveal.js"', 'src="../hero-reveal.js"')
         html = html.replace('="assets/', '="../assets/')

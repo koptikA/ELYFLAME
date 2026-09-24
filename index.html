@@ -14,13 +14,13 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="announcement"><span>Trial lessons for ages 3 and up.</span><a href="#journey">Find your first class <span aria-hidden="true">→</span></a></div>
+<div class="announcement"><span>$10 trial lesson · pay online or at the academy</span><a href="#journey">Find your first class <span aria-hidden="true">→</span></a></div>
 <header class="header">
   <a class="brand" href="#" aria-label="ElyFlame Academy home"><img src="assets/brand/Just_Logo__no_background_.png" width="40" height="47" alt=""><span translate="no"><span>ELYFLAME</span><small>ACADEMY OF RHYTHMIC GYMNASTICS</small></span></a>
   <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Menu"><span class="burger" aria-hidden="true"></span></button>
-  <nav id="navigation" aria-label="Main navigation"><a href="#home">Home</a><a href="#about">About</a><a href="#parents">Parents' Info</a><a href="#stretching">Stretching</a><a href="#contact">Contact</a></nav>
-  <div class="lang" translate="no"><a href="./" hreflang="en" lang="en" title="English" aria-current="page">EN</a><a href="ru/" hreflang="ru" lang="ru" title="Русский">RU</a><a href="uk/" hreflang="uk" lang="uk" title="Українська">UA</a></div>
+  <nav id="navigation" aria-label="Main navigation"><a href="#home" aria-current="true">Home</a><a href="#about">About</a><a href="#parents">Parents' Info</a><a href="#stretching">Stretching</a><a href="#contact">Contact</a><div class="lang-pills" role="group" aria-label="Language" translate="no"><a href="./" hreflang="en" lang="en" aria-current="page">EN</a><a href="ru/" hreflang="ru" lang="ru">RU</a><a href="uk/" hreflang="uk" lang="uk">UA</a></div></nav>
   <a class="button header-cta" href="#trial">Book a Trial <span aria-hidden="true">→</span></a>
+  <details class="lang-menu" translate="no"><summary aria-label="Language: EN"><svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/><path d="M1.5 8h13M8 1.5c2 2.2 2 10.8 0 13M8 1.5c-2 2.2-2 10.8 0 13"/></svg>EN<svg class="lang-chevron" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m4 6 4 4 4-4"/></svg></summary><ul><li><a href="./" hreflang="en" lang="en" aria-current="page">English</a></li><li><a href="ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="uk/" hreflang="uk" lang="uk">Українська</a></li></ul></details>
 </header>
 <main id="main">
 <svg class="page-ribbon" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1440 6000">
@@ -37,7 +37,7 @@
 </svg>
 <section class="hero" id="home" aria-labelledby="hero-title">
   <div class="hero-top"><p class="eyebrow"><span class="dot"></span> Buffalo Grove, Illinois</p><p class="eyebrow">Artistry in motion. Confidence for life.</p></div>
-  <div class="hero-title"><h1 id="hero-title" aria-label="Where grace meets fire."><span data-reveal>Where grace</span><br><span class="second-line"><span data-reveal>meets</span> <em data-reveal-accent>fire.</em></span></h1><span class="hero-star" aria-hidden="true">✳</span></div>
+  <div class="hero-title"><h1 id="hero-title" aria-label="Where grace meets fire."><span data-reveal>Where grace</span><br><span class="second-line"><span class="hero-star" aria-hidden="true">✳</span><span data-reveal>meets</span> <em data-reveal-accent>fire.</em></span></h1></div>
   <div class="hero-photo" role="img" aria-label="Illustration of a young rhythmic gymnast with a ribbon">
     <div class="gymnast-art">
       <!-- Traced from assets/gymnast/sheet-2.jpg. The free leg rotates around the hip (535,965) like a ball joint:
@@ -57,7 +57,7 @@
       <span class="ribbon-anchor" aria-hidden="true"></span>
     </div>
   </div>
-  <div class="hero-bottom"><div class="hero-copy"><p>Rhythmic gymnastics for girls 6 and up on the path to competition,<br>with first classes from age 3.</p><a class="button" href="#trial">Book a Trial <span aria-hidden="true">→</span></a><span class="trial-note">Ages 3 & up <i>·</i> $10 trial lesson</span></div></div>
+  <div class="hero-bottom"><div class="hero-copy"><p>Rhythmic gymnastics for girls 6 and up on the path to competition,<br>with first classes from age 3.</p><a class="button" href="#trial">Book a Trial <span aria-hidden="true">→</span></a><span class="trial-note">$10 trial lesson <i>·</i> the academy confirms your time</span></div></div>
   <a href="#journey" class="scroll-cue"><span>Find the right class</span><span aria-hidden="true">↓</span></a>
 </section>
 <div class="values-strip" aria-label="Our approach"><span>Small beginnings</span><b>✳</b><span>Beautiful movement</span><b>✳</b><span>Brave first steps</span><b>✳</b><span>A personal path</span></div>
@@ -103,7 +103,7 @@
     </form>
    </div>
    <div id="booking-confirmation" hidden>
-    <p class="eyebrow">A new beginning</p><h2 id="confirmation-title" tabindex="-1">Your trial request is in!</h2>
+    <p class="eyebrow">A new beginning</p><h2 id="confirmation-title" tabindex="-1">Your trial request is in.</h2>
     <p>The academy will confirm your trial time within 24 hours. If the time doesn't work, they'll text you to find another.</p>
     <p class="prototype-note">Prototype confirmation only — no booking was sent or reserved.</p>
     <h3>Your trial details</h3><dl id="booking-summary"></dl>
@@ -123,6 +123,5 @@
  <p class="copyright">© 2026 ElyFlame Academy. Site by Kirakito Technologies</p>
  <div class="footer-team"></div>
 </footer>
-<a href="#trial" class="button mobile-trial">Book a Trial <span>$10 →</span></a>
 <dialog id="booking-dialog" aria-labelledby="booking-title"><button class="close-dialog" type="button" aria-label="Close trial booking">×</button><div id="dialog-content"></div></dialog>
 </body></html>

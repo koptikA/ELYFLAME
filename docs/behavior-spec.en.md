@@ -12,24 +12,30 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 - Functional text (class finder, form, FAQ) says "your child". "She/her" appears in at most 1–2 emotional headlines `[confirm: tone with the client]`.
 - No generated photos of people. Until real photos arrive, use gray placeholders.
 - Mobile layout applies up to 760 px, as in the prototype.
-- Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`). An EN · RU · UA switcher sits in the header, next to the burger on mobile; the current language is underlined. Each version has `hreflang` for all three and its own `canonical` `[confirm: who proofreads the translations]`.
+- Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`). The switcher is described in section 2. Each version has `hreflang` for all three and its own `canonical` `[confirm: who proofreads the translations]`.
 - `tools/i18n.py` builds the Russian and Ukrainian pages from the English one, using the string tables in the script; don't edit `ru/` or `uk/` by hand. Program names stay English in the form's option values; only the visible text is translated.
-- Cyrillic headings are set in Cormorant SC (Cinzel has no Cyrillic), and the hero headline is a little smaller in Russian and Ukrainian so it clears the gymnast. The ELYFLAME logo stays in Cinzel everywhere.
-- On tablets (761–1100 px) the menu folds into the burger in every language: the Russian and Ukrainian items don't fit on one row with the switcher and the button. The header button is shorter in Russian and Ukrainian: «Записаться» / «Записатися».
+- Cyrillic headings are set in Spectral SC: Cinzel has no Cyrillic, and Spectral SC also sets lowercase as small caps. It runs wider, so the hero headline is smaller in Russian and Ukrainian and clears the gymnast, and long section headings are smaller on phones. The ELYFLAME logo stays in Cinzel everywhere; the line under it is translated.
+- In running text and headings the town is written in Cyrillic, «Баффало-Гров»; the postal address stays in Latin so parents can type it into a map. Proper names stay in Latin too: ElyFlame Academy, USA Gymnastics, Silk Road International School.
+- Display headings (h1, h2, the class finder result title) end with a period in all three languages, a brand device, as in "Where grace meets fire.". Buttons, field labels, and hints follow the norms of their own language.
 - Browser translation: the switcher, the logo, and the addresses carry `translate="no"`. So does the hero headline while its letters animate; then the attribute comes off and the translator sees plain text, not single letters.
 
-## 2. Header, Menu, Bottom Bar, Footer
+## 2. Header, Menu, Footer
 
-**Header** stays on screen while scrolling: logo on the left, navigation Home · About · Parents' Info · Stretching · Contact, and the Book a Trial button. No Login link until the portal launches (project 2).
+**Header** stays on screen while scrolling: logo on the left, navigation Home · About · Parents' Info · Stretching · Contact, the Book a Trial button, and the language to its right. No Login link until the portal launches (project 2). The header button is shorter in Russian and Ukrainian: «Записаться» / «Записатися».
 
-**Mobile menu** opens with the Menu button.
+**Current section** is underlined in the menu. A line at 40% of the viewport decides which section is current; sections without their own item (the class finder, coaches, the finale, the form) count toward the item above them. Without JS, Home is underlined.
+
+**Language** is a globe, the current language code, and a chevron in the far right corner, after the button: a quiet utility that doesn't compete with the CTA. A click opens the list English / Русский / Українська, with a dot on the current one. Esc or a click elsewhere closes it. The interface codes are EN, RU, UA; the Ukrainian version lives at `/uk/`.
+
+**Burger**: up to 1100 px in every language, since the Russian and Ukrainian items don't fit on one row. The menu opens as a sheet under the header and dims the page below.
 - `aria-expanded` on the button reflects the state.
-- The menu closes when a link is tapped and on Esc; after Esc, focus returns to the Menu button.
+- The sheet closes when a link is tapped, on a tap on the dimmed page, and on Esc; after Esc, focus returns to the menu button.
 
-**Mobile bottom bar** "Book a Trial $10" is fixed to the bottom of the screen.
-- It hides while another Book a Trial button or the form's submit button is at least 75% visible (ignoring 110 px at the top for the header and 88 px at the bottom for the bar itself), so two identical buttons never sit next to each other.
-- While hidden, it can't be clicked or reached by screen readers (`inert`, `aria-hidden`).
-- There's no bottom bar on desktop.
+**Phones (up to 767 px):** the header holds the logo, the Book a Trial button (always visible), and the burger. The language moves into the menu sheet as a segmented switcher EN | RU | UA, with the current one filled dark.
+
+**Announcement bar** above the header: "$10 trial lesson · pay online or at the academy" and a "Find your first class →" link (hidden on phones). The orange link on the dark bar has a contrast of 8.4:1, passing AA and AAA.
+
+The fixed bottom bar is gone; the header button replaces it.
 
 **Footer:** logo, tagline, address, phone (224) 804-8324, email, call hours (Mon–Fri 9 am–10 pm, Sat 9 am–5 pm, Sun closed), page links, Instagram and Facebook, a Privacy Policy · Terms of Use row, and "© [current year] ElyFlame Academy. Site by Kirakito Technologies". No Register link: after the trial the Head Coach sends the Adobe form. The year updates automatically.
 
@@ -153,7 +159,7 @@ Default, hover, focus, loading (spinner, button disabled), and error.
 
 ## 6. Hero
 
-The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`), a short paragraph, the Book a Trial button, and the line "Ages 3 & up · $10 trial lesson". A large placeholder for an athlete photo or a silent looping video sits on the right on desktop and under the headline on mobile. The Ribbon loop wraps around its edge.
+The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`), a short paragraph, the Book a Trial button, and the line "$10 trial lesson · the academy confirms your time". Age appears only in the subheading (the competitive path from 6, first classes from 3); the announcement bar and the line under the button talk about the trial and its price. The ✳ ornament opens the headline's second line, one space from the word, and scales with it. On phones the illustration box grows to the figure's height, so the copy starts below her feet. A large placeholder for an athlete photo or a silent looping video sits on the right on desktop and under the headline on mobile. The Ribbon loop wraps around its edge.
 
 ### 6.1 Gymnast and Hero Entrance
 

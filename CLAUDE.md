@@ -26,6 +26,7 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 - The header holds one primary button, Book a Trial. No Register or Login until the parent portal.
 - Russian and Ukrainian pages are generated: change `index.html` or `site.js` in English, add or update the row in `tools/i18n.py`, run `python tools/i18n.py`, and commit `ru/` and `uk/` with the change. The script stops on a source string it can't find and on English left on a translated page. Russian copy follows the `sasha` skill; `~` in the tables is a non-breaking space.
 - Info the client hasn't given yet goes on the page as a placeholder in [square brackets].
+- Display headings end with a period in every language; buttons, labels, and hints follow their language's norms.
 - People appear only in real client photos with parental consent; until those arrive, use gray placeholders or brand illustrations.
 - Functional copy (class finder, form, FAQ) says "your child".
 - The ribbon is a satin SVG: `paintSatin()` in `site.js` builds it along the path from `layoutRibbon()`, and a scroll-driven mask reveals it. The About ball lives in the same SVG; the ring's near half goes to `.ribbon-front`, painted over the ball. Keep ribbon passes more than ~20 px apart, or the mask uncovers the later pass early. Its route stays clear of text and buttons. Sample paths with `flatten()`; `getPointAtLength()` costs ~1 ms per call and froze page load for seconds.

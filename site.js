@@ -47,7 +47,25 @@ const menu=document.querySelector('.menu-toggle'),nav=document.querySelector('#n
 function closeMenu(){menu.setAttribute('aria-expanded','false');nav.classList.remove('open');}
 menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);});
 nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav.classList.contains('open')){closeMenu();menu.focus();}});
+// Under the open sheet the page is dimmed by .header:after; a tap there lands on the header itself and closes the sheet.
+const header=document.querySelector('.header');
+header.addEventListener('click',event=>{if(event.target===header&&nav.classList.contains('open'))closeMenu();});
+const langMenu=document.querySelector('.lang-menu');
+document.addEventListener('click',event=>{if(langMenu.open&&!langMenu.contains(event.target))langMenu.open=false;});
+document.addEventListener('keydown',event=>{
+  if(event.key!=='Escape')return;
+  if(nav.classList.contains('open')){closeMenu();menu.focus();}
+  if(langMenu.open){langMenu.open=false;langMenu.querySelector('summary').focus();}
+});
+// Scroll spy: the menu link of the section under the line at 40% of the viewport is current. Sections without a menu
+// item (the class finder, coaches, the finale, the form) count toward the menu section above them.
+const menuLinks=[...nav.querySelectorAll(':scope > a[href^="#"]')],sectionOwner={};
+const spy=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(!entry.isIntersecting)return;
+  menuLinks.forEach(a=>{if(a.hash==='#'+sectionOwner[entry.target.id])a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
+}),{rootMargin:'-40% 0px -59% 0px'});
+let owner='home';
+document.querySelectorAll('main > section').forEach(section=>{if(menuLinks.some(a=>a.hash==='#'+section.id))owner=section.id;sectionOwner[section.id]=owner;spy.observe(section);});
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const target=document.getElementById(link.hash.slice(1));if(target?.tagName==='DETAILS')target.open=true;}));
 
 // Move the one fallback form into the native dialog; never clone IDs or field values.
@@ -313,9 +331,3 @@ function layoutTeam(){
 let layoutFrame;
 function scheduleLayout(){cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(layoutRibbon);}
 new ResizeObserver(scheduleLayout).observe(main);window.addEventListener('resize',scheduleLayout);document.fonts.ready.then(scheduleLayout);scheduleLayout();
-const mobileTrial=document.querySelector('.mobile-trial'),visibleActions=new Set();
-const actionObserver=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{if(entry.isIntersecting&&entry.intersectionRatio>=.75)visibleActions.add(entry.target);else visibleActions.delete(entry.target);});
-  const hidden=visibleActions.size>0;mobileTrial.classList.toggle('is-muted',hidden);mobileTrial.inert=hidden;mobileTrial.setAttribute('aria-hidden',String(hidden));
-},{rootMargin:'-110px 0px -88px 0px',threshold:[0,.75,1]});
-document.querySelectorAll('main a.button[href="#trial"]').forEach(el=>actionObserver.observe(el));

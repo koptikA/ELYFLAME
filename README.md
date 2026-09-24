@@ -21,8 +21,8 @@ Run `python -m http.server 4173 --bind 127.0.0.1` from this folder, then open ht
 - **Local-only booking simulation:** submit waits briefly, then displays the requested “You're booked!” view, option-C payment explanation, safe-text booking summary and placeholder packing list. Both form and confirmation explicitly identify the prototype. No network request, email, payment, local storage or real reservation is made. Edit returns to the preserved fields.
 - Without JavaScript the form remains in `#trial`, uses native validation and has `method="post" action="/api/trial"`. **That endpoint is only a placeholder and is not implemented by the static preview server.**
 - Two coach entries with gray `.coach-photo` placeholders, credentials/bio placeholders and a safety row. The section carries `data-requires-content`. Adding `data-production` to `<body>` hides marked content previews.
-- SOW navigation and an EN · RU · UA language switcher; no Login or Register until the parent portal. Footer logo, contacts, call hours, page links, social links, legal links and the 2026 credit.
-- Parent FAQ, map directions, keyboard focus, semantic headings, and a mobile trial dock that yields to a visible inline trial button.
+- SOW navigation with the current section underlined, a globe language menu after the header button (a segmented EN | RU | UA switcher in the phone menu sheet); no Login or Register until the parent portal. Footer logo, contacts, call hours, page links, social links, legal links and the 2026 credit.
+- Parent FAQ, map directions, keyboard focus, semantic headings; on phones the header keeps Book a Trial visible at all times.
 
 ## Before production
 
