@@ -176,12 +176,12 @@ function drawSatin(length,mobile){
     if(cur.c<0)col=mixRgb(col,WHITE,.28);
     col=col.map(v=>v*(.72+.28*lit));
     if(lit>.92)col=mixRgb(col,WHITE,.22*(lit-.92)/.08);
-    const key=col.map(v=>Math.round(v/6)*6).join(','),quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
+    const fade=Math.min(1,(length-cur.s)/(mobile?160:260)).toFixed(1),key=col.map(v=>Math.round(v/6)*6).join(',')+'|'+fade,quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
     if(runs.length&&runs[runs.length-1][0]===key)runs[runs.length-1][1]+=quad;else runs.push([key,quad]);prev=cur;
   }
   satin.replaceChildren(...runs.map(([rgb,d])=>{
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-    path.setAttribute('d',d);path.setAttribute('fill',`rgb(${rgb})`);path.setAttribute('stroke',`rgb(${rgb})`);path.setAttribute('stroke-width','.6');
+    const [c,o]=rgb.split('|');path.setAttribute('d',d);path.setAttribute('fill',`rgb(${c})`);path.setAttribute('stroke',`rgb(${c})`);path.setAttribute('stroke-width','.6');if(o<1)path.setAttribute('opacity',o);
     return path;
   }));
 }
@@ -195,8 +195,8 @@ function layoutRibbon(){
   Object.entries({gradientUnits:'userSpaceOnUse',x1:photo.x,y1:photo.y,x2:photo.x+photo.w,y2:photo.y+photo.h}).forEach(([key,value])=>gradient.setAttribute(key,value));
   let x=right,y=photo.y+photo.h+25;
   // Leave the stick tip along the stick (up and to the right), then sweep to the right edge.
-  let d=`M ${startX} ${startY} C ${startX+art.h*.05} ${startY-art.h*.14} ${right} ${startY-art.h*.1} ${right} ${art.y+art.h*.43} C ${right} ${art.y+art.h*.65} ${photo.x+photo.w*.76} ${art.y+art.h*.75} ${photo.x+photo.w*.83} ${art.y+art.h*.49} C ${photo.x+photo.w*.90} ${art.y+art.h*.35} ${right} ${photo.y+photo.h+60} ${x} ${y}`;
-  [...main.querySelectorAll(':scope > section')].slice(1).filter(el=>el.getClientRects().length>0).forEach((section,index)=>{
+  let d=`M ${startX} ${startY} C ${startX+art.h*.05} ${startY-art.h*.14} ${right} ${startY-art.h*.1} ${right} ${art.y+art.h*.43} C ${right} ${art.y+art.h*.7} ${x} ${y-40} ${x} ${y}`;
+  [...main.querySelectorAll(':scope > section')].slice(1).filter(el=>el.getClientRects().length>0&&!el.classList.contains('closing')).forEach((section,index)=>{
     const box=bounds(section),transitionY=box.y+(mobile?47:65),nextX=section.id==='about'?left:index%2===0?left:right;
     const mid=width*.5,spread=width*(mobile?.23:.27),loop=mobile?32:49;
     // Wide E-like loops live inside reserved whitespace above each section.
@@ -211,7 +211,11 @@ function layoutRibbon(){
       x=left;y=art.y+art.h;
     }
   });
-  d+=` C ${x} ${y+40} ${x} ${height-65} ${x} ${height-40} C ${x} ${height-12} ${width*.8} ${height-12} ${width*.65} ${height-12}`;
+  // Finale: the ribbon enters the dark closing section from above and winds into a spiral on the right, where it fades out.
+  const finale=bounds(document.querySelector('.closing')),R=mobile?30:Math.min(finale.h*.3,130);
+  const cx=finale.x+finale.w*(mobile?.84:.78),cy=mobile?finale.y+70:finale.y+finale.h*.5;
+  d+=` C ${x} ${y+40} ${x} ${finale.y-40} ${x} ${finale.y+10} C ${x} ${finale.y+50} ${cx-R*1.6} ${cy-R} ${cx} ${cy-R}`;
+  for(let i=1;i<=48;i++){const t=i/48,a=-Math.PI/2+t*3*Math.PI,r=R*(1-.8*t);d+=` L ${(cx+r*Math.cos(a)).toFixed(1)} ${(cy+r*Math.sin(a)).toFixed(1)}`;}
   ribbon.setAttribute('viewBox',`0 0 ${width} ${height}`);ribbonLine.setAttribute('d',d);
   const length=ribbonLine.getTotalLength(),samples=[];drawSatin(length,mobile);
   // Bound sampling work even as content makes the page longer.
