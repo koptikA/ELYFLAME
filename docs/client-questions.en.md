@@ -6,6 +6,15 @@ Prepared by Design (Alena K) from the SOW and the market research. The questions
 
 **A personal contact is exposed on elyflame.com.** The domain currently runs an empty WordPress site with a single "Hello world!" post (https://elyflame.com/?p=1), and the post shows the owner's personal email address as its author. Please change the author's display name in WordPress or delete the post before launch. The issue goes away once the new site replaces WordPress.
 
+## Decisions for Kiryl (PM)
+
+**D1. How deep the trial booking goes in v1.**
+- **A. Request.** The parent submits their details, and the academy calls back to confirm a time and take payment. Every competitor works this way. It takes the least effort, but it adds a step, and some parents won't wait for the call.
+- **B. Instant booking.** The parent picks a day and a time slot from the schedule, pays $10 online via Stripe, and gets a confirmation right away. This sets us apart from competitors the most. It requires an exact schedule, the client's approval for online payments, and more back-end work.
+- **C. Hybrid.** The parent picks a preferred day from the schedule, and the request goes to the academy. Once the academy confirms, the parent receives an email with a $10 payment link (Stripe Payment Link).
+
+Design recommendation: **C** for launch, **B** in phase 2. For parents, C feels almost the same as B, and it doesn't depend on the client setting up online payments by October 12.
+
 ## Audience and priorities
 
 1. Which group matters most for filling classes right now: parents of 3–5-year-olds (Recreational), parents of girls 6+ heading into competition (Competitive, including transfers from other clubs), or adults and athletes from other sports (Stretching)? Is there a group we've missed?
