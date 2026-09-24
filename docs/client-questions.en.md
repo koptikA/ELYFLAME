@@ -15,6 +15,10 @@ Prepared by Design (Alena K) from the SOW and the market research. The questions
 
 Design recommendation: **C** for launch, **B** in phase 2. For parents, C feels almost the same as B, and it doesn't depend on the client setting up online payments by October 12.
 
+**D2. Analytics.** The SOW doesn't include analytics, and without it we can't measure the main metric: trial bookings. We need to choose a tool (Google Analytics 4, or a cookie-banner-free option like Plausible) and set up events: Book a Trial clicks, form opened, form submitted, class finder used, phone taps, and Get Directions clicks.
+
+**D3. Where submissions go.** Should trial and contact requests go only to the academy's email, or also to a Google Sheet or CRM so none get lost? Submissions include a child's name and age, so wherever they're stored has to meet the security requirements in the SOW.
+
 ## Audience and priorities
 
 1. Which group matters most for filling classes right now: parents of 3–5-year-olds (Recreational), parents of girls 6+ heading into competition (Competitive, including transfers from other clubs), or adults and athletes from other sports (Stretching)? Is there a group we've missed?
