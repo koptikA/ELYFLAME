@@ -22,8 +22,15 @@
 <main id="main">
 <svg class="page-ribbon" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1440 6000">
   <defs><linearGradient id="page-ribbon-gradient"><stop stop-color="#E9008D"/><stop offset="1" stop-color="#FDA63D"/></linearGradient>
-  <mask id="ribbon-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><path class="ribbon-line" pathLength="1000" d="M 0 0"/></mask></defs>
+  <mask id="ribbon-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="100%" height="100%"><path class="ribbon-line" pathLength="1000" d="M 0 0"/></mask>
+  <radialGradient id="ball-fill" cx=".4" cy=".36" r=".72" fx=".33" fy=".25"><stop stop-color="#ffc092"/><stop offset=".28" stop-color="#e7774f"/><stop offset=".65" stop-color="#ab2543"/><stop offset="1" stop-color="#681f37"/></radialGradient>
+  <radialGradient id="ball-shade"><stop stop-color="#732726" stop-opacity=".28"/><stop offset="1" stop-color="#732726" stop-opacity="0"/></radialGradient>
+  <filter id="ring-blur" x="-10%" y="-30%" width="120%" height="160%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+  <ellipse class="ball-shadow" fill="url(#ball-shade)"/>
+  <g mask="url(#ribbon-reveal)"><path class="ring-shadow" filter="url(#ring-blur)"/></g>
   <g class="ribbon-satin" mask="url(#ribbon-reveal)"></g>
+  <circle class="ball" fill="url(#ball-fill)"/>
+  <g class="ribbon-front" mask="url(#ribbon-reveal)"></g>
 </svg>
 <section class="hero" id="home" aria-labelledby="hero-title">
   <div class="hero-top"><p class="eyebrow"><span class="dot"></span> Buffalo Grove, Illinois</p><p class="eyebrow">Artistry in motion. Confidence for life.</p></div>
@@ -57,7 +64,7 @@
  <div class="path" aria-label="Six levels of growth"></div>
  <div class="finder-result" aria-live="polite"><div><p class="eyebrow" id="match-label">Possible starting point / Level 2</p><h3 id="match-title">Let curiosity lead.</h3><p id="match-copy">Playful movement, growing confidence, and a first friendship with the rope and ball.</p><p id="experience-note" hidden>Great start. The coach will check if your child is ready for the next step.</p><small>Your coach will confirm the right level at the trial.</small></div><a class="button" href="#trial" id="match-cta">Book a Trial <span aria-hidden="true">→</span></a></div></div>
 </section>
-<section class="about section" id="about"><div class="about-art" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="orbit orbit-three"></span><span class="ball"></span></div><div class="about-copy"><p class="eyebrow">More than movement</p><h2>A little grace.<br>A lot of <em>possibility.</em></h2><p>Part sport, part art: rhythmic gymnastics brings movement, music, and apparatus together, so strength and expression grow side by side.</p><div class="about-point"><span>01</span><div><h3>Discover what your child can do</h3><p>Balance, coordination, and flexibility, one new skill at a time.</p></div></div><div class="about-point"><span>02</span><div><h3>Find a personal rhythm</h3><p>From playful exploration to the focus of a competitive routine.</p></div></div><a class="text-link" href="#journey">Explore your child&#8217;s path <span aria-hidden="true">→</span></a></div></section>
+<section class="about section" id="about"><div class="about-art"></div><div class="about-copy"><p class="eyebrow">More than movement</p><h2>A little grace.<br>A lot of <em>possibility.</em></h2><p>Part sport, part art: rhythmic gymnastics brings movement, music, and apparatus together, so strength and expression grow side by side.</p><div class="about-point"><span>01</span><div><h3>Discover what your child can do</h3><p>Balance, coordination, and flexibility, one new skill at a time.</p></div></div><div class="about-point"><span>02</span><div><h3>Find a personal rhythm</h3><p>From playful exploration to the focus of a competitive routine.</p></div></div><a class="text-link" href="#journey">Explore your child&#8217;s path <span aria-hidden="true">→</span></a></div></section>
 <section class="section coaches" id="coaches" data-requires-content>
  <p class="eyebrow">Our coaches / Content preview</p><h2>Guidance with<br><em>heart and purpose.</em></h2>
  <div class="coach-list">

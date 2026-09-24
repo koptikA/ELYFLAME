@@ -26,7 +26,7 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 - The header holds one primary button, Book a Trial. Register lives in the footer and the post-trial email.
 - People appear only in real client photos with parental consent; until those arrive, use gray placeholders or brand illustrations.
 - Functional copy (class finder, form, FAQ) says "your child".
-- The ribbon is a satin SVG: `drawSatin()` in `site.js` builds it along the path from `layoutRibbon()`, and a scroll-driven mask reveals it. Its route stays clear of text and buttons. Sample paths with `flatten()`; `getPointAtLength()` costs ~1 ms per call and froze page load for seconds.
+- The ribbon is a satin SVG: `paintSatin()` in `site.js` builds it along the path from `layoutRibbon()`, and a scroll-driven mask reveals it. The About ball lives in the same SVG; the ring's near half goes to `.ribbon-front`, painted over the ball. Keep ribbon passes more than ~20 px apart, or the mask uncovers the later pass early. Its route stays clear of text and buttons. Sample paths with `flatten()`; `getPointAtLength()` costs ~1 ms per call and froze page load for seconds.
 - The hero entrance lives in `hero-reveal.js` (an ES module, so preview over http, not file://): headline letters, the "fire." accent and the gymnast's leg start together.
 
 ## Done means checked

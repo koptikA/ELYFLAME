@@ -179,17 +179,28 @@ function flatten(d){
     const t=(s-cum[j])/((cum[j+1]-cum[j])||1),[x0,y0]=pts[j],[x1,y1]=pts[j+1]||pts[j];
     return[x0+(x1-x0)*t,y0+(y1-y0)*t];}};
 }
-function drawSatin(length,mobile){paintSatin(satin,ribbonLine.getAttribute('d'),mobile);}
-// Paints a satin ribbon along path d into group g (used by the page ribbon and the footer wordmark).
-function paintSatin(g,d,mobile,fadeEnd=true){
+// Paints a satin ribbon along path d into group g (used by the page ribbon and the footer team).
+// ring (page ribbon only): between distances ring.from and ring.to the ribbon coils around the About ball. There it is
+// flat and a little wider, with one twist on the way in and one on the way out, and its near half goes to ring.g,
+// which is drawn over the ball.
+function paintSatin(g,d,mobile,fadeEnd=true,ring=null){
   const step=mobile?5:7,maxW=mobile?8:12,flip=mobile?220:320,hue=mobile?1100:1600,pts=[];
   const walk=flatten(d),length=walk.length;
   for(let s=0;s<=length;s+=step){const[x,y]=walk.at(s);pts.push([x,y,s]);}
-  const n=pts.length-1,runs=[],f=q=>q[0].toFixed(1)+','+q[1].toFixed(1);
+  const n=pts.length-1,layers=[[],[]],f=q=>q[0].toFixed(1)+','+q[1].toFixed(1);
+  const L=mobile?100:140,inRing=s=>ring&&s>ring.from&&s<ring.to,twist=[0];let rate=0;
+  for(let i=1;i<=n;i++){
+    const s=pts[i][2];let dt=step/flip*Math.PI;
+    // Entry: settle on the front face (a multiple of 2π); coming from the back face that passes one narrow point.
+    if(inRing(s)&&s<ring.from+L&&!rate){const r=(twist[i-1]%(2*Math.PI)+2*Math.PI)%(2*Math.PI);rate=(r<=Math.PI?-r:2*Math.PI-r)/L||1e-9;}
+    if(inRing(s))dt=s<ring.from+L?rate*step:s>ring.to-L?Math.PI/L*step:0;
+    twist.push(twist[i-1]+dt);
+  }
   const edge=i=>{
-    const a=pts[Math.max(0,i-1)],b=pts[Math.min(n,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1;
-    const c=Math.cos(pts[i][2]/flip*Math.PI),w=maxW*(.12+.88*Math.abs(c))/2,[x,y]=pts[i];
-    return{a:[x-dy/l*w,y+dx/l*w],b:[x+dy/l*w,y-dx/l*w],c,s:pts[i][2]};
+    const a=pts[Math.max(0,i-1)],b=pts[Math.min(n,i+1)],dx=b[0]-a[0],dy=b[1]-a[1],l=Math.hypot(dx,dy)||1,s=pts[i][2];
+    const wide=inRing(s)?1+.3*Math.min(1,(s-ring.from)/L,(ring.to-s)/L):1;
+    const c=Math.cos(twist[i]),w=maxW*wide*(.12+.88*Math.abs(c))/2,[x,y]=pts[i];
+    return{a:[x-dy/l*w,y+dx/l*w],b:[x+dy/l*w,y-dx/l*w],c,s};
   };
   let prev=edge(0);
   for(let i=1;i<=n;i++){
@@ -199,13 +210,16 @@ function paintSatin(g,d,mobile,fadeEnd=true){
     col=col.map(v=>v*(.72+.28*lit));
     if(lit>.92)col=mixRgb(col,WHITE,.22*(lit-.92)/.08);
     const fade=fadeEnd?Math.min(1,(length-cur.s)/(mobile?160:260)).toFixed(1):'1.0',key=col.map(v=>Math.round(v/6)*6).join(',')+'|'+fade,quad=`M${f(prev.a)}L${f(cur.a)}L${f(cur.b)}L${f(prev.b)}Z`;
+    const runs=layers[inRing(cur.s)&&ring.front(pts[i])?1:0];
     if(runs.length&&runs[runs.length-1][0]===key)runs[runs.length-1][1]+=quad;else runs.push([key,quad]);prev=cur;
   }
-  g.replaceChildren(...runs.map(([rgb,d])=>{
+  const paths=runs=>runs.map(([rgb,d])=>{
     const path=document.createElementNS('http://www.w3.org/2000/svg','path');
     const [c,o]=rgb.split('|');path.setAttribute('d',d);path.setAttribute('fill',`rgb(${c})`);path.setAttribute('stroke',`rgb(${c})`);path.setAttribute('stroke-width','.6');if(o<1)path.setAttribute('opacity',o);
     return path;
-  }));
+  });
+  g.replaceChildren(...paths(layers[0]));
+  if(ring)ring.g.replaceChildren(...paths(layers[1]));
 }
 function layoutRibbon(){
   const width=main.clientWidth,height=main.offsetHeight,mobile=width<=760,mainTop=main.getBoundingClientRect().top;
@@ -215,7 +229,7 @@ function layoutRibbon(){
   const startX=anchor.x+anchor.w/2,startY=anchor.y+anchor.h/2;
   const gradient=ribbon.querySelector('linearGradient');
   Object.entries({gradientUnits:'userSpaceOnUse',x1:photo.x,y1:photo.y,x2:photo.x+photo.w,y2:photo.y+photo.h}).forEach(([key,value])=>gradient.setAttribute(key,value));
-  let x=right,y=photo.y+photo.h+25;
+  let x=right,y=photo.y+photo.h+25,ring=null;
   // Leave the stick tip along the stick (up and to the right), then sweep to the right edge.
   let d=`M ${startX} ${startY} C ${startX+art.h*.05} ${startY-art.h*.14} ${right} ${startY-art.h*.1} ${right} ${art.y+art.h*.43} C ${right} ${art.y+art.h*.7} ${x} ${y-40} ${x} ${y}`;
   [...main.querySelectorAll(':scope > section')].slice(1).filter(el=>el.getClientRects().length>0&&!el.classList.contains('closing')).forEach((section,index)=>{
@@ -227,10 +241,28 @@ function layoutRibbon(){
     d+=` C ${x} ${y+45} ${x} ${approachY-35} ${x} ${approachY} C ${x} ${transitionY-15} ${entryX} ${transitionY-15} ${entryX} ${transitionY-15}`;
     d+=` C ${mid} ${transitionY-15} ${mid-spread} ${transitionY-loop} ${mid} ${transitionY-loop} C ${mid+spread} ${transitionY-loop} ${mid+spread} ${transitionY+loop} ${mid} ${transitionY+loop} C ${mid-spread} ${transitionY+loop} ${nextX} ${transitionY+20} ${nextX} ${transitionY+65}`;
     x=nextX;y=transitionY+65;
-    if(section.id==='about'&&!mobile){
-      const art=bounds(section.querySelector('.about-art'));
-      d+=` C ${x} ${art.y+50} ${art.x+art.w*.7} ${art.y+art.h*.2} ${art.x+art.w*.45} ${art.y+art.h*.55} C ${art.x+art.w*.15} ${art.y+art.h*.9} ${left} ${art.y+art.h-30} ${left} ${art.y+art.h}`;
-      x=left;y=art.y+art.h;
+    if(section.id==='about'){
+      // The ribbon coils around the ball like a hoop seen from above, tilted -17°: it comes down onto the ring's left end,
+      // makes 1¼ turns (the second turn lower and slightly right, far enough that the scroll reveal of one pass doesn't uncover the next) and leaves from the bottom, down and right.
+      // Points of the ring's near (lower) half in front of the ball are painted over it; the rest keeps the plain paint order.
+      const art=bounds(section.querySelector('.about-art')),R=Math.min(art.w,art.h)*(mobile?.2:.18),cx=art.x+art.w/2,cy=art.y+art.h/2;
+      const phi=-17*Math.PI/180,cs=Math.cos(phi),sn=Math.sin(phi),turns=1.25,N=120;
+      const at=(t,p)=>{const u=1.5*R*Math.cos(t)+R*(.1*p-.05),v=.6*R*Math.sin(t)+R*(.6*p-.3);return[cx+u*cs-v*sn,cy+u*sn+v*cs];};
+      const ball=ribbon.querySelector('.ball'),shade=ribbon.querySelector('.ball-shadow');
+      Object.entries({cx,cy,r:R}).forEach(([k,v])=>ball.setAttribute(k,v));
+      Object.entries({cx:cx+R*.12,cy:cy+R*1.45,rx:R*1.15,ry:R*.2}).forEach(([k,v])=>shade.setAttribute(k,v));
+      const p0=at(Math.PI,0),from=flatten(d+=` C ${x} ${(y+p0[1])/2} ${p0[0]+110*sn} ${p0[1]-110*cs} ${p0[0]} ${p0[1]}`).length;
+      let coil=`M ${p0[0]} ${p0[1]}`;
+      for(let k=1;k<=N;k++){const q=at(Math.PI-turns*2*Math.PI*k/N,k/N);coil+=` L ${q[0].toFixed(1)} ${q[1].toFixed(1)}`;}
+      d+=coil.slice(coil.indexOf(' L'));
+      const pe=at(Math.PI-turns*2*Math.PI,1),pp=at(Math.PI-turns*2*Math.PI*(N-1)/N,(N-1)/N),dl=Math.hypot(pe[0]-pp[0],pe[1]-pp[1]);
+      const endX=mobile?right:(art.x+art.w+bounds(section.querySelector('.about-copy')).x)/2,endY=art.y+art.h;
+      const to=flatten(d).length+(mobile?100:140);
+      d+=` C ${pe[0]+(pe[0]-pp[0])/dl*90} ${pe[1]+(pe[1]-pp[1])/dl*90} ${endX} ${endY-90} ${endX} ${endY}`;
+      ring={from:from-(mobile?100:140),to,g:ribbon.querySelector('.ribbon-front'),front:([px,py])=>(py-cy)*cs-(px-cx)*sn>0&&Math.abs((px-cx)*cs+(py-cy)*sn)<1.15*R};
+      ribbon.querySelector('.ring-shadow').setAttribute('d',coil);
+      ribbon.querySelector('.ring-shadow').setAttribute('transform',mobile?'translate(2 5)':'translate(3 7)');
+      x=endX;y=endY;
     }
   });
   // Finale: the ribbon sweeps down the right side of the dark closing section and slips behind the footer at the right edge
@@ -241,7 +273,7 @@ function layoutRibbon(){
   if(mobile)d+=` C ${right} ${finale.y+finale.h*.5} ${right} ${height-40} ${right} ${height+140}`;
   else d+=` C ${right} ${finale.y+finale.h*.3} ${finale.x+finale.w*.62} ${finale.y+finale.h*.4} ${finale.x+finale.w*.72} ${finale.y+finale.h*.62} C ${finale.x+finale.w*.8} ${finale.y+finale.h*.82} ${right} ${height-60} ${right} ${height+140}`;
   ribbon.setAttribute('viewBox',`0 0 ${width} ${height}`);ribbonLine.setAttribute('d',d);
-  const walk=flatten(d),length=walk.length,samples=[];drawSatin(length,mobile);
+  const walk=flatten(d),length=walk.length,samples=[];paintSatin(satin,d,mobile,true,ring);
   // Bound sampling work even as content makes the page longer.
   const sampleStep=Math.max(24,length/160);
   for(let distance=0;distance<=length;distance+=sampleStep)samples.push({distance,y:walk.at(distance)[1]});

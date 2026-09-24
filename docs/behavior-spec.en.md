@@ -33,12 +33,13 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 
 - One satin ribbon in SVG, behind the content. There are no other decorative lines on the page.
 - A script builds the ribbon along a centerline: up to 12 px wide on desktop and 8 px on mobile, narrowing almost to a thread where it twists. It twists every 320 px of path (220 px on mobile). The color shifts smoothly from magenta #E9008D to orange #FDA63D and back over 1,600 px (1,100 px on mobile). The back side is paler and matte, the edges darker, and the flat stretches get a highlight.
-- A mask does the drawing: a wide line along the same centerline whose visible length changes with scroll.
+- A mask does the drawing: a line wider than the ribbon (22 px, 16 px on mobile) along the same centerline whose visible length changes with scroll.
 - Route: starts as a big loop in the hero, crosses the page between sections, passes behind headlines and illustrations, and makes large loops at section transitions, like the curled E in the logo. It never crosses body text.
 - **Drawing on scroll.** The visible length follows the scroll position, with the tip staying about 70% down the viewport. Scrolling back up rewinds it.
 - Implementation: a CSS scroll-driven animation. Keyframes are recalculated only when the layout changes (ResizeObserver, font loading, window resize); there are no scroll handlers.
 - Unsupported browsers and reduced motion show the whole line, static.
 - On mobile, the line stays clear of text and crosses the page between sections.
+- In the "More than movement" section the left side holds only the ball (an orange sphere with a soft shadow on the background), with no backdrop and no flat hoop. After its loop the ribbon comes down to the ball, winds 1¼ turns around it like a hoop in perspective (an ellipse 1.5 ball radii wide, tilted −17°, the second turn lower than the first), and leaves down and to the right toward the next section. The far half of each turn passes behind the ball, the near half in front of it. On the ring the ribbon is flat and 30% wider, with one twist on the way in and one on the way out, and casts a light shadow. The ball is drawn in the same SVG as the ribbon; otherwise the ribbon couldn't pass both behind and in front of it. Mobile works the same way, with the ball centered above the copy and the ribbon leaving toward the right edge.
 - The ribbon starts at the tip of the gymnast's stick in the hero. At the end it sweeps down the right side of the dark "Let's light the spark" section and slips behind the top edge of the footer.
 - The script samples the path itself (`flatten()`); the browser's `getPointAtLength()` is too slow.
 - In Figma, draw the final state: the whole line.
