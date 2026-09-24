@@ -19,6 +19,8 @@ Design recommendation: **C** for launch, **B** in phase 2. For parents, C feels 
 
 **D3. Where submissions go.** Should trial and contact requests go only to the academy's email, or also to a Google Sheet or CRM so none get lost? Submissions include a child's name and age, so wherever they're stored has to meet the security requirements in the SOW.
 
+**D4. Enrollment targets for the site's metrics.** We need three numbers from the client: how many new students the academy needs per month (open spots per program), how many trial lessons happen per month today, and what share of trial families go on to register. The target metrics in the brief and PRD depend on these numbers, and they stay as placeholders until we have them.
+
 ## Audience and priorities
 
 1. Which group matters most for filling classes right now: parents of 3–5-year-olds (Recreational), parents of girls 6+ heading into competition (Competitive, including transfers from other clubs), or adults and athletes from other sports (Stretching)? Is there a group we've missed?
