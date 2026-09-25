@@ -370,47 +370,33 @@ if(registration){
   document.fonts.ready.then(layoutRegistration);
 }
 
-// Contact prototype: validate, then POST; never simulate successful delivery.
+// Contact prototype: validate, then confirm locally like the trial form (no request, so it works on static hosting).
+// Production posts to /api/contact and delivers to the address from client question 33.
 const contactForm=document.querySelector('#contact-form');
 if(contactForm){
   const fields=[...contactForm.querySelectorAll('input:not([type=hidden]),textarea')],status=contactForm.querySelector('#contact-status');
-  const requestError=contactForm.querySelector('#contact-request-error'),submit=contactForm.querySelector('button[type=submit]');
   function contactValid(field){
     const value=field.value.trim();
-    if(!value||value.length>field.maxLength)return false;
+    if(!value)return !field.required;
+    if(value.length>field.maxLength)return false;
     if(field.name==='email')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
     if(field.name==='phone')return /^[+\d\s().-]+$/.test(value)&&/^\d{10,15}$/.test(value.replace(/\D/g,''));
     return true;
   }
   function showContactError(field,invalid){
     field.setAttribute('aria-invalid',String(invalid));
-    document.getElementById(field.getAttribute('aria-describedby')).hidden=!invalid;
+    document.getElementById(field.id+'-error').hidden=!invalid;
   }
   fields.forEach(field=>field.addEventListener('input',()=>{
     status.hidden=true;
     if(field.getAttribute('aria-invalid')==='true')showContactError(field,!contactValid(field));
   }));
-  contactForm.addEventListener('submit',async event=>{
-    event.preventDefault();status.hidden=true;requestError.hidden=true;
-    if(submit.disabled)return;
+  contactForm.addEventListener('submit',event=>{
+    event.preventDefault();status.hidden=true;
     fields.forEach(field=>showContactError(field,!contactValid(field)));
     const invalid=fields.find(field=>!contactValid(field));
     if(invalid){invalid.focus();return;}
-    submit.disabled=true;contactForm.setAttribute('aria-busy','true');
-    try{
-      const response=await fetch(contactForm.action,{method:'POST',headers:{Accept:'application/json'},body:new URLSearchParams(new FormData(contactForm))});
-      if(!response.ok)throw new Error();
-      const result=await response.json();
-      if(!Array.isArray(result.errors)||result.prototype!==true)throw new Error();
-      fields.forEach(field=>showContactError(field,result.errors.includes(field.name)));
-      const rejected=fields.find(field=>result.errors.includes(field.name));
-      if(rejected){rejected.focus();return;}
-      status.hidden=false;status.focus();
-    }catch{
-      requestError.hidden=false;requestError.focus();
-    }finally{
-      submit.disabled=false;contactForm.removeAttribute('aria-busy');
-    }
+    contactForm.reset();status.hidden=false;status.focus();
   });
 }
 

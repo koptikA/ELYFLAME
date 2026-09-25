@@ -11,7 +11,8 @@ class ContactTests(unittest.TestCase):
 
     def test_field_validation(self):
         self.assertEqual(contact_errors(self.valid), set())
-        self.assertEqual(contact_errors({}), {'name', 'email', 'phone', 'message'})
+        self.assertEqual(contact_errors({}), {'name', 'email', 'message'})
+        self.assertEqual(contact_errors(dict(self.valid, phone='')), set())
         invalid = dict(self.valid, email='parent@', phone='abc1234567890', message='   ')
         self.assertEqual(contact_errors(invalid), {'email', 'phone', 'message'})
 
@@ -32,11 +33,11 @@ class ContactTests(unittest.TestCase):
         self.assertIn('&lt;/textarea&gt;&lt;script&gt;', result)
         self.assertIn('value="&quot; onfocus=&quot;alert(1)"', result)
 
-    def test_success_is_explicitly_a_prototype_check(self):
+    def test_success_shows_the_confirmation(self):
         source = Path(ROOT, 'contact/index.html').read_text(encoding='utf-8')
         result = contact_response(source, self.valid)
         self.assertIn('id="contact-status" role="status" tabindex="-1">', result)
-        self.assertIn('Nothing was sent.', result)
+        self.assertIn('Your message is in!', result)
 
 
 if __name__ == '__main__':

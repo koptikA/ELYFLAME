@@ -8,7 +8,6 @@ import http.server
 import os
 import html
 import re
-import json
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
@@ -18,13 +17,14 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def contact_errors(values):
     """The local prototype validates only: no storage or message delivery."""
     limits = {'name': 100, 'email': 254, 'phone': 40, 'message': 5000}
+    # Phone is optional; the rest are required.
     errors = {key for key, limit in limits.items()
-              if not values.get(key, '').strip() or len(values.get(key, '').strip()) > limit}
+              if len(values.get(key, '').strip()) > limit or (key != 'phone' and not values.get(key, '').strip())}
     email = values.get('email', '').strip()
     phone = values.get('phone', '').strip()
     if not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', email):
         errors.add('email')
-    if not re.fullmatch(r'[+\d\s().-]+', phone) or not 10 <= len(re.sub(r'\D', '', phone)) <= 15:
+    if phone and (not re.fullmatch(r'[+\d\s().-]+', phone) or not 10 <= len(re.sub(r'\D', '', phone)) <= 15):
         errors.add('phone')
     return errors
 
@@ -69,16 +69,11 @@ class NoCache(http.server.SimpleHTTPRequestHandler):
         values = {key: fields.get(key, [''])[0] for key in ('name', 'email', 'phone', 'message')}
         language = fields.get('language', ['en'])[0]
         page_path = f'/{language}/contact/' if language in ('ru', 'uk') else '/contact/'
-        if 'application/json' in self.headers.get('Accept', ''):
-            body = json.dumps({'errors': sorted(contact_errors(values)), 'prototype': True}).encode('utf-8')
-            content_type = 'application/json; charset=utf-8'
-        else:
-            source = Path(ROOT, page_path.lstrip('/'), 'index.html').read_text(encoding='utf-8')
-            source = source.replace('<head>', f'<head>\n  <base href="{page_path}">', 1)
-            body = contact_response(source, values).encode('utf-8')
-            content_type = 'text/html; charset=utf-8'
+        source = Path(ROOT, page_path.lstrip('/'), 'index.html').read_text(encoding='utf-8')
+        source = source.replace('<head>', f'<head>\n  <base href="{page_path}">', 1)
+        body = contact_response(source, values).encode('utf-8')
         self.send_response(200)
-        self.send_header('Content-Type', content_type)
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.write(body)
