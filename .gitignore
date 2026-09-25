@@ -2,3 +2,11 @@ outputs/wiki/
 # Original photos of children keep EXIF and GPS; only processed copies in assets/photos/ are committed (docs/photos.md).
 assets/photos/originals/
 assets/video/source/
+
+# Local tooling, caches, and secrets.
+.agents/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example

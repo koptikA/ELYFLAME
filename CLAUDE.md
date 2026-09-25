@@ -42,4 +42,4 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 ## Working together
 
 - Two agents edit this repo: Claude Code and GPT6 Astra. One agent edits the prototype files at a time; commit before handing over.
-- Git is local only; there is no remote.
+- GitHub remote: `https://github.com/koptikA/ELYFLAME.git`.
