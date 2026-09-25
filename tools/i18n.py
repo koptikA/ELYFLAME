@@ -149,7 +149,6 @@ HTML = [
     ('<p>A new activity comes with questions.<br>Here’s a little clarity before you visit.</p>',
      '<p>У~нового занятия всегда есть вопросы.<br>Вот ответы до~первого визита.</p>',
      '<p>Нове заняття~— нові питання.<br>Ось відповіді до~першого візиту.</p>'),
-    ('Ask us anything <span', 'Задать вопрос <span', 'Поставити питання <span'),
     ('<summary>Does my child need experience?</summary>', '<summary>Нужен~ли ребёнку опыт?</summary>', '<summary>Чи потрібен дитині досвід?</summary>'),
     ('<p>No experience is needed to explore the recreational program. At the trial, the coach assesses age, skills, abilities, and strength to recommend a starting point.</p>',
      '<p>Для любительской программы опыт не~нужен. На~пробном занятии тренер оценит возраст, навыки, способности и~силу и~подскажет, с~чего начать.</p>',
@@ -337,7 +336,6 @@ KEEP = ['Adobe', 'PDF', 'Google Maps', 'ElyFlame Academy', 'ElyFlame', 'ELYFLAME
         'Kirakito Technologies', 'academy@elyflame.com', 'name@example.com', 'Stripe Checkout', 'SMS',
         'English', 'Stretching & Flexibility']
 
-
 # Shared page copy; rows are checked across all English sources in PAGES.
 ABOUT_HTML = [('About ElyFlame — Rhythmic Gymnastics Academy',
   'Об~ElyFlame — академия художественной гимнастики',
@@ -465,21 +463,9 @@ STRETCHING_HTML = [('Stretching & Flexibility — ElyFlame Academy',
  ('<h1>Make room<br>for movement.</h1>',
   '<h1>Больше места<br>для движения.</h1>',
   '<h1>Більше місця<br>для руху.</h1>'),
- ('>One class each week<', '>Одно занятие в~неделю<', '>Одне заняття на~тиждень<'),
- ('Explore the class <span', 'Узнать о~занятии <span', 'Дізнатися про заняття <span'),
  ('Explore Stretching <span', 'Подробнее о~растяжке <span', 'Докладніше про розтяжку <span'),
  ('>Who it’s for<', '>Для кого<', '>Для кого<'),
- ('<h2>Beyond<br>one sport.</h2>', '<h2>Не~только<br>гимнастика.</h2>', '<h2>Не~лише<br>гімнастика.</h2>'),
  ('>Teens &amp; adults<', '>Подростки и~взрослые<', '>Підлітки й~дорослі<'),
- ('A weekly class with a focus on stretching and flexibility.',
-  'Еженедельное занятие по~растяжке и~развитию гибкости.',
-  'Щотижневе заняття з~розтяжки та~розвитку гнучкості.'),
- ('>Dancers, skaters &amp; other athletes<',
-  '>Танцоры, фигуристы и~другие спортсмены<',
-  '>Танцівники, фігуристи й~інші спортсмени<'),
- ('A place to work on flexibility alongside your usual sport or movement practice.',
-  'Работа над гибкостью в~дополнение к~занятиям своим видом спорта.',
-  'Робота над гнучкістю на~додачу до~занять своїм видом спорту.'),
  ('>The class<', '>О~занятии<', '>Про заняття<'),
  ('<h2>Time to<br>stretch.</h2>', '<h2>Время<br>для растяжки.</h2>', '<h2>Час<br>для розтяжки.</h2>'),
  ('Stretching is a way to work on flexibility and explore your range of movement.',
@@ -499,7 +485,6 @@ STRETCHING_HTML = [('Stretching & Flexibility — ElyFlame Academy',
  ('[Class structure, exercises and coaching approach.]',
   '[Структура занятия, упражнения и~подход тренера.]',
   '[Структура заняття, вправи та~підхід тренера.]'),
- ('Ask about the class <span', 'Спросить о~занятии <span', 'Запитати про заняття <span'),
  ('>Start with a conversation<', '>Начните со~знакомства<', '>Почніть зі~знайомства<'),
  ('<h2>Find your<br>way in.</h2>', '<h2>Найдите<br>свой старт.</h2>', '<h2>Знайдіть<br>свій старт.</h2>'),
  ('Ask the academy about joining the weekly class, or choose Stretching &amp; Flexibility when booking a trial.',
@@ -516,37 +501,12 @@ CONTACT_HTML = [('Contact ElyFlame — Visit Us in Buffalo Grove',
   'Контакти ElyFlame Academy в~Баффало-Гров: телефон, пошта, години дзвінків і~вхід №~11 за~адресою 1250 '
   'Radcliffe Road.'),
  ('>Contact ElyFlame<', '>Контакты ElyFlame<', '>Контакти ElyFlame<'),
- ('<h1>See you in<br>Buffalo Grove.</h1>',
-  '<h1>До~встречи<br>в~Баффало-Гров.</h1>',
-  '<h1>До~зустрічі<br>в~Баффало-Гров.</h1>'),
  ('Questions before your child’s first visit? Call or write to the academy.',
   'Есть вопросы перед первым визитом ребёнка? Позвоните или напишите в~академию.',
   'Є~запитання перед першим візитом дитини? Зателефонуйте або напишіть до~академії.'),
- ('Call the academy <span', 'Позвонить в~академию <span', 'Зателефонувати до~академії <span'),
- ('Email the academy <span', 'Написать в~академию <span', 'Написати до~академії <span'),
- ('>Meet us at<', '>Ждём вас у~входа<', '>Чекаємо на~вас біля входу<'),
- ('>Door<', '>Дверь №<', '>Двері №<'),
- ('Entrance · parking<br>Drop-off · pick-up',
-  'Вход · парковка<br>Высадка · встреча детей',
-  'Вхід · паркування<br>Висадка · зустріч дітей'),
  ('>Plan your visit<', '>Перед визитом<', '>Перед візитом<'),
  ('Plan your visit <span', 'Как нас найти <span', 'Як нас знайти <span'),
  ('<h2>Your way<br>to the academy.</h2>', '<h2>Как найти<br>академию.</h2>', '<h2>Як знайти<br>академію.</h2>'),
- ('Use door #11 for entrance, parking, drop-off and pick-up.',
-  'Вход, парковка, высадка и~встреча детей~— у~двери №~11.',
-  'Вхід, паркування, висадка та~зустріч дітей~— біля дверей №~11.'),
- ('Directions open in Google Maps.', 'Маршрут откроется в~Google Maps.', 'Маршрут відкриється в~Google Maps.'),
- ('>A time to talk<', '>Время для разговора<', '>Час для розмови<'),
- ('>Call us.<', '>Звоните.<', '>Телефонуйте.<'),
- ('These are phone hours. Ask the academy about class times.',
-  'Это часы приёма звонков. Время занятий уточняйте в~академии.',
-  'Це години прийому дзвінків. Час занять уточнюйте в~академії.'),
- ('>Monday–Friday<', '>Понедельник–пятница<', '>Понеділок–п’ятниця<'),
- ('>9 am–10 pm<', '>9:00–22:00<', '>9:00–22:00<'),
- ('>Saturday<', '>Суббота<', '>Субота<'),
- ('>9 am–5 pm<', '>9:00–17:00<', '>9:00–17:00<'),
- ('>Sunday<', '>Воскресенье<', '>Неділя<'),
- ('>Closed<', '>Выходной<', '>Вихідний<'),
  ('<h2>Meet the coach.<br>Try the sport.</h2>',
   '<h2>Познакомьтесь<br>с~тренером.</h2>',
   '<h2>Познайомтеся<br>з~тренером.</h2>'),
@@ -647,9 +607,6 @@ PARENTS_HTML = [("Parents' Info — ElyFlame Academy", 'Родителям — E
  ('[Private lesson availability, format and booking arrangements.]',
   '[Доступность, формат и~порядок записи на~индивидуальные занятия.]',
   '[Доступність, формат і~порядок запису на~індивідуальні заняття.]'),
- ('Ask about private lessons <span',
-  'Спросить об~индивидуальных занятиях <span',
-  'Запитати про індивідуальні заняття <span'),
  ('>A first step together<', '>Первый шаг вместе<', '>Перший крок разом<'),
  ('<h2>Let’s meet<br>your child.</h2>',
   '<h2>Приходите<br>знакомиться.</h2>',
@@ -663,12 +620,65 @@ PARENTS_HTML = [("Parents' Info — ElyFlame Academy", 'Родителям — E
   'Після пробного головний тренер надішле посилання на~реєстрацію в~Adobe. Дитина почне займатися після '
   'заповнення форми й~першого платежу.')]
 
+STRETCHING_HTML += [('Beyond one sport.', 'За~пределами одного спорта.', 'За~межами одного спорту.'),
+ ('>Dancers<', '>Танцоры<', '>Танцівники<'),
+ ('>Figure skaters<', '>Фигуристы<', '>Фігуристи<'),
+ ('>Martial artists<', '>Единоборцы<', '>Представники єдиноборств<'),
+ ('>Runners<', '>Бегуны<', '>Бігуни<'),
+ ('>Benefits<', '>Польза<', '>Користь<'),
+ ('What stretching<br>can offer.', 'Что даёт<br>растяжка.', 'Що дає<br>розтяжка.'),
+ ('[First benefit, to be confirmed by the academy.]',
+  '[Первый результат занятий: уточнить у~академии.]',
+  '[Перший результат занять: уточнити в~академії.]'),
+ ('[Second benefit, to be confirmed by the academy.]',
+  '[Второй результат занятий: уточнить у~академии.]',
+  '[Другий результат занять: уточнити в~академії.]'),
+ ('[Third benefit, to be confirmed by the academy.]',
+  '[Третий результат занятий: уточнить у~академии.]',
+  '[Третій результат занять: уточнити в~академії.]')]
+
+CONTACT_HTML += [('Let’s talk.', 'На~связи.', 'На~зв’язку.'),
+ ('>Call hours<', '>Когда звонить<', '>Коли телефонувати<'),
+ ('Mon–Fri 9 am–10 pm<br>Sat 9 am–5 pm<br>Sun closed',
+  'Пн–пт 9:00–22:00<br>Сб 9:00–17:00<br>Вс~— выходной',
+  'Пн–пт 9:00–22:00<br>Сб 9:00–17:00<br>Нд~— вихідний'),
+ ('Write to us.', 'Напишите нам.', 'Напишіть нам.'),
+ ('Prototype: this form checks your message but does not send it. Please call or email the academy.',
+  'Прототип: форма проверяет сообщение, но~не~отправляет его. Позвоните или напишите на~почту академии.',
+  'Прототип: форма перевіряє повідомлення, але~не~надсилає його. Зателефонуйте або напишіть на~пошту '
+  'академії.'),
+ ('>Your name<', '>Ваше имя<', '>Ваше ім’я<'),
+ ('>Message<', '>Сообщение<', '>Повідомлення<'),
+ ('Enter your name.', 'Введите ваше имя.', 'Введіть ваше ім’я.'),
+ ('Enter a phone number with 10 to 15 digits.',
+  'Введите номер телефона: от~10 до~15 цифр.',
+  'Введіть номер телефону: від~10 до~15 цифр.'),
+ ('Enter your message.', 'Введите сообщение.', 'Введіть повідомлення.'),
+ ('Send message', 'Отправить сообщение', 'Надіслати повідомлення'),
+ ('Your message passed the prototype check. Nothing was sent. Please call or email the academy.',
+  'Сообщение прошло проверку в~прототипе, но~не~было отправлено. Позвоните или напишите на~почту академии.',
+  'Повідомлення пройшло перевірку в~прототипі, але~не~було надіслане. Зателефонуйте або напишіть на~пошту '
+  'академії.'),
+ ('Google Maps: ElyFlame Academy in Buffalo Grove',
+  'Google Maps: академия ElyFlame в~Буффало-Гроув',
+  'Google Maps: академія ElyFlame у~Буффало-Гроув'),
+ ('Door #11: entrance, parking, drop-off and pick-up',
+  'Дверь №11: вход, парковка, высадка и~встреча детей',
+  'Двері №11: вхід, паркування, висадка й~зустріч дітей'),
+ ('Ask about the class', 'Спросить о~занятиях', 'Запитати про заняття'),
+ ('Call the academy', 'Позвонить в~академию', 'Зателефонувати в~академію'),
+ ('Email the academy', 'Написать в~академию', 'Написати в~академію'),
+ ('>Email<', '>Электронная почта<', '>Електронна пошта<'),
+ ('>Phone<', '>Телефон<', '>Телефон<'),
+ ('Enter a valid email address.', 'Введите корректный адрес почты.', 'Введіть коректну адресу пошти.'),
+ ('Ask about private lessons', 'Спросить о~частных занятиях', 'Запитати про приватні заняття'),
+ ('Ask us anything', 'Задать вопрос', 'Поставити запитання')]
+
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
 GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
          '<path d="M1.5 8h13M8 1.5c2 2.2 2 10.8 0 13M8 1.5c-2 2.2-2 10.8 0 13"/></svg>')
 CHEVRON = '<svg class="lang-chevron" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m4 6 4 4 4-4"/></svg>'
-
 
 def relative_url(target, page):
     """A site-root path to a page-relative URL, preserving trailing slashes and anchors."""
@@ -681,13 +691,11 @@ def relative_url(target, page):
         path = './' if path == '.' else path + '/'
     return urlunsplit(('', '', path, parsed.query, parsed.fragment))
 
-
 def links(lang, text, page=''):
     current = ('' if lang == 'en' else lang + '/') + page
     return [f'<a href="{relative_url(("" if code == "en" else code + "/") + page, current)}" hreflang="{code}" lang="{code}"'
             + (' aria-current="page"' if code == lang else '') + f'>{text(name, label)}</a>'
             for code, name, label in LANGUAGES]
-
 
 def lang_menu(lang, page=''):
     code = {c: label for c, _, label in LANGUAGES}[lang]
@@ -695,11 +703,9 @@ def lang_menu(lang, page=''):
     return (f'<details class="lang-menu" translate="no"><summary aria-label="{LANGUAGE[lang]}: {code}">{GLOBE}{code}{CHEVRON}'
             f'</summary><ul>{items}</ul></details>')
 
-
 def lang_pills(lang, page=''):
     return (f'<div class="lang-pills" role="group" aria-label="{LANGUAGE[lang]}" translate="no">'
             + ''.join(links(lang, lambda name, label: label, page)) + '</div>')
-
 
 def root_urls(html, page):
     """Normalize source-local references before translation and shared-shell checks."""
@@ -716,7 +722,6 @@ def root_urls(html, page):
         return f'{attr}="{value}"'
     return re.sub(r'(href|src|poster|action)="([^"]*)"', rewrite, html)
 
-
 def page_urls(html, lang, page):
     current = lang + '/' + page
     def rewrite(match):
@@ -729,19 +734,17 @@ def page_urls(html, lang, page):
         # Shared assets live at the site root; shared translated JS lives at the locale root.
         if parsed.path.startswith('assets/') or parsed.path in ('site.css', 'hero-reveal.js'):
             target = value
-        elif attr == 'action' or parsed.path.startswith('/'):
+        elif parsed.path.startswith('/'):
             return match[0]
         else:
             target = lang + '/' + value
         return f'{attr}="{relative_url(target, current)}"'
     return re.sub(r'(href|src|poster|action)="([^"]*)"', rewrite, html)
 
-
 def source_page(html, page):
     for fn, token in ((lang_menu, 'LANG_MENU'), (lang_pills, 'LANG_PILLS')):
         html = replace_once(html, fn('en', page), token)
     return root_urls(html, page)
-
 
 def check_shared(sources):
     """Relative URLs and the current-page marker may differ; all other shell markup must match."""
@@ -755,7 +758,6 @@ def check_shared(sources):
             elif block != reference:
                 raise ValueError(f'{page}index.html: shared {tag} differs from index.html')
 
-
 def swap(text, rows, col, nbsp, where):
     for row in sorted(rows, key=lambda r: -len(r[0])):
         if row[0] not in text:
@@ -763,11 +765,9 @@ def swap(text, rows, col, nbsp, where):
         text = text.replace(row[0], row[col].replace('~', nbsp))
     return text
 
-
 def replace_once(text, old, new):
     assert text.count(old) == 1, old
     return text.replace(old, new)
-
 
 class Leftovers(HTMLParser):
     """Collects visible text and text attributes that still contain English words."""
@@ -799,7 +799,6 @@ class Leftovers(HTMLParser):
         if not self.skip and data.strip():
             self.check(data)
 
-
 def js_leftovers(js):
     found = []
     for a, b in re.findall(r"'([^'\\\n]*)'|\"([^\"\\\n]*)\"", js):
@@ -809,7 +808,6 @@ def js_leftovers(js):
         if ' ' in s and re.search(r'[A-Za-z]{3,} [A-Za-z]{2,}', s) and not re.search(r'[<>{}=#]', s):
             found.append(a or b)
     return found
-
 
 def main():
     def read(name):
@@ -859,7 +857,6 @@ def main():
         with io.open(destination, 'w', encoding='utf-8', newline='') as out:
             out.write(text)
     print(f'{len(PAGES)} pages in ru/ and uk/ are up to date; shared header/footer checked.')
-
 
 if __name__ == '__main__':
     main()

@@ -343,6 +343,34 @@ if(teamBlock&&coaches.length){
 // About: the ribbon girl's satin ribbon trails from her stick tip (path in data-d, drawn in a scale(4) group).
 document.querySelectorAll('.apparatus-satin').forEach(g=>paintSatin(g,g.dataset.d,false,false));
 
+// Contact prototype: validate locally; never simulate successful delivery.
+const contactForm=document.querySelector('#contact-form');
+if(contactForm){
+  const fields=[...contactForm.querySelectorAll('input,textarea')],status=contactForm.querySelector('#contact-status');
+  function contactValid(field){
+    const value=field.value.trim();
+    if(!value||value.length>field.maxLength)return false;
+    if(field.name==='email')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    if(field.name==='phone')return /^[+\d\s().-]+$/.test(value)&&/^\d{10,15}$/.test(value.replace(/\D/g,''));
+    return true;
+  }
+  function showContactError(field,invalid){
+    field.setAttribute('aria-invalid',String(invalid));
+    document.getElementById(field.getAttribute('aria-describedby')).hidden=!invalid;
+  }
+  fields.forEach(field=>field.addEventListener('input',()=>{
+    status.hidden=true;
+    if(field.getAttribute('aria-invalid')==='true')showContactError(field,!contactValid(field));
+  }));
+  contactForm.addEventListener('submit',event=>{
+    event.preventDefault();status.hidden=true;
+    fields.forEach(field=>showContactError(field,!contactValid(field)));
+    const invalid=fields.find(field=>!contactValid(field));
+    if(invalid){invalid.focus();return;}
+    status.hidden=false;status.focus();
+  });
+}
+
 // Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).
 // The satin ribbon is strung between the sticks of the two end girls and waves over the others' heads.
 // A named view timeline on .footer-team makes the girls rise in one by one and draws the ribbon from right to left.

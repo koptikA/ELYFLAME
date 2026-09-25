@@ -69,6 +69,16 @@ class PageBuildTests(unittest.TestCase):
                     self.build()
                 self.change_about(after, before)
 
+    def test_contact_post_stays_on_current_locale_and_api_actions_stay_absolute(self):
+        self.build()
+        for lang in i18n.LANGS:
+            html = (self.root / lang / 'contact/index.html').read_text(encoding='utf-8')
+            action = re.search(r'<form id="contact-form"[^>]*action="([^"]+)"', html)[1]
+            base = f'{i18n.SITE}{lang}/contact/'
+            self.assertEqual(urljoin(base, action), base + '#contact-form')
+            self.assertEqual(i18n.page_urls('<form action="/api/trial">', lang, 'contact/'),
+                             '<form action="/api/trial">')
+
     def test_untranslated_copy_does_not_overwrite_generated_pages(self):
         self.build()
         target = self.root / 'ru/about/index.html'

@@ -122,6 +122,9 @@ The process and the rules are in `docs/photos.en.md`.
 31. How should an adult book a Stretching trial: participant fields instead of child/parent fields, or direct booking with Administration? The shared form currently assumes a parent and child.
    **Answer:** Open.
 
+32. Which three main benefits of Stretching may we publish? Please provide approved wording for dancers, figure skaters, martial artists, runners and adults, without medical promises.
+   **Answer:** Open.
+
 ## Recommendation
 
 **The current site at elyflame.com.** The domain runs a WordPress site with a single "Hello world!" post. On the post page (https://elyflame.com/?p=1), the owner's personal email is visible in the author byline and in the author page URL. If that isn't intentional, the post can be deleted or switched to a draft. The issue goes away once the new site replaces WordPress.
