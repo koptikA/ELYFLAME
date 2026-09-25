@@ -538,6 +538,9 @@ body.info-page h1{font-size:clamp(48px,6.4vw,92px);line-height:1.1;letter-spacin
 .stretch-silhouette{fill:var(--ink)}
 .audience-section{border-top:1px solid var(--line)}
 .audience-list{list-style:none;margin:40px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:16px 40px;max-width:1000px}
+.audience-note{margin-top:24px;max-width:550px}
+.info-page .text-link,.about-page .text-link{gap:8px}
+.info-page main .button{gap:12px}
 .audience-list li{font-family:var(--display);font-size:clamp(24px,2.4vw,34px)}
 .benefits-section{background:var(--cream)}
 .benefit-list{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;max-width:1100px}

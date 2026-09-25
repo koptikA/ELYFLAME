@@ -674,6 +674,10 @@ CONTACT_HTML += [('Let’s talk.', 'На~связи.', 'На~зв’язку.'),
  ('Ask about private lessons', 'Спросить о~частных занятиях', 'Запитати про приватні заняття'),
  ('Ask us anything', 'Задать вопрос', 'Поставити запитання')]
 
+STRETCHING_HTML += [('One weekly class, open to other sports and adults.',
+  'Одно занятие в~неделю для взрослых и~спортсменов из~других видов спорта.',
+  'Одне заняття на~тиждень для дорослих і~спортсменів з~інших видів спорту.')]
+
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
 GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
