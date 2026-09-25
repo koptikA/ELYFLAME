@@ -278,11 +278,14 @@ h2 em,.stage h2 em{color:inherit}
 .footer-contact a{display:block;margin-bottom:8px}
 
 /* Languages. Cinzel has no Cyrillic, so the Russian and Ukrainian pages set display type in Spectral SC, which also
-   turns lowercase into small caps; the ELYFLAME lockup stays in Cinzel. Spectral SC runs wider, so the hero line is
-   smaller there and "встречает огонь." clears the gymnast. */
+   turns lowercase into small caps; the ELYFLAME lockup stays in Cinzel. Spectral SC runs wider, so the hero line grows
+   with the room left of the gymnast: "зустрічає вогонь.", the longest, stops ~20 px short of her hand from 1000 px up.
+   On desktop the title block keeps the English headline's height (2 lines × 1.08) and centres the shorter line in it,
+   so the button and the scroll cue sit where they do in English, below the gymnast's feet. */
 html:lang(ru),html:lang(uk){--display:"Spectral SC",Georgia,serif}
 html:is(:lang(ru),:lang(uk)) :is(h1,h2){letter-spacing:-.01em}
-html:is(:lang(ru),:lang(uk)) h1{font-size:clamp(46px,6vw,92px)}
+html:is(:lang(ru),:lang(uk)) h1{font-size:clamp(46px,calc(7.1vw - 18px),120px)}
+@media(min-width:761px){html:is(:lang(ru),:lang(uk)) .hero-title{min-height:calc(2.16*clamp(65px,8.7vw,132px));display:flex;flex-direction:column;justify-content:center}}
 /* Long Cyrillic words ("возможностей.", "починається") need smaller display sizes on phones; the lockup descriptor runs
    longer than the English one, so it gets tighter tracking. */
 html:is(:lang(ru),:lang(uk)) .brand small{letter-spacing:.1em}
