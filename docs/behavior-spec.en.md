@@ -14,7 +14,7 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 - Mobile layout applies up to 760 px, as in the prototype.
 - Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`). The switcher is described in section 2. Each version has `hreflang` for all three and its own `canonical` `[confirm: who proofreads the translations]`.
 - `tools/i18n.py` builds the Russian and Ukrainian pages from the English one, using the string tables in the script; don't edit `ru/` or `uk/` by hand. Program names stay English in the form's option values; only the visible text is translated.
-- Cyrillic headings are set in Spectral SC: Cinzel has no Cyrillic, and Spectral SC also sets lowercase as small caps. It runs wider, so in Russian and Ukrainian the hero headline grows only as far as the room left of the gymnast allows (about 117 px at 1900 px, against 132 px in English) and stops short of her hand; on desktop the headline block keeps the English height, so the button and the scroll cue sit in the same place in all three languages, below the gymnast's feet; and long section headings are smaller on phones. The ELYFLAME logo stays in Cinzel everywhere; the line under it is translated.
+- Cyrillic headings are set in Spectral SC: Cinzel has no Cyrillic, and Spectral SC also sets lowercase as small caps. It runs wider, so in Russian and Ukrainian the hero headline grows only as far as the room left of the gymnast allows (about 117 px at 1900 px, against 132 px in English) and stops short of her hand. There the star closes the first line ("Где грация ✳") and the second line starts at the left edge, so the accent word keeps its distance from the gymnast; on desktop the headline block keeps the English height, so the button and the scroll cue sit in the same place in all three languages, below the gymnast's feet; and long section headings are smaller on phones. The ELYFLAME logo stays in Cinzel everywhere; the line under it is translated.
 - In running text and headings the town is written in Cyrillic, «Баффало-Гров»; the postal address stays in Latin so parents can type it into a map. Proper names stay in Latin too: ElyFlame Academy, USA Gymnastics, Silk Road International School.
 - Display headings (h1, h2, the class finder result title) end with a period in all three languages, a brand device, as in "Where grace meets fire.". Buttons, field labels, and hints follow the norms of their own language.
 - Browser translation: the switcher, the logo, and the addresses carry `translate="no"`. So does the hero headline while its letters animate; then the attribute comes off and the translator sees plain text, not single letters.
@@ -52,6 +52,13 @@ The fixed bottom bar is gone; the header button replaces it.
 - In the "More than movement" section the left side holds only the ball (an orange sphere with a soft shadow on the background), with no backdrop and no flat hoop. After its loop the ribbon comes down to the ball, winds 1¼ turns around it like a hoop in perspective (an ellipse 1.5 ball radii wide, tilted −17°, the second turn lower than the first), and leaves down and to the right toward the next section. The far half of each turn passes behind the ball, the near half in front of it. On the ring the ribbon is flat and 30% wider, with one twist on the way in and one on the way out, and casts a light shadow. The ball is drawn in the same SVG as the ribbon; otherwise the ribbon couldn't pass both behind and in front of it. Mobile works the same way, with the ball centered above the copy and the ribbon leaving toward the right edge.
 - The ribbon starts at the tip of the gymnast's stick in the hero. At the end it sweeps down the right side of the dark "Let's light the spark" section and slips behind the top edge of the footer.
 - The script samples the path itself (`flatten()`); the browser's `getPointAtLength()` is too slow.
+- **When content changes.** The route is rebuilt from the sections on the page whenever the layout changes, so longer copy, more FAQ items, a new section, or a hidden block move the ribbon with them. Each section in `<main>` gets a loop in its top padding; between loops the ribbon runs along the page edge (3.5% of the width from the edge on desktop, 2.5% on phones), outside the content column. Photos and video sit above the ribbon, so where it passes behind them it's hidden.
+- **Rules for the WordPress build**, where the client edits content:
+  1. Every block is a `main > section` with the standard section padding, and nothing goes in its top band: that's where the loop lives.
+  2. Content stays inside the section's side padding. Full-bleed media only as a section background; the ribbon then passes behind it.
+  3. The client edits content inside blocks. The blocks the route keys on (the hero with the gymnast, "More than movement" with the ball, the closing section) are fixed templates marked with data attributes, not ids the editor can change. If one of them is missing, the script skips that part of the route instead of throwing (the prototype still throws).
+  4. Images and video have `width`/`height` or `aspect-ratio`, so the page doesn't jump after they load.
+  5. Before launch and after big content changes, check the ribbon at 390 and 1440 px in all three languages with reduced motion on: the whole line is visible then.
 - In Figma, draw the final state: the whole line.
 
 ## 4. Champion's Path (Class Finder)
@@ -167,21 +174,29 @@ The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`
 - Once per load, after fonts are ready: the headline rises letter by letter (Serega Gentle), the gymnast's free leg rises from the hip (1.6 s), "fire." lands with a spring accent (Serega Emotional) as the leg nears the top, then the paragraph, button, and caption rise in.
 - With reduced motion, everything is in place at once. If the script fails to load, the text appears after 4 s and the leg rises after 2.5 s.
 
-## 7. Coaches and Safety
+## 7. Gallery and Video
 
-A section after "More than movement". Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. Until bios arrive, the section shows placeholders (the client's request, Sep 25); `data-requires-content` marks it for a check before launch.
+Two blocks after "More than movement". Both carry `data-requires-content` until the client's photos and video arrive (questions 19 and 22).
 
-## 7.1 Finale
+**Gallery.** Eyebrow "Inside the academy", the heading "Practice, play, *perform.*", and a "Follow us on Instagram ↗" link. Six photo slots (the SOW asks for 6–9 tiles): three columns on desktop, a sideways-scrolling row on phones, where a tile is 78% of the width, so the next one peeks in, and the row snaps to tiles. Every photo is cropped square (`object-fit: cover`), so the client can upload any photo in WordPress. Until photos arrive, the slots are gray. Alt text describes the scene and never names a child.
+
+**Video.** A dark band: eyebrow "On the carpet", the heading "See grace *in motion.*", and a 16:9 poster with a magenta play button. The video plays with sound and controls when tapped: no autoplay, `preload="none"`, the poster shows first. Captions if there's speech. Until the video arrives, the poster area is a dark placeholder.
+
+## 8. Coaches and Safety
+
+A section after the video. Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. Until bios arrive, the section shows placeholders (the client's request, Sep 25); `data-requires-content` marks it for a check before launch.
+
+## 8.1 Finale
 
 The "Let's light the spark" section and the footer form one dark stage with a glow. The section holds a line about booking, the Book a Trial button, and an email link. With JS running, the separate light booking section `#trial` is hidden and booking happens in the dialog; without JS it stays as the fallback form.
 
-At the bottom of the footer stands the "team": a row of light silhouettes of girls with a ball, hoop, clubs, and rope (12 on desktop, 6 on mobile; sprite `assets/gymnast/team.svg`, an illustration, not photos). The satin ribbon is strung like a garland between the sticks of the two end girls. As the footer scrolls in, the girls rise in one by one and the ribbon draws from right to left.
+At the bottom of the footer stands the "team": a row of light silhouettes of girls with a ball, hoop, clubs, and rope (12 on desktop, 6 on mobile; sprite `assets/gymnast/team.svg`, an illustration, not photos). The satin ribbon is strung like a garland between the sticks of the two end girls. As the footer scrolls in, the girls rise in one by one and the ribbon draws from right to left. The prototype still switches between 12 and 6 girls at 760 px; production follows the responsive rule in `docs/footer-team.en.md`.
 
-## 8. FAQ
+## 9. FAQ
 
 An accordion built on `<details>`: each question opens and closes on its own, and the first one starts open. Works without JS.
 
-## 9. What Could Change This Behavior
+## 10. What Could Change This Behavior
 
 - The real trial slots and the Stripe account.
 - Who translates the Russian and Ukrainian copy.
