@@ -531,10 +531,8 @@ PARENTS_HTML = [("Parents' Info — ElyFlame Academy", 'Родителям — E
   'Як підготуватися до~першого візиту дитини, зареєструватися та~знайти потрібні документи.'),
  ('First visit &amp; FAQ', 'Первый визит и~вопросы', 'Перший візит і~запитання'),
  ('After the trial', 'После пробного', 'Після пробного'),
- ('Academy policies', 'Правила академии', 'Правила академії'),
  ('Forms &amp; documents', 'Формы и~документы', 'Форми та~документи'),
  ('Clothing &amp; equipment', 'Форма и~инвентарь', 'Одяг та~інвентар'),
- ('Private lessons', 'Индивидуальные занятия', 'Індивідуальні заняття'),
  ('<h2>A little<br>clarity.</h2>', '<h2>Ответы<br>перед стартом.</h2>', '<h2>Відповіді<br>перед стартом.</h2>'),
  ('What should my child wear?', 'Что надеть ребёнку?', 'Що вдягнути дитині?'),
  ('[Clothing requirements for the trial lesson.]',
@@ -580,7 +578,6 @@ PARENTS_HTML = [("Parents' Info — ElyFlame Academy", 'Родителям — E
   '[Правила поведения для спортсменов и~семей.]',
   '[Правила поведінки для спортсменів і~родин.]'),
  ('>Watching practice<', '>Посещение тренировок<', '>Відвідування тренувань<'),
- ('<h2>Paperwork,<br>in one place.</h2>', '<h2>Документы<br>под рукой.</h2>', '<h2>Документи<br>під рукою.</h2>'),
  ('[PDF documents to be supplied by the academy.]',
   '[PDF-документы от~академии.]',
   '[PDF-документи від академії.]'),
@@ -603,7 +600,6 @@ PARENTS_HTML = [("Parents' Info — ElyFlame Academy", 'Родителям — E
  ('[Clothing and equipment for Stretching &amp; Flexibility.]',
   '[Форма и~инвентарь для растяжки.]',
   '[Одяг та~інвентар для розтяжки.]'),
- ('<h2>Individual<br>questions.</h2>', '<h2>Личный<br>подход.</h2>', '<h2>Особистий<br>підхід.</h2>'),
  ('[Private lesson availability, format and booking arrangements.]',
   '[Доступность, формат и~порядок записи на~индивидуальные занятия.]',
   '[Доступність, формат і~порядок запису на~індивідуальні заняття.]'),
@@ -684,6 +680,11 @@ CONTACT_HTML += [('We couldn’t check your message. Please try again, or call t
   'в~академию: (224) 804-8324.',
   'Не~вдалося перевірити повідомлення. Спробуйте ще раз або зателефонуйте '
   'до~академії: (224) 804-8324.')]
+
+PARENTS_HTML += [('Policies &amp; documents', 'Правила и~документы', 'Правила й~документи'),
+ ('Does the academy offer private lessons?',
+  'Есть~ли в~академии индивидуальные занятия?',
+  'Чи~є в~академії індивідуальні заняття?')]
 
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}

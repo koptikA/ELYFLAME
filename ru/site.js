@@ -344,6 +344,32 @@ if(teamBlock&&coaches.length){
 // About: the ribbon girl's satin ribbon trails from her stick tip (path in data-d, drawn in a scale(4) group).
 document.querySelectorAll('.apparatus-satin').forEach(g=>paintSatin(g,g.dataset.d,false,false));
 
+// Parents: static satin connectors occupy a reserved lane between the step numbers.
+const registration=document.querySelector('.registration-path');
+if(registration){
+  const svg=registration.querySelector('svg'),group=registration.querySelector('.registration-satin');
+  function layoutRegistration(){
+    const box=registration.getBoundingClientRect(),mobile=matchMedia('(max-width:760px)').matches;
+    if(!box.width)return;
+    svg.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`);group.replaceChildren();
+    const numbers=[...registration.querySelectorAll('.step-number')].map(el=>el.getBoundingClientRect());
+    numbers.slice(0,-1).forEach((a,i)=>{
+      const b=numbers[i+1];let d;
+      if(mobile){
+        const x=a.left-box.left+a.width/2,y=a.bottom-box.top+10,end=b.top-box.top-10;
+        d=`M ${x} ${y} C ${x-20} ${y+(end-y)*.3} ${x+20} ${y+(end-y)*.7} ${x} ${end}`;
+      }else{
+        const x=a.right-box.left+12,y=a.top-box.top+a.height/2,end=b.left-box.left-12;
+        d=`M ${x} ${y} C ${x+(end-x)*.3} ${y+36} ${x+(end-x)*.7} ${y-16} ${end} ${y}`;
+      }
+      const part=document.createElementNS('http://www.w3.org/2000/svg','g');group.append(part);paintSatin(part,d,mobile,false);
+    });
+  }
+  let frame;
+  new ResizeObserver(()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(layoutRegistration);}).observe(registration);
+  document.fonts.ready.then(layoutRegistration);
+}
+
 // Contact prototype: validate, then POST; never simulate successful delivery.
 const contactForm=document.querySelector('#contact-form');
 if(contactForm){

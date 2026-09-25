@@ -584,34 +584,39 @@ body.info-page h1{font-size:clamp(48px,6.4vw,92px);line-height:1.1;letter-spacin
 /* Parents: an indexed guide with alternating reading widths and native disclosures. */
 .parents-hero{display:block}
 .parents-contents{display:flex;flex-wrap:wrap;gap:14px 32px;max-width:1050px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line-strong)}
-.parents-contents>a{display:flex;align-items:center;gap:16px;font-size:16px}
+.parents-contents>a{display:flex;align-items:center;gap:8px;font-size:16px}
 .parents-contents>a:hover{color:var(--pink)}
-.parent-faq,.documents-section,.private-section{display:grid;grid-template-columns:minmax(0,420px) minmax(0,630px);justify-content:start;gap:48px 64px}
+.parent-faq,.policy-documents{display:grid;grid-template-columns:minmax(0,420px) minmax(0,630px);justify-content:start;gap:48px 64px}
 .parent-faq .inner-section-head>p:not(.eyebrow){margin-top:24px;max-width:320px}
 .info-page .faq details:first-child{border-top:1px solid var(--line-strong)}
 .info-page .faq summary{min-height:60px;padding-block:18px}
-.registration-section{background:var(--cream)}
-.registration-steps{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;max-width:1100px}
-.registration-steps>li{border-top:1px solid var(--line-strong);padding-top:24px}
+.registration-section{background:var(--stage);color:var(--on-stage)}
+.registration-section p{color:var(--on-stage-muted)}
+.registration-path{position:relative;max-width:1100px;margin-top:40px}
+.registration-ribbon{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.step-number{display:block;width:48px;height:44px;line-height:44px;text-align:center;font-family:var(--display);font-size:24px;color:var(--on-stage)}
+.step-copy{margin-top:40px}
+.registration-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;max-width:1100px}
+.registration-steps>li{min-width:0;position:relative}
 .registration-steps h3{margin-bottom:16px}
 .policies-section .editorial-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:40px;max-width:1100px}
 .policies-section .editorial-list article{border-top:1px solid var(--line-strong);padding-top:24px}
-.documents-section{background:var(--cream)}
-.documents-section .inner-section-head>p:last-child{margin-top:24px}
+.policy-documents{margin-top:56px;padding-top:40px;border-top:1px solid var(--line-strong)}
+.policy-documents>div>p{margin-top:16px}
+.policy-documents .document-list>li:first-child{padding-top:0;border-top:0}
 .document-list{list-style:none;margin:0;padding:0}
 .document-list>li{display:flex;justify-content:space-between;gap:20px;padding:26px 0;border-top:1px solid var(--line-strong)}
 .document-list p{margin-top:12px}
 .document-type{font-size:14px;color:var(--ink-muted);align-self:start}
 .kit-section .practical-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;margin-top:40px;max-width:1100px}
 .kit-section .practical-list>div{grid-template-columns:1fr;gap:10px;align-content:start}
-.private-section{border-top:1px solid var(--line);align-items:center}
 .parent-preview{align-self:center;border-top:1px solid var(--line-strong);padding-top:28px}
 .parent-preview h3{font-family:var(--display);font-weight:400;font-size:28px;margin-bottom:18px}
 .parent-preview p{font-size:16px;max-width:520px}
 @media(max-width:1000px){
  .contact-hero,.arrival-section{gap:40px}
  .contact-hero{grid-template-columns:1fr 1fr}
- .parent-faq,.documents-section,.private-section{grid-template-columns:1fr 1.3fr;gap:40px}
+ .parent-faq,.policy-documents{grid-template-columns:1fr 1.3fr;gap:40px}
  .contact-map{height:460px}
 }
 @media(max-width:760px){
@@ -619,10 +624,13 @@ body.info-page h1{font-size:clamp(48px,6.4vw,92px);line-height:1.1;letter-spacin
  .info-page .inner-hero{padding-top:36px}
  .info-page .inner-hero h1{font-size:clamp(39px,10vw,64px)}
  .info-page h2{font-size:clamp(31px,8vw,44px)}
- .stretching-hero,.inner-trial,.stretching-details,.contact-hero,.arrival-section,.parent-faq,.documents-section,.private-section{grid-template-columns:1fr;gap:36px}
+ .stretching-hero,.inner-trial,.stretching-details,.contact-hero,.arrival-section,.parent-faq,.policy-documents{grid-template-columns:1fr;gap:36px}
  .stretch-figure{width:90%;max-width:350px;justify-self:end}
  .audience-list{gap:18px 28px}
- .benefit-list,.registration-steps,.policies-section .editorial-list,.kit-section .practical-list{grid-template-columns:1fr;gap:28px;margin-top:32px}
+ .benefit-list,.policies-section .editorial-list,.kit-section .practical-list{grid-template-columns:1fr;gap:28px;margin-top:32px}
+ .registration-steps{grid-template-columns:1fr;gap:48px}
+ .registration-steps>li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:24px;align-items:start}
+ .step-copy{margin-top:0}
  .practical-list>div{grid-template-columns:1fr;gap:8px;padding:18px 0}
  .inner-hero h1{margin:20px 0 24px}
  #contact-form{padding-top:20px;border-top:1px solid var(--line-strong)}
