@@ -16,7 +16,7 @@ class PageBuildTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        for name in ('index.html', 'about/index.html', 'site.js'):
+        for name in [page + 'index.html' for page in i18n.PAGES] + ['site.js']:
             destination = self.root / name
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_text((Path(i18n.ROOT) / name).read_text(encoding='utf-8'), encoding='utf-8')
@@ -36,7 +36,7 @@ class PageBuildTests(unittest.TestCase):
         self.build()
         for lang in i18n.LANGS:
             html = (self.root / lang / 'about/index.html').read_text(encoding='utf-8')
-            for reference in ('href="../#trial"', 'href="../#parents"',
+            for reference in ('href="../#trial"', ('href="../parents/"' if 'parents/' in i18n.PAGES else 'href="../#parents"'),
                               'src="../site.js"', 'href="../../site.css"',
                               'href="../../about/"', f'href="{i18n.SITE}{lang}/about/"'):
                 self.assertIn(reference, html)

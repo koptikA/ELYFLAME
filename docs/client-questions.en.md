@@ -115,6 +115,13 @@ The process and the rules are in `docs/photos.en.md`.
 29. Do you confirm illustrations instead of a photo or video in the hero and the footer (a gymnast silhouette and a row of silhouettes)? SOW 3.1 asks for a full-width photo or video in the hero; real photos go to the gallery.
    **Answer:** Open.
 
+## Stretching: page details
+
+30. What are the class duration, minimum age, entry requirements and session structure for Stretching? Please provide a short approved description without publishing schedules or prices.
+   **Answer:** Open.
+31. How should an adult book a Stretching trial: participant fields instead of child/parent fields, or direct booking with Administration? The shared form currently assumes a parent and child.
+   **Answer:** Open.
+
 ## Recommendation
 
 **The current site at elyflame.com.** The domain runs a WordPress site with a single "Hello world!" post. On the post page (https://elyflame.com/?p=1), the owner's personal email is visible in the author byline and in the author page URL. If that isn't intentional, the post can be deleted or switched to a draft. The issue goes away once the new site replaces WordPress.

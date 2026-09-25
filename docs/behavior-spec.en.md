@@ -217,10 +217,19 @@ An accordion built on `<details>`: each question opens and closes on its own, an
 - Space (`#the-space`): two photo slots, a 4:3 room view and 1:1 equipment photo, using the gallery's cream frames and tilt. They stack on phones. Equipment and safety arrangements remain placeholders (22). Entrance, drop-off and pick-up use door #11. Parents can watch the trial; afterwards they may attend with the Head Coach's permission, at open practices, or as volunteers.
 - Achievements (`#achievements`): a list with year, competition, result, category and level. One bracketed template row awaits question 17; no invented years, medals or results.
 - Every Book a Trial link goes to the same-language Home with `#trial`. Home opens the single booking dialog on initial load, hash changes and history restoration. Without JS, the link reaches the one ordinary form on Home.
-- Shared `site.js` initializes the finder, booking and Ribbon geometry only when their blocks exist. Navigation, language controls, coaches and the footer work on both pages. Reduced motion keeps images visible and disables entrances and hover lifts.
+- Shared `site.js` initializes the finder, booking and Ribbon geometry only when their blocks exist. Navigation, language controls, coaches and the footer work on all pages. Reduced motion keeps images visible and disables entrances and hover lifts.
 
 ### Transition to Five Pages
 
-Home, About, Parents’ Info, Stretching and Contact will become separate pages under the SOW. About exists now, so its menu item links to `about/`. The other items still target Home sections (`#parents`, `#stretching`, `#contact`); on About these are `../#parents`, `../#stretching`, `../#contact`. The language stays the same. When the next page is added, update its link in every shared header/footer copy and register its directory in `PAGES` in `tools/i18n.py`.
+Home, About, Parents’ Info, Stretching and Contact will become separate SOW pages. About and Stretching are ready, so menus link to `about/` and `stretching/`. Parents’ Info and Contact still target Home `#parents` and `#contact`, prefixed with `../` on inner pages. Language is preserved. Register each new page in `PAGES` and update every header/footer copy.
 
 The generator iterates over registered pages, uses shared translation tables and rebases relative links for any depth. Language switching keeps the current page (About → About); canonical and hreflang URLs target that page’s versions. Headers and footers are copied into each English page. The generator checks them after normalizing URLs and current-item markers, and checks language controls against shared helpers. A mismatch, stale translation row or English leftover fails the build before any files are written.
+
+## 12. Stretching Page
+
+- `/stretching/`, `/ru/stretching/`, `/uk/stretching/`: one weekly class for teens, adults, dancers, skaters and athletes from other sports. Benefits describe work on flexibility and range of movement without medical promises. Class structure, duration and entry requirements remain placeholders (30).
+- Three static token-colored arcs replace the scrolling Ribbon. No people or photos are generated.
+- No public schedule (answer 9): a bracketed placeholder directs visitors to ask the academy for times. No class or membership prices (answer 8 supersedes the Sep 24 decision). The confirmed $10 trial fee remains in the shared header (answer 3).
+- Booking links carry the program to the single Home form: `../?program=stretching#trial`. Shared JS adds the same parameter to the shared header CTA on Stretching. Home accepts only the known key `stretching`, selects Stretching & Flexibility and leaves the participant age empty. Without JS the ordinary form opens and the program is selected manually.
+- Home keeps a short introduction, the trial button and “Explore Stretching →”. Every Stretching menu item now targets the page. Contact and Parents’ Info still target Home sections for now.
+- The current trial form is designed for a parent and child; adult registration is open question 31. Adults can contact the academy directly.

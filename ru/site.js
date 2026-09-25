@@ -70,6 +70,15 @@ let owner='home';
 if(document.querySelector('#home'))document.querySelectorAll('main > section').forEach(section=>{if(menuLinks.some(a=>a.hash==='#'+section.id))owner=section.id;sectionOwner[section.id]=owner;spy.observe(section);});
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const target=document.getElementById(link.hash.slice(1));if(target?.tagName==='DETAILS')target.open=true;}));
 
+// Carry the selected program across pages, including the shared header CTA.
+document.querySelectorAll('a[href]').forEach(link=>{
+  const target=new URL(link.href);
+  const selected=link.dataset.program||document.body.dataset.trialProgram;
+  if(target.origin===location.origin&&target.hash==='#trial'&&target.pathname!==location.pathname&&selected==='Stretching & Flexibility'){
+    target.searchParams.set('program','stretching');link.href=target.href;
+  }
+});
+
 // Move the one fallback form into the native dialog; never clone IDs or field values.
 const dialog=document.querySelector('#booking-dialog'),form=document.querySelector('#trial-form'),panel=document.querySelector('#booking-panel');
 const entry=document.querySelector('#booking-entry'),confirmation=document.querySelector('#booking-confirmation'),submit=document.querySelector('#booking-submit');
@@ -100,7 +109,11 @@ function openBooking(link){
   closeMenu();if(!dialog.open)dialog.showModal();dialog.scrollTop=0;
 }
 document.querySelectorAll('a[href="#trial"]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();openBooking(link);}));
-function openTrialHash(){if(location.hash==='#trial'&&!dialog.open)openBooking(document.querySelector('a[href="#trial"]'));}
+function openTrialHash(){
+  if(location.hash!=='#trial'||dialog.open)return;
+  const selected=new URLSearchParams(location.search).get('program');
+  openBooking({id:'',dataset:selected==='stretching'?{program:'Stretching & Flexibility'}:{}});
+}
 window.addEventListener('hashchange',openTrialHash);
 window.addEventListener('pageshow',openTrialHash);
 openTrialHash();

@@ -26,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LANGS = {'ru': 1, 'uk': 2}
 SITE = 'https://elyflame.com/'
 # Add an English source directory here when the next standalone page is ready.
-PAGES = ('', 'about/')
+PAGES = ('', 'about/', 'stretching/')
 
 # (English fragment exactly as in index.html, Russian, Ukrainian)
 HTML = [
@@ -453,6 +453,59 @@ ABOUT_HTML = [('About ElyFlame — Rhythmic Gymnastics Academy',
   'Познакомьтесь с~тренером, попробуйте художественную гимнастику и~узнайте, с~чего начать ребёнку.',
   'Познайомтеся з~тренером, спробуйте художню гімнастику й~дізнайтеся, з~чого почати дитині.')]
 
+STRETCHING_HTML = [('Stretching & Flexibility — ElyFlame Academy',
+  'Растяжка и~гибкость — ElyFlame Academy',
+  'Розтяжка та~гнучкість — ElyFlame Academy'),
+ ('A weekly Stretching and Flexibility class at ElyFlame in Buffalo Grove for teens, adults, dancers, skaters and '
+  'athletes from other sports.',
+  'Растяжка в~ElyFlame, Баффало-Гров: еженедельное занятие для подростков, взрослых, танцоров, фигуристов '
+  'и~спортсменов из~других видов спорта.',
+  'Розтяжка в~ElyFlame, Баффало-Гров: щотижневе заняття для підлітків, дорослих, танцівників, фігуристів '
+  'і~спортсменів з~інших видів спорту.'),
+ ('<h1>Make room<br>for movement.</h1>',
+  '<h1>Больше места<br>для движения.</h1>',
+  '<h1>Більше місця<br>для руху.</h1>'),
+ ('>One class each week<', '>Одно занятие в~неделю<', '>Одне заняття на~тиждень<'),
+ ('Explore the class <span', 'Узнать о~занятии <span', 'Дізнатися про заняття <span'),
+ ('Explore Stretching <span', 'Подробнее о~растяжке <span', 'Докладніше про розтяжку <span'),
+ ('>Who it’s for<', '>Для кого<', '>Для кого<'),
+ ('<h2>Beyond<br>one sport.</h2>', '<h2>Не~только<br>гимнастика.</h2>', '<h2>Не~лише<br>гімнастика.</h2>'),
+ ('>Teens &amp; adults<', '>Подростки и~взрослые<', '>Підлітки й~дорослі<'),
+ ('A weekly class with a focus on stretching and flexibility.',
+  'Еженедельное занятие по~растяжке и~развитию гибкости.',
+  'Щотижневе заняття з~розтяжки та~розвитку гнучкості.'),
+ ('>Dancers, skaters &amp; other athletes<',
+  '>Танцоры, фигуристы и~другие спортсмены<',
+  '>Танцівники, фігуристи й~інші спортсмени<'),
+ ('A place to work on flexibility alongside your usual sport or movement practice.',
+  'Работа над гибкостью в~дополнение к~занятиям своим видом спорта.',
+  'Робота над гнучкістю на~додачу до~занять своїм видом спорту.'),
+ ('>The class<', '>О~занятии<', '>Про заняття<'),
+ ('<h2>Time to<br>stretch.</h2>', '<h2>Время<br>для растяжки.</h2>', '<h2>Час<br>для розтяжки.</h2>'),
+ ('Stretching is a way to work on flexibility and explore your range of movement.',
+  'Растяжка помогает работать над гибкостью и~изучать амплитуду своих движений.',
+  'Розтяжка допомагає працювати над гнучкістю та~досліджувати амплітуду своїх рухів.'),
+ ('>Frequency<', '>Частота<', '>Частота<'),
+ ('>Once a week<', '>Раз в~неделю<', '>Раз на~тиждень<'),
+ ('>Schedule<', '>Расписание<', '>Розклад<'),
+ ('[Ask the academy for current class times.]',
+  '[Время занятий уточняйте в~академии.]',
+  '[Час занять уточнюйте в~академії.]'),
+ ('>Duration &amp; starting level<', '>Длительность и~уровень подготовки<', '>Тривалість і~рівень підготовки<'),
+ ('[Class duration and entry requirements.]',
+  '[Длительность занятия и~требования к~подготовке.]',
+  '[Тривалість заняття та~вимоги до~підготовки.]'),
+ ('>How the class works<', '>Как проходит занятие<', '>Як проходить заняття<'),
+ ('[Class structure, exercises and coaching approach.]',
+  '[Структура занятия, упражнения и~подход тренера.]',
+  '[Структура заняття, вправи та~підхід тренера.]'),
+ ('Ask about the class <span', 'Спросить о~занятии <span', 'Запитати про заняття <span'),
+ ('>Start with a conversation<', '>Начните со~знакомства<', '>Почніть зі~знайомства<'),
+ ('<h2>Find your<br>way in.</h2>', '<h2>Найдите<br>свой старт.</h2>', '<h2>Знайдіть<br>свій старт.</h2>'),
+ ('Ask the academy about joining the weekly class, or choose Stretching &amp; Flexibility when booking a trial.',
+  'Уточните в~академии, как присоединиться к~занятию, или выберите растяжку при записи на~пробное.',
+  'Уточніть в~академії, як долучитися до~заняття, або виберіть розтяжку під час запису на~пробне.')]
+
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
 GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
@@ -607,7 +660,7 @@ def main():
             return source.read()
     sources = {page: source_page(read(page + 'index.html'), page) for page in PAGES}
     check_shared(sources)
-    rows = HTML + ABOUT_HTML
+    rows = HTML + ABOUT_HTML + STRETCHING_HTML
     for row in rows:
         if not any(row[0] in html for html in sources.values()):
             sys.exit(f'HTML source not found, update the table: {row[0]!r}')
