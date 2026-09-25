@@ -23,7 +23,7 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 
 **Header** stays on screen while scrolling: logo on the left, navigation Home · About · Parents' Info · Stretching · Contact, the Book a Trial button, and the language to its right. No Login link until the portal launches (project 2). The header button is shorter in Russian and Ukrainian: «Записаться» / «Записатися».
 
-**Current section** is underlined in the menu. A line at 40% of the viewport decides which section is current; sections without their own item (the class finder, coaches, the finale, the form) count toward the item above them. On Home without JS, Home is underlined. About always marks About as the current page (`aria-current="page"`); Home section tracking does not run there.
+**Current page** is underlined and marked with `aria-current="page"` in source markup. Home remains current on Home; each inner page marks its own item. Scrolling does not change the current page; the section observer for navigation is removed.
 
 **Language** is a globe, the current language code, and a chevron in the far right corner, after the button: a quiet utility that doesn't compete with the CTA. A click opens the list English / Русский / Українська, with a dot on the current one. Esc or a click elsewhere closes it. The interface codes are EN, RU, UA; the Ukrainian version lives at `/uk/`.
 
@@ -198,7 +198,7 @@ At the bottom of the footer stands the "team": a row of light silhouettes of gir
 
 ## 9. FAQ
 
-An accordion built on `<details>`: each question opens and closes on its own, and the first one starts open. Works without JS.
+The full FAQ lives on Parents’ Info. Native `<details>` let each question open and close independently; the first starts open. It works without JS and by keyboard. Home keeps a short introduction and “Read the parent guide →”.
 
 ## 10. What Could Change This Behavior
 
@@ -219,9 +219,10 @@ An accordion built on `<details>`: each question opens and closes on its own, an
 - Every Book a Trial link goes to the same-language Home with `#trial`. Home opens the single booking dialog on initial load, hash changes and history restoration. Without JS, the link reaches the one ordinary form on Home.
 - Shared `site.js` initializes the finder, booking and Ribbon geometry only when their blocks exist. Navigation, language controls, coaches and the footer work on all pages. Reduced motion keeps images visible and disables entrances and hover lifts.
 
-### Transition to Five Pages
+### Five Pages and Shared Navigation
 
-Home, About, Parents’ Info, Stretching and Contact will become separate SOW pages. About, Stretching and Contact are ready and their menus target those pages. Parents’ Info still targets Home `#parents`, prefixed with `../` on inner pages. Language is preserved. Register each new page in `PAGES` and update every header/footer copy.
+Home (`/`), About (`/about/`), Parents’ Info (`/parents/`), Stretching (`/stretching/`) and Contact (`/contact/`) are standalone pages, each in EN/RU/UK. All shared header/footer menu items target the corresponding same-language page. Home links to the top of Home. Home sections are short previews with internal page links; the full address strip remains as required by the SOW.
+
 
 The generator iterates over registered pages, uses shared translation tables and rebases relative links for any depth. Language switching keeps the current page (About → About); canonical and hreflang URLs target that page’s versions. Headers and footers are copied into each English page. The generator checks them after normalizing URLs and current-item markers, and checks language controls against shared helpers. A mismatch, stale translation row or English leftover fails the build before any files are written.
 
@@ -231,7 +232,7 @@ The generator iterates over registered pages, uses shared translation tables and
 - Three static token-colored arcs replace the scrolling Ribbon. No people or photos are generated.
 - No public schedule (answer 9): a bracketed placeholder directs visitors to ask the academy for times. No class or membership prices (answer 8 supersedes the Sep 24 decision). The confirmed $10 trial fee remains in the shared header (answer 3).
 - Booking links carry the program to the single Home form: `../?program=stretching#trial`. Shared JS adds the same parameter to the shared header CTA on Stretching. Home accepts only the known key `stretching`, selects Stretching & Flexibility and leaves the participant age empty. Without JS the ordinary form opens and the program is selected manually.
-- Home keeps a short introduction, the trial button and “Explore Stretching →”. Every Stretching menu item now targets the page. Parents’ Info still targets its Home section at this stage; Contact is now a standalone page.
+- Home keeps a short introduction, the trial button and “Explore Stretching →”. Every Stretching menu item now targets the page. Parents’ Info and Contact are also standalone pages.
 - The current trial form is designed for a parent and child; adult registration is open question 31. Adults can contact the academy directly.
 
 ## 13. Contact Page
@@ -240,4 +241,14 @@ The generator iterates over registered pages, uses shared translation tables and
 - **Phone hours**, not class hours: Monday–Friday 9 am–10 pm, Saturday 9 am–5 pm, Sunday closed. Class schedules are not published (answer 9).
 - A static arrival block emphasizes door 11 for entrance, parking, drop-off and pick-up. It is an entrance sign, not an invented site map. No Google map, iframe, script or image loads on page view. “Get directions ↗” opens the address in Google Maps in a new tab only after a click, with `rel="noopener"`.
 - No contact form: phone and email provide direct contact; the primary CTA opens the single trial form on same-language Home. This simplifies SOW 3.4 as authorized by the page task.
-- Home retains the address strip with phone, email, call hours, door #11 and Get directions, plus “Plan your visit →”. Contact menus now target the standalone page. Parents’ Info still targets its Home section for now.
+- Home retains the address strip with phone, email, call hours, door #11 and Get directions, plus “Plan your visit →”. Contact menus now target the standalone page. Parents’ Info also targets a standalone page.
+
+## 14. Parents’ Info Page
+
+- `/parents/`, `/ru/parents/`, `/uk/parents/`: an indexed guide with FAQ, registration, policies, documents, clothing/equipment and private lessons. No scrolling Ribbon; editorial text sections and native disclosures.
+- FAQ moves from Home: experience, trial fee, previous training, teens/adults, parent observation and registration. Added questions cover clothing, what to bring, the first lesson, absences and make-up classes. The first question starts open; the rest are closed. Disclosures work independently, by keyboard and without JS. Unknown answers stay in square brackets (21).
+- Parents may watch the trial; afterwards they attend with the Head Coach's permission, at open practices or as volunteers. This replaces the earlier incomplete answer.
+- After the trial, the Head Coach sends an Adobe registration link. A child may join practice only after the form and first payment are complete. The steps explain the process without invented Adobe URLs or payment buttons.
+- Refund/cancellation rules and the code of conduct remain placeholders. Clothing and equipment are listed separately for Recreational, Competitive and Stretching, without invented requirements. Private lesson details also await question 21; an email link is available for questions.
+- Waiver and medical form: two text placeholders for PDF documents. No links, download buttons or `href="#"`; there are no file requests or 404s until files arrive. Add real links and document translations once checked PDFs are supplied.
+- Home keeps its heading, short first-visit introduction, registration note and “Read the parent guide →”; the full FAQ is removed. All five pages are registered in `PAGES`; the transitional section-link rule is removed.

@@ -26,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LANGS = {'ru': 1, 'uk': 2}
 SITE = 'https://elyflame.com/'
 # Add an English source directory here when the next standalone page is ready.
-PAGES = ('', 'about/', 'stretching/', 'contact/')
+PAGES = ('', 'about/', 'stretching/', 'contact/', 'parents/')
 
 # (English fragment exactly as in index.html, Russian, Ukrainian)
 HTML = [
@@ -167,13 +167,13 @@ HTML = [
      '<p>Да. Раз в~неделю проходит занятие по~растяжке и~гибкости для подростков, взрослых и~спортсменов из~других видов спорта.</p>',
      '<p>Так. Раз на~тиждень проходить заняття з~розтяжки та~гнучкості для підлітків, дорослих і~спортсменів з~інших видів спорту.</p>'),
     ('<summary>Can parents watch?</summary>', '<summary>Можно~ли родителям смотреть занятия?</summary>', '<summary>Чи можуть батьки дивитися заняття?</summary>'),
-    ('<p>Yes, you are welcome to watch the trial lesson. Regular practices are closed to parents, except open practices.</p>',
-     '<p>Пробное~— да, приходите. Обычные тренировки закрыты для родителей, кроме открытых.</p>',
-     '<p>Пробне~— так, приходьте. Звичайні тренування закриті для батьків, крім відкритих.</p>'),
+    ('<p>You can watch your child’s trial. After that, parents attend with the Head Coach’s permission, at open practices, or as volunteers.</p>',
+     '<p>Вы можете посмотреть пробное занятие ребёнка. Дальше~— с~разрешения главного тренера, на~открытых тренировках или в~качестве волонтёра.</p>',
+     '<p>Ви можете подивитися пробне заняття дитини. Далі~— з~дозволу головного тренера, на~відкритих тренуваннях або як~волонтер.</p>'),
     ('<summary>How do we register after the trial?</summary>', '<summary>Как записаться после пробного?</summary>', '<summary>Як записатися після пробного?</summary>'),
-    ('<p>After the trial, the Head Coach sends you the registration form. Your child can join practice once the form is complete and the first payment is made.</p>',
-     '<p>После пробного главный тренер пришлёт форму регистрации. Ребёнок начнёт заниматься, когда форма будет заполнена и~первый платёж внесён.</p>',
-     '<p>Після пробного головний тренер надішле форму реєстрації. Дитина почне займатися, коли форму буде заповнено й~перший платіж внесено.</p>'),
+    ('<p>After your child’s trial, the Head Coach sends an Adobe registration link. Your child can join practice only after the form is complete and the first payment is made.</p>',
+     '<p>После пробного главный тренер пришлёт ссылку на~форму регистрации в~Adobe. Ребёнок сможет заниматься только после заполнения формы и~первого платежа.</p>',
+     '<p>Після пробного головний тренер надішле посилання на~форму реєстрації в~Adobe. Дитина зможе займатися лише після заповнення форми й~першого платежу.</p>'),
     ('>Visit us<', '>Приходите<', '>Приходьте<'),
     ('<h2>See you<br><em>in Buffalo Grove.</em></h2>', '<h2>До встречи<br><em>в~Баффало-Гров.</em></h2>', '<h2>До зустрічі<br><em>у~Баффало-Гров.</em></h2>'),
     ('>Silk Road International School building<', '>Здание Silk Road International School<', '>Будівля Silk Road International School<'),
@@ -332,7 +332,7 @@ JS = [
 
 # Latin text that stays on translated pages: names, the postal address, contacts. In running text and headings the town is
 # written in Cyrillic (Баффало-Гров); the address keeps Latin so parents can type it into a map.
-KEEP = ['Google Maps', 'ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'Buffalo Grove',
+KEEP = ['Adobe', 'PDF', 'Google Maps', 'ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'Buffalo Grove',
         'Radcliffe Road', 'Silk Road International School', 'USA Gymnastics', 'Instagram', 'Facebook',
         'Kirakito Technologies', 'academy@elyflame.com', 'name@example.com', 'Stripe Checkout', 'SMS',
         'English', 'Stretching & Flexibility']
@@ -554,6 +554,115 @@ CONTACT_HTML = [('Contact ElyFlame — Visit Us in Buffalo Grove',
   'Запишите ребёнка на~пробное. Академия подтвердит время занятия.',
   'Запишіть дитину на~пробне. Академія підтвердить час заняття.')]
 
+PARENTS_HTML = [("Parents' Info — ElyFlame Academy", 'Родителям — ElyFlame Academy', 'Батькам — ElyFlame Academy'),
+ ("Plan your child's first visit to ElyFlame: trial questions, registration, academy policies, forms, clothing "
+  'and equipment.',
+  'Первый визит ребёнка в~ElyFlame: вопросы о~пробном, регистрация, правила академии, документы, форма '
+  'и~инвентарь.',
+  'Перший візит дитини до~ElyFlame: запитання про пробне, реєстрація, правила академії, документи, одяг '
+  'та~інвентар.'),
+ ('>Parents’ Info<', '>Родителям<', '>Батькам<'),
+ ('<h1>Before the<br>first class.</h1>',
+  '<h1>Перед первым<br>занятием.</h1>',
+  '<h1>Перед першим<br>заняттям.</h1>'),
+ ('Plan your child’s first visit, understand registration, and find the academy’s parent information in one '
+  'place.',
+  'Как подготовиться к~первому визиту ребёнка, зарегистрироваться и~найти нужные документы.',
+  'Як підготуватися до~першого візиту дитини, зареєструватися та~знайти потрібні документи.'),
+ ('First visit &amp; FAQ', 'Первый визит и~вопросы', 'Перший візит і~запитання'),
+ ('After the trial', 'После пробного', 'Після пробного'),
+ ('Academy policies', 'Правила академии', 'Правила академії'),
+ ('Forms &amp; documents', 'Формы и~документы', 'Форми та~документи'),
+ ('Clothing &amp; equipment', 'Форма и~инвентарь', 'Одяг та~інвентар'),
+ ('Private lessons', 'Индивидуальные занятия', 'Індивідуальні заняття'),
+ ('<h2>A little<br>clarity.</h2>', '<h2>Ответы<br>перед стартом.</h2>', '<h2>Відповіді<br>перед стартом.</h2>'),
+ ('What should my child wear?', 'Что надеть ребёнку?', 'Що вдягнути дитині?'),
+ ('[Clothing requirements for the trial lesson.]',
+  '[Требования к~одежде для пробного занятия.]',
+  '[Вимоги до~одягу для пробного заняття.]'),
+ ('What should my child bring?', 'Что взять ребёнку с~собой?', 'Що взяти дитині із~собою?'),
+ ('[What to bring to the trial lesson.]', '[Что взять на~пробное занятие.]', '[Що взяти на~пробне заняття.]'),
+ ('What happens at the first lesson?', 'Как проходит первое занятие?', 'Як проходить перше заняття?'),
+ ('The coach assesses your child’s age, skills, abilities and strength to recommend a starting level. You are '
+  'welcome to watch the trial.',
+  'Тренер оценит возраст, навыки, способности и~силу ребёнка и~порекомендует начальный уровень. Вы можете '
+  'посмотреть пробное занятие.',
+  'Тренер оцінить вік, навички, здібності та~силу дитини й~порадить початковий рівень. Ви можете подивитися '
+  'пробне заняття.'),
+ ('What if my child misses a class?',
+  'Что делать, если ребёнок пропустит занятие?',
+  'Що робити, якщо дитина пропустить заняття?'),
+ ('[Absence reporting and make-up class policy.]',
+  '[Как сообщить о~пропуске и~можно~ли отработать занятие.]',
+  '[Як повідомити про пропуск і~чи можна відпрацювати заняття.]'),
+ ('<h2>From a first visit<br>to the next class.</h2>',
+  '<h2>От~знакомства<br>к~тренировкам.</h2>',
+  '<h2>Від знайомства<br>до~тренувань.</h2>'),
+ ('>Coach assessment<', '>Оценка тренера<', '>Оцінка тренера<'),
+ ('The coach recommends a starting level for your child at the trial.',
+  'На~пробном тренер порекомендует начальный уровень для ребёнка.',
+  'На~пробному тренер порадить початковий рівень для дитини.'),
+ ('>Adobe registration<', '>Регистрация в~Adobe<', '>Реєстрація в~Adobe<'),
+ ('The Head Coach sends the registration link after the trial.',
+  'После пробного главный тренер пришлёт ссылку на~регистрацию.',
+  'Після пробного головний тренер надішле посилання на~реєстрацію.'),
+ ('>Form &amp; first payment<', '>Форма и~первый платёж<', '>Форма й~перший платіж<'),
+ ('Both must be complete before your child joins practice.',
+  'Чтобы ребёнок начал заниматься, нужно заполнить форму и~внести первый платёж.',
+  'Щоб дитина почала займатися, потрібно заповнити форму й~внести перший платіж.'),
+ ('<h2>Know what<br>to expect.</h2>', '<h2>Правила<br>для всех.</h2>', '<h2>Правила<br>для всіх.</h2>'),
+ ('>Refunds &amp; cancellations<', '>Возвраты и~отмены<', '>Повернення й~скасування<'),
+ ('[Refund and cancellation policies.]',
+  '[Правила возврата оплаты и~отмены занятий.]',
+  '[Правила повернення оплати й~скасування занять.]'),
+ ('>Code of conduct<', '>Кодекс поведения<', '>Кодекс поведінки<'),
+ ('[Expectations for athletes and families.]',
+  '[Правила поведения для спортсменов и~семей.]',
+  '[Правила поведінки для спортсменів і~родин.]'),
+ ('>Watching practice<', '>Посещение тренировок<', '>Відвідування тренувань<'),
+ ('<h2>Paperwork,<br>in one place.</h2>', '<h2>Документы<br>под рукой.</h2>', '<h2>Документи<br>під рукою.</h2>'),
+ ('[PDF documents to be supplied by the academy.]',
+  '[PDF-документы от~академии.]',
+  '[PDF-документи від академії.]'),
+ ('>Waiver<', '>Форма согласия<', '>Форма згоди<'),
+ ('[Waiver PDF from the academy.]', '[Форма согласия от~академии, PDF.]', '[Форма згоди від академії, PDF.]'),
+ ('>Medical form<', '>Медицинская форма<', '>Медична форма<'),
+ ('[Medical form PDF from the academy.]',
+  '[Медицинская форма от~академии, PDF.]',
+  '[Медична форма від академії, PDF.]'),
+ ('<h2>Ready for<br>your child’s class.</h2>', '<h2>Всё для<br>занятия.</h2>', '<h2>Усе для<br>заняття.</h2>'),
+ ('>Recreational<', '>Любительская программа<', '>Аматорська програма<'),
+ ('>Competitive<', '>Соревновательная программа<', '>Змагальна програма<'),
+ ('>Stretching &amp; Flexibility<', '>Растяжка и~гибкость<', '>Розтяжка та~гнучкість<'),
+ ('[Clothing and equipment for Recreational.]',
+  '[Форма и~инвентарь для любительской программы.]',
+  '[Одяг та~інвентар для аматорської програми.]'),
+ ('[Clothing and equipment for Competitive.]',
+  '[Форма и~инвентарь для соревновательной программы.]',
+  '[Одяг та~інвентар для змагальної програми.]'),
+ ('[Clothing and equipment for Stretching &amp; Flexibility.]',
+  '[Форма и~инвентарь для растяжки.]',
+  '[Одяг та~інвентар для розтяжки.]'),
+ ('<h2>Individual<br>questions.</h2>', '<h2>Личный<br>подход.</h2>', '<h2>Особистий<br>підхід.</h2>'),
+ ('[Private lesson availability, format and booking arrangements.]',
+  '[Доступность, формат и~порядок записи на~индивидуальные занятия.]',
+  '[Доступність, формат і~порядок запису на~індивідуальні заняття.]'),
+ ('Ask about private lessons <span',
+  'Спросить об~индивидуальных занятиях <span',
+  'Запитати про індивідуальні заняття <span'),
+ ('>A first step together<', '>Первый шаг вместе<', '>Перший крок разом<'),
+ ('<h2>Let’s meet<br>your child.</h2>',
+  '<h2>Приходите<br>знакомиться.</h2>',
+  '<h2>Приходьте<br>знайомитися.</h2>'),
+ ('Read the parent guide <span', 'Памятка для родителей <span', 'Пам’ятка для батьків <span'),
+ ('Trial first. Registration next.', 'Сначала пробное. Затем регистрация.', 'Спочатку пробне. Потім реєстрація.'),
+ ('The Head Coach sends an Adobe registration link after the trial. Your child joins practice after the form and '
+  'first payment are complete.',
+  'После пробного главный тренер пришлёт ссылку на~регистрацию в~Adobe. Ребёнок начнёт заниматься после '
+  'заполнения формы и~первого платежа.',
+  'Після пробного головний тренер надішле посилання на~реєстрацію в~Adobe. Дитина почне займатися після '
+  'заповнення форми й~першого платежу.')]
+
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
 GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
@@ -708,7 +817,7 @@ def main():
             return source.read()
     sources = {page: source_page(read(page + 'index.html'), page) for page in PAGES}
     check_shared(sources)
-    rows = HTML + ABOUT_HTML + CONTACT_HTML + STRETCHING_HTML
+    rows = HTML + ABOUT_HTML + PARENTS_HTML + CONTACT_HTML + STRETCHING_HTML
     for row in rows:
         if not any(row[0] in html for html in sources.values()):
             sys.exit(f'HTML source not found, update the table: {row[0]!r}')

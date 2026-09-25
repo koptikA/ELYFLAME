@@ -58,15 +58,6 @@ document.addEventListener('keydown',event=>{
   if(nav.classList.contains('open')){closeMenu();menu.focus();}
   if(langMenu.open){langMenu.open=false;langMenu.querySelector('summary').focus();}
 });
-// Scroll spy: the menu link of the section under the line at 40% of the viewport is current. Sections without a menu
-// item (the class finder, coaches, the finale, the form) count toward the menu section above them.
-const menuLinks=[...nav.querySelectorAll(':scope > a[href^="#"]')],sectionOwner={};
-const spy=new IntersectionObserver(entries=>entries.forEach(entry=>{
-  if(!entry.isIntersecting)return;
-  menuLinks.forEach(a=>{if(a.hash==='#'+sectionOwner[entry.target.id])a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
-}),{rootMargin:'-40% 0px -59% 0px'});
-let owner='home';
-if(document.querySelector('#home'))document.querySelectorAll('main > section').forEach(section=>{if(menuLinks.some(a=>a.hash==='#'+section.id))owner=section.id;sectionOwner[section.id]=owner;spy.observe(section);});
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const target=document.getElementById(link.hash.slice(1));if(target?.tagName==='DETAILS')target.open=true;}));
 
 // Carry the selected program across pages, including the shared header CTA.

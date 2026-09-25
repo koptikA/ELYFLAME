@@ -7,6 +7,7 @@ import re
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.parse import urljoin
 
 import i18n
 
@@ -42,6 +43,22 @@ class PageBuildTests(unittest.TestCase):
                 self.assertIn(reference, html)
             self.assertNotIn('id="trial-form"', html)
             self.assertIn('id="trial-form"', (self.root / lang / 'index.html').read_text(encoding='utf-8'))
+
+    def test_all_five_menu_items_target_same_language_pages(self):
+        self.build()
+        for lang in i18n.LANGS:
+            expected = [f'{i18n.SITE}{lang}/{path}' for path in
+                        ('#home', 'about/', 'parents/', 'stretching/', 'contact/')]
+            for page in i18n.PAGES:
+                html = (self.root / lang / page / 'index.html').read_text(encoding='utf-8')
+                header_nav = re.search(r'<nav id="navigation".*?</nav>', html, re.S).group()
+                hrefs = re.findall(r'<a href="([^"]+)"', header_nav)[:5]
+                base = f'{i18n.SITE}{lang}/{page}'
+                self.assertEqual([urljoin(base, href) for href in hrefs], expected)
+                self.assertEqual(header_nav.count('aria-current="page"'), 2)  # page + language
+                for code in ('en', 'ru', 'uk'):
+                    prefix = '' if code == 'en' else code + '/'
+                    self.assertIn(f'hreflang="{code}" href="{i18n.SITE}{prefix}{page}"', html)
 
     def test_header_and_footer_drift_are_rejected(self):
         for before, after in (('aria-label="Menu"', 'aria-label="Different menu"'),
