@@ -10,7 +10,7 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 - With the system "reduce motion" setting on, all animations and transitions are off and the Ribbon is a complete static line.
 - Body text is 16 px or larger; labels are 14 px or larger.
 - Functional text (class finder, form, FAQ) says "your child". "She/her" appears in at most 1–2 emotional headlines `[confirm: tone with the client]`.
-- No generated photos of people. Until real photos arrive, use gray placeholders.
+- No generated photos of people. Until real photos arrive, use gray placeholders. Rules for children's photos, the style, and the processing workflow: `docs/photos.en.md`.
 - Mobile layout applies up to 760 px, as in the prototype.
 - Three languages: English (`/`), Russian (`/ru/`), Ukrainian (`/uk/`). The switcher is described in section 2. Each version has `hreflang` for all three and its own `canonical` `[confirm: who proofreads the translations]`.
 - `tools/i18n.py` builds the Russian and Ukrainian pages from the English one, using the string tables in the script; don't edit `ru/` or `uk/` by hand. Program names stay English in the form's option values; only the visible text is translated.

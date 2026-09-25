@@ -100,6 +100,21 @@ Design recommendation: no admin panel at launch if requests go to email or a Goo
 24. The SOW footer says "© 2027", but the site launches in 2026. OK to show the current year and update it automatically?
    **Answer:** Yes.
 
+## Children's photos and video (added Sep 25)
+
+The process and the rules are in `docs/photos.en.md`.
+
+25. Does the academy have a signed photo release for every child who will appear on the site, including group shots? Who keeps the list, and who tells us if a parent withdraws consent?
+   **Answer:** Open.
+26. May we process the children's photos in an outside AI service (Figma Weave: upscaling, light, color; people aren't changed)? The parents consented to publishing, not to processing by a third-party service. If not, we grade the photos locally and don't upscale them.
+   **Answer:** Open.
+27. Original photos without the logo and the pink background: the Instagram posts have them baked in, and a square crop cuts the logo. We need the camera or phone originals, at least 1600 px on the long side.
+   **Answer:** Open.
+28. A video for the "On the carpet" band: a silent 10–20 s clip of a performance or a class, 16:9, no text on screen, about 4 MB at most (or the source file, and we compress it).
+   **Answer:** Open.
+29. Do you confirm illustrations instead of a photo or video in the hero and the footer (a gymnast silhouette and a row of silhouettes)? SOW 3.1 asks for a full-width photo or video in the hero; real photos go to the gallery.
+   **Answer:** Open.
+
 ## Recommendation
 
 **The current site at elyflame.com.** The domain runs a WordPress site with a single "Hello world!" post. On the post page (https://elyflame.com/?p=1), the owner's personal email is visible in the author byline and in the author page URL. If that isn't intentional, the post can be deleted or switched to a draft. The issue goes away once the new site replaces WordPress.
