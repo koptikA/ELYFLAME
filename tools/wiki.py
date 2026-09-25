@@ -7,7 +7,8 @@
 Writes outputs/wiki/<n>-<name>.html (gitignored). The first "# Title" line is dropped: it becomes the WordPress page
 title. Paste each file into a Custom HTML block, or open it in a browser and copy the rendered text into the editor.
 
-Published wiki pages stay as they are (they are the record of what was sent), so later changes go on add-on pages.
+A page nobody has read yet is simply replaced with a fresh full build. Once the team has read it, it stays as it is (it is the
+record of what was sent), so later changes go on add-on pages.
 --since compares each doc with the given commit, block by block (a numbered or bulleted item, a table row, a paragraph),
 and keeps the new or changed blocks under their section headings; table rows keep the table header. Docs with no
 changes get no page.
