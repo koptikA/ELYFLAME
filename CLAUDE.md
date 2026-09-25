@@ -23,7 +23,7 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 - Colors come from the tokens in `:root` of `site.css`; raw hex belongs only to the illustration palette.
 - Type floor: body 16 px, labels 14 px, buttons 15 px. Caps live only in Cinzel headings; labels are sentence case.
 - Magenta (`--pink`) marks interactive elements and the hero headline.
-- `↗` marks external links; internal actions use `→`.
+- `↗` marks external links; internal actions use `→`; in-page jumps (the `.page-index` strips) use `↓`.
 - The header holds one primary button, Book a Trial. No Register or Login until the parent portal.
 - Russian and Ukrainian pages are generated: change `index.html` or `site.js` in English, add or update the row in `tools/i18n.py`, run `python tools/i18n.py`, and commit `ru/` and `uk/` with the change. The script stops on a source string it can't find and on English left on a translated page. Russian copy follows the `sasha` skill; `~` in the tables is a non-breaking space.
 - Info the client hasn't given yet goes on the page as a placeholder in [square brackets].
