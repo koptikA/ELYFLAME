@@ -344,10 +344,11 @@ if(teamBlock&&coaches.length){
 // About: the ribbon girl's satin ribbon trails from her stick tip (path in data-d, drawn in a scale(4) group).
 document.querySelectorAll('.apparatus-satin').forEach(g=>paintSatin(g,g.dataset.d,false,false));
 
-// Contact prototype: validate locally; never simulate successful delivery.
+// Contact prototype: validate, then POST; never simulate successful delivery.
 const contactForm=document.querySelector('#contact-form');
 if(contactForm){
-  const fields=[...contactForm.querySelectorAll('input,textarea')],status=contactForm.querySelector('#contact-status');
+  const fields=[...contactForm.querySelectorAll('input:not([type=hidden]),textarea')],status=contactForm.querySelector('#contact-status');
+  const requestError=contactForm.querySelector('#contact-request-error'),submit=contactForm.querySelector('button[type=submit]');
   function contactValid(field){
     const value=field.value.trim();
     if(!value||value.length>field.maxLength)return false;
@@ -363,12 +364,27 @@ if(contactForm){
     status.hidden=true;
     if(field.getAttribute('aria-invalid')==='true')showContactError(field,!contactValid(field));
   }));
-  contactForm.addEventListener('submit',event=>{
-    event.preventDefault();status.hidden=true;
+  contactForm.addEventListener('submit',async event=>{
+    event.preventDefault();status.hidden=true;requestError.hidden=true;
+    if(submit.disabled)return;
     fields.forEach(field=>showContactError(field,!contactValid(field)));
     const invalid=fields.find(field=>!contactValid(field));
     if(invalid){invalid.focus();return;}
-    status.hidden=false;status.focus();
+    submit.disabled=true;contactForm.setAttribute('aria-busy','true');
+    try{
+      const response=await fetch(contactForm.action,{method:'POST',headers:{Accept:'application/json'},body:new URLSearchParams(new FormData(contactForm))});
+      if(!response.ok)throw new Error();
+      const result=await response.json();
+      if(!Array.isArray(result.errors)||result.prototype!==true)throw new Error();
+      fields.forEach(field=>showContactError(field,result.errors.includes(field.name)));
+      const rejected=fields.find(field=>result.errors.includes(field.name));
+      if(rejected){rejected.focus();return;}
+      status.hidden=false;status.focus();
+    }catch{
+      requestError.hidden=false;requestError.focus();
+    }finally{
+      submit.disabled=false;contactForm.removeAttribute('aria-busy');
+    }
   });
 }
 

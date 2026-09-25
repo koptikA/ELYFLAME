@@ -8,6 +8,7 @@ import http.server
 import os
 import html
 import re
+import json
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
@@ -50,7 +51,7 @@ def contact_response(source, values):
 class NoCache(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         path = urlsplit(self.path).path
-        if path not in ('/contact/', '/ru/contact/', '/uk/contact/'):
+        if path != '/api/contact':
             self.send_error(404)
             return
         try:
@@ -66,10 +67,18 @@ class NoCache(http.server.SimpleHTTPRequestHandler):
             return
         fields = parse_qs(self.rfile.read(length).decode('utf-8', errors='replace'), keep_blank_values=True)
         values = {key: fields.get(key, [''])[0] for key in ('name', 'email', 'phone', 'message')}
-        source = Path(ROOT, path.lstrip('/'), 'index.html').read_text(encoding='utf-8')
-        body = contact_response(source, values).encode('utf-8')
+        language = fields.get('language', ['en'])[0]
+        page_path = f'/{language}/contact/' if language in ('ru', 'uk') else '/contact/'
+        if 'application/json' in self.headers.get('Accept', ''):
+            body = json.dumps({'errors': sorted(contact_errors(values)), 'prototype': True}).encode('utf-8')
+            content_type = 'application/json; charset=utf-8'
+        else:
+            source = Path(ROOT, page_path.lstrip('/'), 'index.html').read_text(encoding='utf-8')
+            source = source.replace('<head>', f'<head>\n  <base href="{page_path}">', 1)
+            body = contact_response(source, values).encode('utf-8')
+            content_type = 'text/html; charset=utf-8'
         self.send_response(200)
-        self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         self.wfile.write(body)
