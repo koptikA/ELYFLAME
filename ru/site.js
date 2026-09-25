@@ -304,6 +304,12 @@ function layoutRibbon(){
   }
   ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutTeam();
 }
+// Gallery: the photos pop in one by one the first time the block comes into view. Video band: the decorative loop plays
+// only while on screen. With reduced motion neither moves: the gallery stands still and the video stays on its poster.
+const calm=matchMedia('(prefers-reduced-motion: reduce)').matches,gallery=document.querySelector('.gallery'),loop=document.querySelector('.video-loop');
+if(gallery&&!calm){gallery.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){gallery.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(gallery.querySelector('.gallery-grid'));}
+if(loop){if(calm){loop.removeAttribute('autoplay');loop.load();}else new IntersectionObserver(([e])=>e.isIntersecting?loop.play().catch(()=>{}):loop.pause()).observe(loop);}
+
 // Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).
 // The satin ribbon is strung between the sticks of the two end girls and waves over the others' heads.
 // A named view timeline on .footer-team makes the girls rise in one by one and draws the ribbon from right to left.

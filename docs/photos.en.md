@@ -14,7 +14,7 @@ For the team (Kiryl, Ivan, Windy) and, through Kiryl, the client. September 25, 
 | Place | What | Size on the site |
 |---|---|---|
 | Gallery after "More than movement" | 6 photos of classes and performances | square; 397 px on desktop, 268 px on phones |
-| Video band "On the carpet" | a silent 10–20 s loop | 16:9, up to 1238 px wide |
+| Video band "On the carpet" | a silent 10–20 s background loop | 16:9, up to 1238 px wide |
 | Coaches | coach portraits (question 14) | 190 × 190 on desktop, 110 × 170 on phones |
 | Later: the gym | the gym and equipment (question 22) | not placed yet |
 
@@ -49,9 +49,15 @@ The hero and the footer stay illustrations: a gymnast silhouette and the "team" 
 
 To run Weave from here, Alena links her Figma account to Weave once: app.weavy.ai/settings?section=profile.
 
+## Where to put the files
+
+- **Video:** `assets/video/performance.mp4`, `performance.webm`, `performance-poster.jpg`, replacing the placeholders with the same names; the site picks them up. A single source file goes to `assets/video/source/` and gets encoded from there.
+- **Photo originals:** `assets/photos/originals/`. The folder is in `.gitignore`: originals keep EXIF and GPS. Processed copies without metadata go to `assets/photos/` and are committed.
+- **Figma:** drop a photo onto a "Photo 1…6" rectangle.
+
 ## Video
 
-- A silent loop, 10–20 s, 16:9, no text on screen, about 4 MB at most (or the source file, and we compress it).
+- A silent loop, 10–20 s, 16:9, 720p, no text on screen: MP4 (H.264) and WebM, up to 3 MB each (or the source file, and we encode it).
 - A performance or a class, shot steadily, without a logo baked in.
 - The poster is the first frame.
-- On the site it plays by itself only while on screen, has a pause button, and doesn't start with "reduce motion" on (`docs/behavior-spec.en.md`, section 7).
+- On the site it's a background loop with no controls: it plays only while on screen and stays on the poster with "reduce motion" on (`docs/behavior-spec.en.md`, section 7).

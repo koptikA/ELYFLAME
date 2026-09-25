@@ -115,8 +115,6 @@ HTML = [
     ('aria-label="Photo placeholder">Photo<', 'aria-label="Место для фото">Фото<', 'aria-label="Місце для фото">Фото<'),
     ('>On the carpet<', '>На~ковре<', '>На~килимі<'),
     ('<h2>See grace<br><em>in motion.</em></h2>', '<h2>Грация<br><em>в~движении.</em></h2>', '<h2>Грація<br><em>у~русі.</em></h2>'),
-    ('aria-label="Video placeholder"', 'aria-label="Место для видео"', 'aria-label="Місце для відео"'),
-    ('</span>Performance video</div>', '</span>Видео с~выступления</div>', '</span>Відео з~виступу</div>'),
     ('>Our coaches / Content preview<', '>Наши тренеры / Предпросмотр<', '>Наші тренери / Попередній перегляд<'),
     ('<h2>Guidance with<br><em>heart and purpose.</em></h2>', '<h2>Наставники<br><em>с~душой и~целью.</em></h2>', '<h2>Наставники<br><em>з~душею та~метою.</em></h2>'),
     ('aria-label="Coach photo placeholder">Coach photo<', 'aria-label="Место для фото тренера">Фото тренера<', 'aria-label="Місце для фото тренера">Фото тренера<'),

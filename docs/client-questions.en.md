@@ -110,7 +110,7 @@ The process and the rules are in `docs/photos.en.md`.
    **Answer:** Open.
 27. Original photos without the logo and the pink background: the Instagram posts have them baked in, and a square crop cuts the logo. We need the camera or phone originals, at least 1600 px on the long side.
    **Answer:** Open.
-28. A video for the "On the carpet" band: a silent 10–20 s clip of a performance or a class, 16:9, no text on screen, about 4 MB at most (or the source file, and we compress it).
+28. A video for the "On the carpet" band: a silent 10–20 s clip of a performance or a class, 16:9, 720p, no text on screen, MP4 and WebM up to 3 MB each (or the source file, and we encode it).
    **Answer:** Open.
 29. Do you confirm illustrations instead of a photo or video in the hero and the footer (a gymnast silhouette and a row of silhouettes)? SOW 3.1 asks for a full-width photo or video in the hero; real photos go to the gallery.
    **Answer:** Open.
