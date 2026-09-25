@@ -190,7 +190,7 @@ A section after the video. Two coach entries: a gray photo placeholder, "[Coach 
 
 The "Let's light the spark" section and the footer form one dark stage with a glow. The section holds a line about booking, the Book a Trial button, and an email link. With JS running, the separate light booking section `#trial` is hidden and booking happens in the dialog; without JS it stays as the fallback form.
 
-At the bottom of the footer stands the "team": a row of light silhouettes of girls with a ball, hoop, clubs, and rope (12 on desktop, 6 on mobile; sprite `assets/gymnast/team.svg`, an illustration, not photos). The satin ribbon is strung like a garland between the sticks of the two end girls. As the footer scrolls in, the girls rise in one by one and the ribbon draws from right to left. The prototype still switches between 12 and 6 girls at 760 px; production follows the responsive rule in `docs/footer-team.en.md`.
+At the bottom of the footer stands the "team": a row of light silhouettes of girls with a ball, hoop, clubs, and rope (sprite `assets/gymnast/team.svg`, an illustration, not photos). The satin ribbon is strung like a garland between the sticks of the two end girls. As the footer scrolls in, the girls rise in one by one and the ribbon draws from right to left. The girls grow with the width (120–240 px) and stand in equal cells, as many as fit: 5 at 320 px, 6 at 390 px, 12 from 760 px. The two with sticks always stand at the ends. The rule is in `docs/footer-team.en.md`.
 
 ## 9. FAQ
 

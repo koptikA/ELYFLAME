@@ -306,15 +306,21 @@ function layoutRibbon(){
 // Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).
 // The satin ribbon is strung between the sticks of the two end girls and waves over the others' heads.
 // A named view timeline on .footer-team makes the girls rise in one by one and draws the ribbon from right to left.
+// Girls grow with the width (120–240 px) and the row holds as many as fit (5 at 320 px, 12 from 760 px): docs/footer-team.en.md.
 const team=document.querySelector('.footer-team');
 const KIDS={1:[196,708],2:[414,618],3:[369,649],4:[305,608],5:[401,627],6:[410,693,8,6],7:[323,635],8:[357,626],9:[314,631],10:[347,659],11:[395,659],12:[282,745,24,6]};
+const TEAM_PRIORITY=[12,6,1,3,10,5,7,2,8,11,4,9],TEAM_ORDER=[12,1,3,7,10,2,5,8,11,4,9,6];
 function layoutTeam(){
   if(!team)return;
-  const W=team.clientWidth,mobile=innerWidth<=760,order=mobile?[12,1,3,10,5,6]:[12,1,3,7,10,2,5,8,11,4,9,6];
-  const kidH=mobile?120:240,top=mobile?22:36,H=kidH+top+4,floor=H-2,sc=kidH/745,pad=mobile?4:12;
-  const widths=order.map(k=>KIDS[k][0]*sc),gap=(W-2*pad-widths.reduce((a,b)=>a+b,0))/(order.length-1);
-  let x=pad;const kids=order.map((k,i)=>{const[w,h,tx,ty]=KIDS[k],kid={k,x,y:floor-h*sc,w:w*sc,h:h*sc,tip:tx===undefined?null:[x+tx*sc,floor-h*sc+ty*sc]};x+=w*sc+gap;return kid;});
-  const tipL=kids[0].tip,tipR=kids[kids.length-1].tip,amp=mobile?10:18;
+  const W=team.clientWidth,mobile=innerWidth<=760;
+  const kidH=Math.min(240,Math.max(120,.19*W)),sc=kidH/745,pad=kidH/20;
+  // Equal cells, at least 0.42 of a girl's height wide: as many as fit (4–12), each girl centred in hers.
+  // The two holding sticks always stand at the ends.
+  const n=Math.max(4,Math.min(12,Math.floor((W-2*pad)/(.42*kidH)))),cell=(W-2*pad)/n;
+  const order=TEAM_PRIORITY.slice(0,n).sort((a,b)=>TEAM_ORDER.indexOf(a)-TEAM_ORDER.indexOf(b));
+  const top=.15*kidH,H=kidH+top+4,floor=H-2,amp=.075*kidH;
+  const kids=order.map((k,i)=>{const[w,h,tx,ty]=KIDS[k],x=pad+i*cell+(cell-w*sc)/2;return{k,x,y:floor-h*sc,w:w*sc,h:h*sc,tip:tx===undefined?null:[x+tx*sc,floor-h*sc+ty*sc]};});
+  const tipL=kids[0].tip,tipR=kids[kids.length-1].tip;
   // Through-points right to left: a wave above the heads, dipping in the gaps between the girls.
   const P=[tipR];
   for(let i=kids.length-2;i>=1;i--){const k=kids[i];P.push([k.x+k.w/2,top*.5+(i%2?amp:-amp*.4)]);}
