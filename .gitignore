@@ -1,4 +1,5 @@
 outputs/wiki/
+outputs/share/
 # Original photos of children keep EXIF and GPS; only processed copies in assets/photos/ are committed (docs/photos.md).
 assets/photos/originals/
 assets/video/source/

@@ -38,6 +38,7 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 - Serve with `python tools/serve.py` (http://127.0.0.1:4173/). It sends `Cache-Control: no-store`, so the browser never shows a stale `site.js` or `site.css`; plain `http.server` let browsers cache them.
 - Look at 1440 px and 390 px, on `/`, `/ru/` and `/uk/`: no console errors, no horizontal scroll from 320 to 1920 px, the ribbon clear of text.
 - Audit generated UI with the `design-anti-slop` skill.
+- Show the client: `python tools/share.py` copies only the public site to `outputs/share/` (gitignored) for Netlify Drop. Never tunnel `tools/serve.py`: it serves the whole repo, including `docs/` and `.git/`.
 
 ## Working together
 
