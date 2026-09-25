@@ -15,7 +15,7 @@ Design and prototype repo for the ElyFlame Academy of Rhythmic Gymnastics site (
 ## Documents
 
 - Every document is a pair: `name.md` in Russian for Alena, `name.en.md` in English for the team. Edit both in the same change.
-- The team reads documents in the Kirakito wiki (English, WordPress, under the page ElyFlame RG), so the `.en.md` version is what gets published. `outputs/wiki/` holds paste-ready HTML built by `python tools/wiki.py` (needs `pip install markdown`) and is gitignored.
+- The team reads documents in the Kirakito wiki (English, WordPress, under the page ElyFlame RG), so the `.en.md` version is what gets published. `outputs/wiki/` holds paste-ready HTML built by `python tools/wiki.py` (needs `pip install markdown`) and is gitignored. Published wiki pages are never overwritten: for changes, `python tools/wiki.py --since <commit>` builds add-on pages with only the new and changed items.
 
 ## Prototype rules
 
