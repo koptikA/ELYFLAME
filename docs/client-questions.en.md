@@ -117,12 +117,12 @@ The process and the rules are in `docs/photos.en.md`.
 
 ## Stretching: page details
 
-30. What are the class duration, minimum age, entry requirements and session structure for Stretching? Please provide a short approved description without publishing schedules or prices. Until the answer, the Stretching hero shows "[60 minutes]".
+30. What are the class duration, minimum age, entry requirements and session structure for Stretching? Please provide a short approved description without publishing schedules or prices. Until the answer, the page shows a draft structure: warm-up and joint mobility, deep static stretching, splits and bridge work, cool-down and breathing; and "The coach sets your load at the trial" as the starting level. Please confirm or correct both, and give the duration.
    **Answer:** Open.
 31. How should an adult book a Stretching trial: participant fields instead of child/parent fields, or direct booking with Administration? The shared form currently assumes a parent and child.
    **Answer:** Open.
 
-32. Which three main benefits of Stretching may we publish? Please provide approved wording for dancers, figure skaters, martial artists, runners and adults, without medical promises.
+32. Which three main benefits of Stretching may we publish? Please provide approved wording for dancers, figure skaters, martial artists, runners and adults, without medical promises. Until the answer, the page shows three drafts: "A wider, freer range of motion", "Better posture and body control", "Flexibility that supports your main sport". Please confirm or correct them.
    **Answer:** Open.
 
 33. Which email address should receive messages submitted through the Contact form?
