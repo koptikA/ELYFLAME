@@ -221,7 +221,7 @@ An accordion built on `<details>`: each question opens and closes on its own, an
 
 ### Transition to Five Pages
 
-Home, About, Parents’ Info, Stretching and Contact will become separate SOW pages. About and Stretching are ready, so menus link to `about/` and `stretching/`. Parents’ Info and Contact still target Home `#parents` and `#contact`, prefixed with `../` on inner pages. Language is preserved. Register each new page in `PAGES` and update every header/footer copy.
+Home, About, Parents’ Info, Stretching and Contact will become separate SOW pages. About, Stretching and Contact are ready and their menus target those pages. Parents’ Info still targets Home `#parents`, prefixed with `../` on inner pages. Language is preserved. Register each new page in `PAGES` and update every header/footer copy.
 
 The generator iterates over registered pages, uses shared translation tables and rebases relative links for any depth. Language switching keeps the current page (About → About); canonical and hreflang URLs target that page’s versions. Headers and footers are copied into each English page. The generator checks them after normalizing URLs and current-item markers, and checks language controls against shared helpers. A mismatch, stale translation row or English leftover fails the build before any files are written.
 
@@ -231,5 +231,13 @@ The generator iterates over registered pages, uses shared translation tables and
 - Three static token-colored arcs replace the scrolling Ribbon. No people or photos are generated.
 - No public schedule (answer 9): a bracketed placeholder directs visitors to ask the academy for times. No class or membership prices (answer 8 supersedes the Sep 24 decision). The confirmed $10 trial fee remains in the shared header (answer 3).
 - Booking links carry the program to the single Home form: `../?program=stretching#trial`. Shared JS adds the same parameter to the shared header CTA on Stretching. Home accepts only the known key `stretching`, selects Stretching & Flexibility and leaves the participant age empty. Without JS the ordinary form opens and the program is selected manually.
-- Home keeps a short introduction, the trial button and “Explore Stretching →”. Every Stretching menu item now targets the page. Contact and Parents’ Info still target Home sections for now.
+- Home keeps a short introduction, the trial button and “Explore Stretching →”. Every Stretching menu item now targets the page. Parents’ Info still targets its Home section at this stage; Contact is now a standalone page.
 - The current trial form is designed for a parent and child; adult registration is open question 31. Adults can contact the academy directly.
+
+## 13. Contact Page
+
+- `/contact/`, `/ru/contact/`, `/uk/contact/`: 1250 Radcliffe Road, Buffalo Grove, IL 60089, in the Silk Road International School building; (224) 804-8324 and academy@elyflame.com. Phone and email links open their respective apps.
+- **Phone hours**, not class hours: Monday–Friday 9 am–10 pm, Saturday 9 am–5 pm, Sunday closed. Class schedules are not published (answer 9).
+- A static arrival block emphasizes door 11 for entrance, parking, drop-off and pick-up. It is an entrance sign, not an invented site map. No Google map, iframe, script or image loads on page view. “Get directions ↗” opens the address in Google Maps in a new tab only after a click, with `rel="noopener"`.
+- No contact form: phone and email provide direct contact; the primary CTA opens the single trial form on same-language Home. This simplifies SOW 3.4 as authorized by the page task.
+- Home retains the address strip with phone, email, call hours, door #11 and Get directions, plus “Plan your visit →”. Contact menus now target the standalone page. Parents’ Info still targets its Home section for now.

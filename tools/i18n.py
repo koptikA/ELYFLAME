@@ -26,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LANGS = {'ru': 1, 'uk': 2}
 SITE = 'https://elyflame.com/'
 # Add an English source directory here when the next standalone page is ready.
-PAGES = ('', 'about/', 'stretching/')
+PAGES = ('', 'about/', 'stretching/', 'contact/')
 
 # (English fragment exactly as in index.html, Russian, Ukrainian)
 HTML = [
@@ -332,7 +332,7 @@ JS = [
 
 # Latin text that stays on translated pages: names, the postal address, contacts. In running text and headings the town is
 # written in Cyrillic (Баффало-Гров); the address keeps Latin so parents can type it into a map.
-KEEP = ['ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'Buffalo Grove',
+KEEP = ['Google Maps', 'ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'Buffalo Grove',
         'Radcliffe Road', 'Silk Road International School', 'USA Gymnastics', 'Instagram', 'Facebook',
         'Kirakito Technologies', 'academy@elyflame.com', 'name@example.com', 'Stripe Checkout', 'SMS',
         'English', 'Stretching & Flexibility']
@@ -506,6 +506,54 @@ STRETCHING_HTML = [('Stretching & Flexibility — ElyFlame Academy',
   'Уточните в~академии, как присоединиться к~занятию, или выберите растяжку при записи на~пробное.',
   'Уточніть в~академії, як долучитися до~заняття, або виберіть розтяжку під час запису на~пробне.')]
 
+CONTACT_HTML = [('Contact ElyFlame — Visit Us in Buffalo Grove',
+  'Контакты ElyFlame — как добраться в~Баффало-Гров',
+  'Контакти ElyFlame — як дістатися в~Баффало-Гров'),
+ ('Contact ElyFlame Academy in Buffalo Grove: phone, email, call hours and directions to door 11 at 1250 '
+  'Radcliffe Road.',
+  'Контакты ElyFlame Academy в~Баффало-Гров: телефон, почта, часы звонков и~вход №~11 по~адресу 1250 Radcliffe '
+  'Road.',
+  'Контакти ElyFlame Academy в~Баффало-Гров: телефон, пошта, години дзвінків і~вхід №~11 за~адресою 1250 '
+  'Radcliffe Road.'),
+ ('>Contact ElyFlame<', '>Контакты ElyFlame<', '>Контакти ElyFlame<'),
+ ('<h1>See you in<br>Buffalo Grove.</h1>',
+  '<h1>До~встречи<br>в~Баффало-Гров.</h1>',
+  '<h1>До~зустрічі<br>в~Баффало-Гров.</h1>'),
+ ('Questions before your child’s first visit? Call or write to the academy.',
+  'Есть вопросы перед первым визитом ребёнка? Позвоните или напишите в~академию.',
+  'Є~запитання перед першим візитом дитини? Зателефонуйте або напишіть до~академії.'),
+ ('Call the academy <span', 'Позвонить в~академию <span', 'Зателефонувати до~академії <span'),
+ ('Email the academy <span', 'Написать в~академию <span', 'Написати до~академії <span'),
+ ('>Meet us at<', '>Ждём вас у~входа<', '>Чекаємо на~вас біля входу<'),
+ ('>Door<', '>Дверь №<', '>Двері №<'),
+ ('Entrance · parking<br>Drop-off · pick-up',
+  'Вход · парковка<br>Высадка · встреча детей',
+  'Вхід · паркування<br>Висадка · зустріч дітей'),
+ ('>Plan your visit<', '>Перед визитом<', '>Перед візитом<'),
+ ('Plan your visit <span', 'Как нас найти <span', 'Як нас знайти <span'),
+ ('<h2>Your way<br>to the academy.</h2>', '<h2>Как найти<br>академию.</h2>', '<h2>Як знайти<br>академію.</h2>'),
+ ('Use door #11 for entrance, parking, drop-off and pick-up.',
+  'Вход, парковка, высадка и~встреча детей~— у~двери №~11.',
+  'Вхід, паркування, висадка та~зустріч дітей~— біля дверей №~11.'),
+ ('Directions open in Google Maps.', 'Маршрут откроется в~Google Maps.', 'Маршрут відкриється в~Google Maps.'),
+ ('>A time to talk<', '>Время для разговора<', '>Час для розмови<'),
+ ('>Call us.<', '>Звоните.<', '>Телефонуйте.<'),
+ ('These are phone hours. Ask the academy about class times.',
+  'Это часы приёма звонков. Время занятий уточняйте в~академии.',
+  'Це години прийому дзвінків. Час занять уточнюйте в~академії.'),
+ ('>Monday–Friday<', '>Понедельник–пятница<', '>Понеділок–п’ятниця<'),
+ ('>9 am–10 pm<', '>9:00–22:00<', '>9:00–22:00<'),
+ ('>Saturday<', '>Суббота<', '>Субота<'),
+ ('>9 am–5 pm<', '>9:00–17:00<', '>9:00–17:00<'),
+ ('>Sunday<', '>Воскресенье<', '>Неділя<'),
+ ('>Closed<', '>Выходной<', '>Вихідний<'),
+ ('<h2>Meet the coach.<br>Try the sport.</h2>',
+  '<h2>Познакомьтесь<br>с~тренером.</h2>',
+  '<h2>Познайомтеся<br>з~тренером.</h2>'),
+ ('Book a trial for your child. The academy will confirm the time with you.',
+  'Запишите ребёнка на~пробное. Академия подтвердит время занятия.',
+  'Запишіть дитину на~пробне. Академія підтвердить час заняття.')]
+
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
 GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
@@ -660,7 +708,7 @@ def main():
             return source.read()
     sources = {page: source_page(read(page + 'index.html'), page) for page in PAGES}
     check_shared(sources)
-    rows = HTML + ABOUT_HTML + STRETCHING_HTML
+    rows = HTML + ABOUT_HTML + CONTACT_HTML + STRETCHING_HTML
     for row in rows:
         if not any(row[0] in html for html in sources.values()):
             sys.exit(f'HTML source not found, update the table: {row[0]!r}')
