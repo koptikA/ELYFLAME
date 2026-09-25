@@ -573,7 +573,7 @@ body.info-page h1{font-size:clamp(48px,6.4vw,92px);line-height:1.1;letter-spacin
 #contact-form label{font-size:14px}
 #contact-form input,#contact-form textarea{display:block;background:var(--paper-raised);border:1px solid var(--line-strong);padding:12px;margin-top:8px;min-height:49px;width:100%;font:inherit;color:var(--ink);border-radius:0}
 #contact-form textarea{resize:vertical}
-#contact-form .field-error{font-size:14px}
+#contact-form .field-error,#contact-form .field-hint{font-size:14px}
 #contact-form [aria-invalid=true]{border:2px solid var(--error)}
 #contact-form .button{margin-top:4px;justify-self:start}
 #contact-status{padding-block:16px;border-block:1px solid var(--line-strong)}
