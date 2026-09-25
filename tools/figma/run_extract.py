@@ -11,6 +11,11 @@ and run it with the Figma MCP use_figma tool. builder.js makes one frame per sec
 style, boxes with token colors, Button / Text link / Badge instances where it recognizes them, footer girls cloned
 from the footer team (Kid N), and the satin ribbon as SVG. export.js exports the page ribbon or the footer team as a
 flat SVG for upload_assets. use_figma accepts 50,000 characters of code: send one section group per call.
+The extractor also reads CSS ::after glyphs (the page-index arrow, the audience star, FAQ +/-), input placeholders,
+<use> symbols from any sprite (team.svg, split.svg), skips the content of closed <details>, and turns an iframe into an
+"Image Google Map" holder: screenshot the map with Playwright and upload it with upload_assets nodeIds. builder.js draws
+single-glyph texts (arrows, +, -, the star) as icon instances, since Figma renders the star as a color emoji. A long SVG
+(the satin between the Parents steps) can go in with upload_assets first and then be moved into its section.
 """
 import json, sys
 from playwright.sync_api import sync_playwright

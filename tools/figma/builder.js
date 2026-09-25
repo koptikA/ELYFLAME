@@ -16,7 +16,9 @@ const styleFor = (fam, size, w, lh) => styles.find(s => s.fontName.family === fa
 const shadow = (await figma.getLocalEffectStylesAsync()).find(s => s.name === 'Shadow/Dropdown');
 const tilt = (n, deg) => { const a = deg * Math.PI / 180, c = Math.cos(a), s = Math.sin(a), x = n.x, y = n.y, w = n.width, h = n.height;
   n.relativeTransform = [[c, -s, x + w / 2 - (c * w / 2 - s * h / 2)], [s, c, y + h / 2 - (s * w / 2 + c * h / 2)]]; };
-const [btn, linkIn, linkEx, medal, shield, arrowR, arrowE, team] = await Promise.all(['4:47', '4:63', '4:67', '39:65', '39:71', '4:11', '4:15', '30:190'].map(id => figma.getNodeByIdAsync(id)));
+const [btn, linkIn, linkEx, medal, shield, arrowR, arrowE, team, arrowD, plus, minus, star] = await Promise.all(['4:47', '4:63', '4:67', '39:65', '39:71', '4:11', '4:15', '30:190', '4:19', '4:32', '4:36', '4:40'].map(id => figma.getNodeByIdAsync(id)));
+// Single-glyph texts become icon instances: Figma draws ✳ as a color emoji, and the arrows should match the icon set.
+const GLYPH = {'→': arrowR, '↗': arrowE, '↓': arrowD, '+': plus, '−': minus, '✳': star};
 const label = (inst, text) => { const k = Object.keys(inst.componentProperties).find(q => q.startsWith('Label')); if (k) inst.setProperties({[k]: text}); };
 const LOGO = '23d9942a4d230088962c3cdfe12c315a9c60c52a';
 const made = [];
@@ -33,10 +35,13 @@ for (const s of DATA) {
       const b = (after[5] === '↗' ? linkEx : linkIn).createInstance(); f.appendChild(b); label(b, next[5]); b.x = n[1]; b.y = n[2]; i += 2; continue; }
     if (n[0] === 'T') {
       const [, x, y, w, h, text, fam, size, wt, lh, ls, color, al, ul] = n; if (!text.trim()) continue;
-      if (/^[→↗]$/.test(text)) { const a = (text === '↗' ? arrowE : arrowR).createInstance(); f.appendChild(a); a.x = x; a.y = y + (h - a.height) / 2; continue; }
+      if (GLYPH[text]) { const a = GLYPH[text].createInstance(); f.appendChild(a); if (text === '✳') a.rescale(size * .7 / a.width);
+        for (const v of a.findAll(q => q.type === 'VECTOR')) v.strokes = [P(color)];
+        a.x = text === '✳' ? x + (w - a.width) / 2 : x; a.y = y + (h - a.height) / 2; continue; }
       const t = figma.createText(); f.appendChild(t); const st = styleFor(fam, size, wt, lh);
       if (st) await t.setTextStyleIdAsync(st.id); else { t.fontName = font(fam, wt); t.fontSize = size; t.lineHeight = {unit: 'PIXELS', value: lh}; if (ls) t.letterSpacing = {unit: 'PIXELS', value: ls}; }
-      t.characters = text; t.fills = [P(color)]; t.textAutoResize = 'HEIGHT'; t.resize(w + 2, h); t.x = x; t.y = y; t.name = text.split('\n')[0].slice(0, 32);
+      // resize() resets textAutoResize to NONE, so set it after. Lines broken with <br> never soft-wrap: Figma draws Cinzel a bit wider than browsers.
+      t.characters = text; t.fills = [P(color)]; t.resize(w + 2, h); t.textAutoResize = text.includes('\n') ? 'WIDTH_AND_HEIGHT' : 'HEIGHT'; t.x = x; t.y = y; t.name = text.split('\n')[0].slice(0, 32);
       if (al === 'c') t.textAlignHorizontal = 'CENTER'; if (al === 'r' || al === 'e') t.textAlignHorizontal = 'RIGHT'; if (ul) t.textDecoration = 'UNDERLINE';
     } else if (n[0] === 'R') {
       const [, x, y, w, h, rot, bg, bc, bw, sh, rad, mono] = n; const r = figma.createFrame(); f.appendChild(r);
