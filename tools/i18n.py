@@ -141,9 +141,7 @@ HTML = [
     ('<p>For dancers, skaters, and athletes from other sports, and for adults.</p>',
      '<p>Для танцоров, фигуристов, спортсменов из~других видов спорта и~взрослых.</p>',
      '<p>Для танцівників, фігуристів, спортсменів з~інших видів спорту й~дорослих.</p>'),
-    ('<p class="muted">A weekly Stretching &amp; Flexibility class for teens, adults, and athletes from other sports.</p>',
-     '<p class="muted">Занятие по~растяжке и~гибкости раз в~неделю для подростков, взрослых и~спортсменов из~других видов спорта.</p>',
-     '<p class="muted">Заняття з~розтяжки та~гнучкості раз на~тиждень для підлітків, дорослих і~спортсменів з~інших видів спорту.</p>'),
+    ('<p class="muted">Once a week · [60 minutes]</p>', '<p class="muted">Раз в~неделю · [60~минут]</p>', '<p class="muted">Раз на~тиждень · [60~хвилин]</p>'),
     ('>For parents<', '>Родителям<', '>Батькам<'),
     ('<h2>Little questions.<br><em>Big beginnings.</em></h2>', '<h2>Маленькие вопросы.<br><em>Большие начинания.</em></h2>', '<h2>Маленькі питання.<br><em>Великі починання.</em></h2>'),
     ('<p>A new activity comes with questions.<br>Here’s a little clarity before you visit.</p>',
@@ -670,9 +668,8 @@ CONTACT_HTML += [('Let’s talk.', 'На~связи.', 'На~зв’язку.'),
  ('Ask about private lessons', 'Спросить о~частных занятиях', 'Запитати про приватні заняття'),
  ('Ask us anything', 'Задать вопрос', 'Поставити запитання')]
 
-STRETCHING_HTML += [('One weekly class, open to other sports and adults.',
-  'Одно занятие в~неделю для взрослых и~спортсменов из~других видов спорта.',
-  'Одне заняття на~тиждень для дорослих і~спортсменів з~інших видів спорту.')]
+STRETCHING_HTML += [('Sounds like you?', 'Подходит~ли вам?', 'Вам підходить?'),
+ ('>Book a trial <span', '>Записаться <span', '>Записатися <span')]
 
 CONTACT_HTML += [('We couldn’t check your message. Please try again, or call the academy at '
   '(224) 804-8324.',

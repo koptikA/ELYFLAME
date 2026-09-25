@@ -117,7 +117,7 @@ The process and the rules are in `docs/photos.en.md`.
 
 ## Stretching: page details
 
-30. What are the class duration, minimum age, entry requirements and session structure for Stretching? Please provide a short approved description without publishing schedules or prices.
+30. What are the class duration, minimum age, entry requirements and session structure for Stretching? Please provide a short approved description without publishing schedules or prices. Until the answer, the Stretching hero shows "[60 minutes]".
    **Answer:** Open.
 31. How should an adult book a Stretching trial: participant fields instead of child/parent fields, or direct booking with Administration? The shared form currently assumes a parent and child.
    **Answer:** Open.
