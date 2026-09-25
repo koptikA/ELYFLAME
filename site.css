@@ -284,6 +284,7 @@ h2 em,.stage h2 em{color:inherit}
 /* Video (#video): a dark band with a 16:9 poster; the real video plays with controls on tap, no autoplay. */
 .video-section{background:var(--stage);color:var(--on-stage)}
 .video-section>.eyebrow{color:var(--on-stage-muted)}
+.video-section h2{margin-top:20px}
 .video-slot{margin-top:48px;aspect-ratio:16/9;display:grid;place-content:center;justify-items:center;gap:16px;background:color-mix(in srgb,var(--on-stage) 8%,var(--stage));color:var(--on-stage-muted);font-size:14px}
 .video-play{position:relative;width:72px;height:72px;border-radius:50%;background:var(--pink)}
 .video-play::after{content:"";position:absolute;left:29px;top:24px;border-left:20px solid var(--white);border-top:12px solid transparent;border-bottom:12px solid transparent}
