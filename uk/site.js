@@ -304,10 +304,10 @@ function layoutRibbon(){
   }
   ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutTeam();
 }
-// Gallery: the photos pop in one by one the first time the block comes into view. Video band: the decorative loop plays
+// Gallery and coach photos pop in one by one the first time their block comes into view. Video band: the decorative loop plays
 // only while on screen. With reduced motion neither moves: the gallery stands still and the video stays on its poster.
-const calm=matchMedia('(prefers-reduced-motion: reduce)').matches,gallery=document.querySelector('.gallery'),loop=document.querySelector('.video-loop');
-if(gallery&&!calm){gallery.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){gallery.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(gallery.querySelector('.gallery-grid'));}
+const calm=matchMedia('(prefers-reduced-motion: reduce)').matches,loop=document.querySelector('.video-loop');
+if(!calm)document.querySelectorAll('.gallery,.coaches').forEach(block=>{block.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){block.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(block.querySelector('.gallery-grid,.coach-list'));});
 if(loop){if(calm){loop.removeAttribute('autoplay');loop.load();}else new IntersectionObserver(([e])=>e.isIntersecting?loop.play().catch(()=>{}):loop.pause()).observe(loop);}
 
 // Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).

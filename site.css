@@ -291,8 +291,13 @@ h2 em,.stage h2 em{color:inherit}
 .gallery-grid li:nth-child(6n){--tilt:1.5deg;--i:5}
 @media(hover:hover){.gallery-grid li:hover{rotate:0deg;translate:0 -6px;position:relative;z-index:1}}
 .photo-slot,.gallery-grid img{display:grid;place-items:center;width:100%;aspect-ratio:1;object-fit:cover;background:var(--placeholder);color:var(--ink-muted);font-size:14px;border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent)}
-.gallery.reveal-ready .gallery-grid li{opacity:0;scale:.6}
-.gallery.reveal-ready.is-in .gallery-grid li{opacity:1;scale:1;transition:opacity .3s calc(var(--i)*80ms),scale .55s cubic-bezier(.34,1.56,.64,1) calc(var(--i)*80ms),rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
+/* Coach photos get the same frame, tilt, hover and pop-in as the gallery. */
+.coach-photo{border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent);rotate:var(--tilt);transition:rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
+.coach:nth-child(odd) .coach-photo{--tilt:-2.5deg;--i:0}
+.coach:nth-child(even) .coach-photo{--tilt:2deg;--i:1}
+@media(hover:hover){.coach:hover .coach-photo{rotate:0deg;translate:0 -6px}}
+.reveal-ready :is(.gallery-grid li,.coach-photo){opacity:0;scale:.6}
+.reveal-ready.is-in :is(.gallery-grid li,.coach-photo){opacity:1;scale:1;transition:opacity .3s calc(var(--i)*80ms),scale .55s cubic-bezier(.34,1.56,.64,1) calc(var(--i)*80ms),rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
 /* Video (#video): a dark band with a decorative 16:9 loop, no controls. site.js pauses it off screen; with reduced motion
    it stays on the poster (the first frame). */
 .video-section{background:var(--stage);color:var(--on-stage)}

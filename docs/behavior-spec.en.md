@@ -184,7 +184,7 @@ Two blocks after "More than movement". Both carry `data-requires-content` until 
 
 ## 8. Coaches and Safety
 
-A section after the video. Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. Until bios arrive, the section shows placeholders (the client's request, Sep 25); `data-requires-content` marks it for a check before launch.
+A section after the video. Coach photos get the same treatment as the gallery: a cream frame, a slight tilt (−2.5° and 2°) that straightens on hover, and a pop-in the first time the block comes into view. Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. Until bios arrive, the section shows placeholders (the client's request, Sep 25); `data-requires-content` marks it for a check before launch.
 
 ## 8.1 Finale
 
