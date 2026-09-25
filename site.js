@@ -303,11 +303,26 @@ function layoutRibbon(){
   }
   ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutTeam();
 }
-// Gallery and coach photos pop in one by one the first time their block comes into view. Video band: the decorative loop plays
+// Gallery photos and the founder's portrait pop in the first time their block comes into view. Video band: the decorative loop plays
 // only while on screen. With reduced motion neither moves: the gallery stands still and the video stays on its poster.
 const calm=matchMedia('(prefers-reduced-motion: reduce)').matches,loop=document.querySelector('.video-loop');
-if(!calm)document.querySelectorAll('.gallery,.coaches').forEach(block=>{block.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){block.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(block.querySelector('.gallery-grid,.coach-list'));});
+if(!calm)document.querySelectorAll('.gallery,.coaches').forEach(block=>{block.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){block.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(block.querySelector('.gallery-grid,.founder'));});
 if(loop){if(calm){loop.removeAttribute('autoplay');loop.load();}else new IntersectionObserver(([e])=>e.isIntersecting?loop.play().catch(()=>{}):loop.pause()).observe(loop);}
+
+// The team under the founder: one card per coach in the #team-data array ({name, role, focus, photo, alt}; photo paths
+// start with "/" so they work on /ru/ and /uk/ too). Empty array: the block stays hidden. One coach: a wide card over two
+// columns; more: 3 columns on desktop, 2 on tablets, 1 on phones (site.css).
+const teamBlock=document.querySelector('.team-block'),coaches=JSON.parse(document.querySelector('#team-data')?.textContent||'[]');
+if(teamBlock&&coaches.length){
+  const card=document.querySelector('#team-card').content.firstElementChild;
+  teamBlock.querySelector('.team-list').append(...coaches.map(c=>{
+    const li=card.cloneNode(true),photo=li.querySelector('.team-photo');
+    if(c.photo){const img=new Image(400,400);img.src=c.photo;img.alt=c.alt||'';img.loading='lazy';photo.append(img);}else photo.classList.add('is-empty');
+    li.querySelector('h4').textContent=c.name;li.querySelector('.team-role').textContent=c.role;li.querySelector('.team-focus').textContent=c.focus;
+    return li;
+  }));
+  teamBlock.hidden=false;
+}
 
 // Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).
 // The satin ribbon is strung between the sticks of the two end girls and waves over the others' heads.

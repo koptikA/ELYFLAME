@@ -61,16 +61,34 @@ label,select,input,textarea,summary,.about-point h3{font-size:16px}
 .path-spark{top:0;transition:transform .65s ease-out;pointer-events:none}
 .assessment-stop{font-size:14px;line-height:24px}
 #experience-note{margin-top:14px;color:var(--pink-deep)}
-.coaches h2{margin:20px 0 45px}
-.coach-list{display:grid;grid-template-columns:1fr 1fr;gap:7%}
-.coach{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:24px}
-.coach-photo{background:var(--placeholder);height:190px;display:grid;place-items:center;font-size:12px;color:var(--ink-muted)}
-.coach h3{font-family:var(--display);font-size:23px}
-.coach p{font-size:16px;margin-top:10px}
-.coach .credentials{color:var(--pink);font-size:14px}
-.safety-row{display:flex;justify-content:space-between;gap:28px;margin-top:45px;padding-top:24px}
-.safety-row p{font-size:14px}
-.content-note{font-size:12px;margin-top:20px;color:var(--ink-muted)}
+/* Coaches: the founder as "portrait + text" (portrait 40% of the block), then the team grid. The team cards come from
+   the #team-data array (site.js); the block stays hidden while the array is empty. */
+.founder{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto 1fr;grid-template-areas:"photo head" "photo body";column-gap:7%;align-items:start}
+.founder-head{grid-area:head}
+.founder-head h2{margin-top:20px}
+.founder-photo{grid-area:photo;aspect-ratio:4/5;display:grid;place-items:center;background:var(--sand)}
+.founder-photo img{width:100%;height:100%;object-fit:cover}
+.founder-photo.is-empty::after,.team-photo.is-empty::after{content:"";width:34%;aspect-ratio:540/632;background:url(assets/brand/Just_Logo__no_background_.png) center/contain no-repeat}
+.founder-body{grid-area:body;margin-top:40px}
+.founder-name{font-family:var(--display);font-weight:400;font-size:clamp(30px,3vw,42px);line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
+.founder-role,.team-role{font-family:var(--display);font-size:15px;line-height:1.5;color:var(--ink-muted);margin-top:6px}
+.founder-body>p:not(.founder-role){margin-top:18px;max-width:520px;font-size:16px}
+.badges{list-style:none;display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 0;padding:0}
+.badges li{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid var(--line-strong);font-size:14px;line-height:1.5;color:var(--ink)}
+.badges svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--decor);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.team-block{margin-top:96px}
+.team-list{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:48px 32px}
+.team-photo{aspect-ratio:1;display:grid;place-items:center;background:var(--sand);overflow:hidden}
+.team-photo img{width:100%;height:100%;object-fit:cover}
+.team-card h4{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.3;color:var(--ink);margin:18px 0 0}
+.team-focus{font-size:16px;margin-top:8px}
+.team-list li:only-child{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto auto auto 1fr;column-gap:32px}
+.team-list li:only-child .team-photo{grid-row:1/-1}
+.team-list li:only-child>:not(.team-photo){grid-column:2}
+.team-list li:only-child h4{grid-row:2;margin-top:0}
+.team-list li:only-child .team-role{grid-row:3}
+.team-list li:only-child .team-focus{grid-row:4}
+@media(max-width:1050px){.team-list{grid-template-columns:repeat(2,1fr)}}
 body[data-production] [data-requires-content]{display:none}
 .trial-section.enhanced{display:block}
 .trial-section.enhanced>div:first-child{max-width:700px}
@@ -116,7 +134,7 @@ body:has(#booking-dialog[open]){overflow:hidden}
 
 
 .site-footer .copyright{grid-column:1/-1;font-size:11px;margin-top:10px}
-@media(max-width:1100px) and (min-width:761px){.header nav{gap:12px}.header{gap:14px}.brand{font-size:18px}.header-cta{gap:14px;padding:10px 14px}.coach{grid-template-columns:1fr}.coach-photo{height:250px}}
+@media(max-width:1100px) and (min-width:761px){.header nav{gap:12px}.header{gap:14px}.brand{font-size:18px}.header-cta{gap:14px;padding:10px 14px}}
 @media(max-width:760px){
   .section{padding-top:120px}
   .hero{min-height:0;padding-bottom:24px}
@@ -138,10 +156,13 @@ body:has(#booking-dialog[open]){overflow:hidden}
   .level .apparatus{font-size:12px;max-width:none}
   .assessment-stop{top:-58px;left:28px;font-size:13px;max-width:calc(100% - 28px)}
   .path-spark{font-size:21px}
-  .coach-list{grid-template-columns:1fr;gap:40px}
-  .coach{grid-template-columns:110px 1fr;gap:20px}
-  .coach-photo{height:170px}.coach h3{font-size:20px}.coach p{font-size:14px}
-  .safety-row{flex-direction:column;gap:14px}
+  .founder{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"head" "photo" "body"}
+  .founder-photo{width:78%;margin-top:32px}
+  .founder-body{margin-top:32px}
+  .team-block{margin-top:64px}
+  .team-list{grid-template-columns:1fr;gap:40px}
+  .team-list li:only-child{grid-column:auto;display:block}
+  .team-list li:only-child h4{margin-top:18px}
   .closing{padding-top:120px}
   #booking-dialog{width:calc(100% - 20px);padding:30px 20px;max-height:94dvh}
   #booking-dialog .close-dialog{top:-20px}
@@ -164,7 +185,7 @@ body{font-size:16px}
 .header nav{font-size:14px}
 .button,.button .submit-label{font-size:15px}
 .header-cta{font-size:14px}
-.trial-note,.visit-note,.field-hint,.content-note,.finder-result small{font-size:14px}
+.trial-note,.visit-note,.field-hint,.finder-result small{font-size:14px}
 .text-link,#edit-booking{font-size:15px}
 .email{font-size:16px}
 .level small,.level .apparatus{font-size:14px}
@@ -176,7 +197,7 @@ body{font-size:16px}
 .scroll-cue{text-transform:none;letter-spacing:0;font-size:14px}
 /* T9: magenta on interactive elements and the hero headline only. */
 h2 em,.stage h2 em{color:inherit}
-.dot,.values-strip b,.about-point>span,summary:after,.coach .credentials,.finder-result .eyebrow,#experience-note{color:var(--ink-muted)}
+.dot,.values-strip b,.about-point>span,summary:after,.finder-result .eyebrow,#experience-note{color:var(--ink-muted)}
 .stage>.eyebrow{color:var(--on-stage-muted)}
 /* T2: drawn burger icon; the word "Menu" stays for screen readers only. */
 .burger{display:block;width:22px;height:14px;border-block:2px solid currentColor;position:relative}
@@ -294,13 +315,11 @@ h2 em,.stage h2 em{color:inherit}
 .gallery-grid li:nth-child(6n){--tilt:1.5deg;--i:5}
 @media(hover:hover){.gallery-grid li:hover{rotate:0deg;translate:0 -6px;position:relative;z-index:1}}
 .photo-slot,.gallery-grid img{display:grid;place-items:center;width:100%;aspect-ratio:1;object-fit:cover;background:var(--placeholder);color:var(--ink-muted);font-size:14px;border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent)}
-/* Coach photos get the same frame, tilt, hover and pop-in as the gallery. */
-.coach-photo{border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent);rotate:var(--tilt);transition:rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
-.coach:nth-child(odd) .coach-photo{--tilt:-2.5deg;--i:0}
-.coach:nth-child(even) .coach-photo{--tilt:2deg;--i:1}
-@media(hover:hover){.coach:hover .coach-photo{rotate:0deg;translate:0 -6px}}
-.reveal-ready :is(.gallery-grid li,.coach-photo){opacity:0;scale:.6}
-.reveal-ready.is-in :is(.gallery-grid li,.coach-photo){opacity:1;scale:1;transition:opacity .3s calc(var(--i)*80ms),scale .55s cubic-bezier(.34,1.56,.64,1) calc(var(--i)*80ms),rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
+/* The founder's portrait gets the same frame, tilt, hover and pop-in as the gallery. */
+.founder-photo{border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent);--tilt:-2.5deg;--i:0;rotate:var(--tilt);transition:rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
+@media(hover:hover){.founder-photo:hover{rotate:0deg;translate:0 -6px}}
+.reveal-ready :is(.gallery-grid li,.founder-photo){opacity:0;scale:.6}
+.reveal-ready.is-in :is(.gallery-grid li,.founder-photo){opacity:1;scale:1;transition:opacity .3s calc(var(--i)*80ms),scale .55s cubic-bezier(.34,1.56,.64,1) calc(var(--i)*80ms),rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
 /* Video (#video): a dark band with a decorative 16:9 loop, no controls. site.js pauses it off screen; with reduced motion
    it stays on the poster (the first frame). */
 .video-section{background:var(--stage);color:var(--on-stage)}

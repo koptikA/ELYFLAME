@@ -6,7 +6,7 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 
 - Stack: plain HTML, CSS, and JS with no dependencies. Forms submit without JS; JS adds validation, the class finder, and the modal.
 - The site has one primary button, Book a Trial. There's no Register in the header.
-- Anything the client hasn't provided yet appears on the site as a placeholder in square brackets: "[Coach name]", "[Credentials]", trial times marked [sample], the "What to bring" list (the client's request, Sep 25). Gray boxes stand in for photos. These blocks carry `data-requires-content` so they get checked before launch. No "Coming soon" banners.
+- Anything the client hasn't provided yet appears on the site as a placeholder in square brackets: "[Founder name]", trial times marked [sample], the "What to bring" list (the client's request, Sep 25). Gray boxes stand in for photos. These blocks carry `data-requires-content` so they get checked before launch. No "Coming soon" banners.
 - With the system "reduce motion" setting on, all animations and transitions are off and the Ribbon is a complete static line.
 - Body text is 16 px or larger; labels are 14 px or larger.
 - Functional text (class finder, form, FAQ) says "your child". "She/her" appears in at most 1–2 emotional headlines `[confirm: tone with the client]`.
@@ -182,9 +182,13 @@ Two blocks after "More than movement". Both carry `data-requires-content` until 
 
 **Video.** A dark band: eyebrow "On the carpet", the heading "See grace *in motion.*", and a decorative 16:9 background loop with no controls: `<video autoplay muted loop playsinline preload="auto">` with WebM and MP4 sources and the first frame as the poster; it's `aria-hidden`. An IntersectionObserver pauses it when the block leaves the viewport and resumes it when the block returns. With reduced motion the video never starts and only the poster shows. There's no pause button, a deliberate choice (Alena, Sep 25): WCAG 2.2.2 asks for a way to stop motion longer than 5 seconds, and the reduced-motion setting is the only way here. Files: `assets/video/performance.webm` and `performance.mp4`, 720p, up to 3 MB each, and `performance-poster.jpg`; the current files are placeholders with the same names.
 
-## 8. Coaches and Safety
+## 8. Coaches: Founder and Team
 
-A section after the video. Coach photos get the same treatment as the gallery: a cream frame, a slight tilt (−2.5° and 2°) that straightens on hover, and a pop-in the first time the block comes into view. Two coach entries: a gray photo placeholder, "[Coach name]", "[Credentials]", and a one-line bio `[confirm: question 14]`. A trust row: "National judge, USA Gymnastics (founder)" and "USA Gymnastics member club". Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. Until bios arrive, the section shows placeholders (the client's request, Sep 25); `data-requires-content` marks it for a check before launch.
+A section after the video, built around one person, the founder.
+
+**Founder.** "Portrait + text": on the left the portrait takes 40% of the block (4:5, in the gallery's cream frame with a −2.5° tilt that straightens on hover and a pop-in on first view); on the right the eyebrow "Our coaches", the heading "Guidance with *heart and purpose.*", the name in large Cinzel, the role ("Founder") in small Cinzel, 2–3 lines about her approach, and two credential badges in a row: "National judge, USA Gymnastics" (medal icon) and "Member club, USA Gymnastics" (shield icon). On phones: heading, portrait, then the text. Until the real portrait arrives, the frame shows the ElyFlame monogram on sand, not a gray box. The name and the bio are placeholders `[confirm: question 14]`. Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. The "Content preview" note is gone.
+
+**Team.** Under the founder, a "The team" block rendered from an array: `<script type="application/json" id="team-data">` holds `[{name, role, focus, photo, alt}]`, and `site.js` builds one card per coach from `<template id="team-card">`. A card: a square photo (the monogram until there's one), the name in Cinzel, the role in small Cinzel, one line of specialization; no frames or shadows, only spacing. Grid: 3 columns on desktop, 2 on tablets (up to 1050 px), 1 on phones. Empty array: the block stays hidden (the case at launch). One coach: one wide card over two columns, photo left, text right. The founder block never changes with the team. Adding a coach means adding an object to the array (photo paths start with `/`) and three translation rows in `tools/i18n.py`; in WordPress it's a repeater field with the same fields.
 
 ## 8.1 Finale
 
