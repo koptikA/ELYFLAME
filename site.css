@@ -63,7 +63,7 @@ label,select,input,textarea,summary,.about-point h3{font-size:16px}
 #experience-note{margin-top:14px;color:var(--pink-deep)}
 /* Coaches: the founder as "portrait + text" (portrait 40% of the block), then the team grid. The team cards come from
    the #team-data array (site.js); the block stays hidden while the array is empty. */
-.founder{display:grid;grid-template-columns:40% 1fr;grid-template-rows:auto 1fr;grid-template-areas:"photo head" "photo body";column-gap:7%;align-items:start}
+.founder{display:grid;grid-template-columns:min(40%,520px) 1fr;grid-template-rows:auto 1fr;grid-template-areas:"photo head" "photo body";column-gap:7%;align-items:start}
 .founder-head{grid-area:head}
 .founder-head h2{margin-top:20px}
 .founder-photo{grid-area:photo;aspect-ratio:4/5;display:grid;place-items:center;background:var(--sand)}
@@ -315,6 +315,11 @@ h2 em,.stage h2 em{color:inherit}
 .gallery-grid li:nth-child(6n){--tilt:1.5deg;--i:5}
 @media(hover:hover){.gallery-grid li:hover{rotate:0deg;translate:0 -6px;position:relative;z-index:1}}
 .photo-slot,.gallery-grid img{display:grid;place-items:center;width:100%;aspect-ratio:1;object-fit:cover;background:var(--placeholder);color:var(--ink-muted);font-size:14px;border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent)}
+/* The founder block: on desktop the text sits at the bottom of the portrait, so the badges line up with its lower edge and
+   the right column reads as tall as the portrait; the portrait stops growing at 520 px (420 px on Home). */
+@media(min-width:761px){.founder-body{align-self:end}}
+.founder-quote{margin:22px 0 0;font-family:var(--display);font-size:22px;line-height:1.4;color:var(--ink);max-width:520px}
+.founder-quote p::before{content:"\2733";color:var(--decor);font-size:.7em;margin-right:.45em;vertical-align:.15em}
 /* The founder's portrait gets the same frame, tilt, hover and pop-in as the gallery. */
 .founder-photo{border:6px solid var(--paper-raised);box-shadow:0 14px 30px color-mix(in srgb,var(--ink) 14%,transparent);--tilt:-2.5deg;--i:0;rotate:var(--tilt);transition:rotate .35s cubic-bezier(.3,1.4,.5,1),translate .35s cubic-bezier(.3,1.4,.5,1)}
 @media(hover:hover){.founder-photo:hover{rotate:0deg;translate:0 -6px}}
@@ -434,7 +439,7 @@ html:is(:lang(ru),:lang(uk)) .brand small{letter-spacing:.1em}
 .coach-certificates{margin-top:36px;max-width:620px;font-size:16px}
 .team-list li:only-child{grid-template-rows:1fr auto auto auto auto 1fr}
 .team-list li:only-child .coach-bio{grid-row:5}
-.coaches-preview .founder{grid-template-columns:25% 1fr;column-gap:8%}
+.coaches-preview .founder{grid-template-columns:min(25%,420px) 1fr;column-gap:8%}
 .coaches-preview .founder-head h2{font-size:clamp(32px,3.6vw,52px)}
 .coaches-preview .founder-body{margin-top:24px}
 .coaches-preview .text-link{display:inline-flex;margin-top:28px}

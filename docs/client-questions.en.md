@@ -71,7 +71,7 @@ Design recommendation: no admin panel at launch if requests go to email or a Goo
 
 ## Coaches and trust
 
-14. Coach bios and photos: athletic ranks, judging credentials, certifications (SafeSport, CPR), and experience. For the founder: her name as it should appear (Yelizaveta Yuvkhimenko?), her role (founder and head coach?), 2–3 lines about her approach, and a portrait. For each other coach: name, role, one line of specialization, and a square photo.
+14. Coach bios and photos: athletic ranks, judging credentials, certifications (SafeSport, CPR), and experience. For the founder: her name as it should appear (Yelizaveta Yuvkhimenko?), her role (founder and head coach?), 2–3 lines about her approach, and a portrait. For each other coach: name, role, one line of specialization, and a square photo. Until the answer, the site shows a draft: "Yelizaveta Yuvkhimenko, Founder and head coach", a bio from known facts (national judge, USA Gymnastics; founded the academy for girls on the path to competition) and a placeholder for her quote. Please confirm or correct all three.
    **Answer:** Open.
 15. Public records show Yelizaveta Yuvkhimenko on the USA Gymnastics Rhythmic National Judges' List. May we mention this on the site? What does the "P" next to her name in the list mean?
    **Answer:** Yes, mention it. Certifications are not disclosed publicly, only on a parent's request. The meaning of "P" is still open.

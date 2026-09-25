@@ -332,6 +332,8 @@ if(teamBlock&&coaches.length){
     return li;
   }));
   teamBlock.hidden=false;
+  // With a team the eyebrow switches from the founder-only wording to the team wording (both spans live in about/index.html).
+  document.querySelector('.coach-eyebrow-solo')?.setAttribute('hidden','');document.querySelector('.coach-eyebrow-team')?.removeAttribute('hidden');
 }
 
 // About: the ribbon girl's satin ribbon trails from her stick tip (path in data-d, drawn in a scale(4) group).
