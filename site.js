@@ -334,6 +334,9 @@ if(teamBlock&&coaches.length){
   teamBlock.hidden=false;
 }
 
+// About: the ribbon girl's satin ribbon trails from her stick tip (path in data-d, drawn in a scale(4) group).
+document.querySelectorAll('.apparatus-satin').forEach(g=>paintSatin(g,g.dataset.d,false,false));
+
 // Footer team: a row of little gymnasts (traced sprite assets/gymnast/team.svg, one shared scale, feet on one floor).
 // The satin ribbon is strung between the sticks of the two end girls and waves over the others' heads.
 // A named view timeline on .footer-team makes the girls rise in one by one and draws the ribbon from right to left.

@@ -410,9 +410,10 @@ html:is(:lang(ru),:lang(uk)) .brand small{letter-spacing:.1em}
 .about-section-heading>p:not(.eyebrow){max-width:510px}
 .apparatus-lineup{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));list-style:none;padding:0;margin:60px 0 40px;gap:24px}
 .apparatus-lineup li{min-width:0}
-.apparatus-lineup svg{width:100%;height:190px;fill:none;stroke:var(--decor);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
-.apparatus-lineup .apparatus-ball{fill:var(--decor-soft);stroke:var(--decor)}
-.apparatus-lineup .apparatus-echo{stroke-width:1;opacity:.6}
+/* Each apparatus is shown by one of the footer girls (assets/gymnast/team.svg), feet on one floor; the ribbon girl's
+   satin ribbon is painted by site.js (paintSatin) from her stick tip. */
+.apparatus-lineup svg{display:block;width:100%;height:190px;overflow:visible}
+.apparatus-kid use{fill:var(--ink)}
 .apparatus-lineup h3{margin:18px 0 8px}
 .apparatus-lineup p{font-size:16px;max-width:170px}
 .movement-notes{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;border-top:1px solid var(--line-strong);padding-top:24px}
