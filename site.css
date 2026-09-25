@@ -385,3 +385,114 @@ html:is(:lang(ru),:lang(uk)) .brand small{letter-spacing:.1em}
   .header .lang-pills a[aria-current]{background:var(--ink);color:var(--paper)}
 }
 @media(max-width:360px){.header{padding:0 12px;gap:8px}.brand{font-size:18px}.header-cta{padding:0 10px;font-size:14px}}
+
+/* About: an apparatus field guide, then the people and place behind the academy. */
+.about-page{font-size:16px}
+.about-page main{overflow:clip}
+.about-page .section{padding:100px 7%}
+.about-page h1 em,.about-page h2 em{color:inherit;font-style:normal}
+.about-page h1{font-size:clamp(48px,6.5vw,100px);line-height:1.08;letter-spacing:-.045em}
+.about-page h2{font-size:clamp(34px,4.2vw,62px)}
+.about-page h3{font-family:var(--display);font-size:clamp(24px,2.2vw,32px);font-weight:400}
+.about-page .eyebrow{font-size:14px;text-transform:none;letter-spacing:.04em}
+.about-page .about-intro{display:grid;grid-template-columns:1.5fr 1fr;gap:32px 8%;padding-top:60px;padding-bottom:0}
+.about-intro>.eyebrow{grid-column:1/-1}
+.about-intro h1{max-width:900px;position:relative;z-index:1}
+.about-intro-note{align-self:end;max-width:340px;position:relative;padding-top:60px}
+.about-intro-note>p{font-size:18px;line-height:1.8;position:relative}
+.intro-mark{position:absolute;right:0;top:-140px;font-family:Cinzel,serif;font-size:260px;line-height:1;color:var(--sand);pointer-events:none}
+.about-intro .text-link{display:inline-flex;margin-top:28px}
+.about-contents{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px 36px;border-block:1px solid var(--line-strong);padding:20px 0;margin-top:32px;font-size:15px}
+.about-contents a{padding:4px 0}
+.about-contents a:hover{color:var(--pink)}
+.about-section-heading{display:grid;grid-template-columns:1.2fr 1fr;gap:20px 9%;align-items:end}
+.about-section-heading>.eyebrow{grid-column:1/-1}
+.about-section-heading>p:not(.eyebrow){max-width:510px}
+.apparatus-lineup{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));list-style:none;padding:0;margin:60px 0 40px;gap:24px}
+.apparatus-lineup li{min-width:0}
+.apparatus-lineup svg{width:100%;height:190px;fill:none;stroke:var(--decor);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.apparatus-lineup .apparatus-ball{fill:var(--decor-soft);stroke:var(--decor)}
+.apparatus-lineup .apparatus-echo{stroke-width:1;opacity:.6}
+.apparatus-lineup h3{margin:18px 0 8px}
+.apparatus-lineup p{font-size:16px;max-width:170px}
+.movement-notes{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;border-top:1px solid var(--line-strong);padding-top:24px}
+.movement-notes p{color:var(--ink)}
+.academy-story{background:var(--sand);display:grid;grid-template-columns:1.2fr 1fr;gap:64px 9%}
+.academy-story h2{margin:20px 0 28px}
+.academy-story p{max-width:590px}
+.academy-story .text-link{display:inline-flex;margin-top:28px}
+.story-principles{align-self:center;display:grid;gap:32px}
+.story-principles h3{margin-bottom:12px}
+.story-manuscript{grid-column:1/-1;border-top:1px solid var(--line-strong);padding-top:36px;display:grid;grid-template-columns:1.2fr 1fr;gap:16px 9%}
+.story-manuscript .eyebrow{grid-column:1/-1}
+.story-manuscript h3{font-size:30px}
+.coach-bio{margin-top:24px;border-block:1px solid var(--line);padding:16px 0}
+.coach-bio summary{color:var(--pink);font-size:16px;cursor:pointer;list-style:revert;display:list-item}
+.coach-bio summary::after{content:none}
+.coach-bio p{margin-top:16px;font-size:16px}
+.coach-certificates{margin-top:36px;max-width:620px;font-size:16px}
+.team-list li:only-child{grid-template-rows:1fr auto auto auto auto 1fr}
+.team-list li:only-child .coach-bio{grid-row:5}
+.coaches-preview .founder{grid-template-columns:25% 1fr;column-gap:8%}
+.coaches-preview .founder-head h2{font-size:clamp(32px,3.6vw,52px)}
+.coaches-preview .founder-body{margin-top:24px}
+.coaches-preview .text-link{display:inline-flex;margin-top:28px}
+.about-page .academy-space{background:var(--cream)}
+.space-gallery{grid-template-columns:1.4fr 1fr;align-items:center;gap:7%;margin:64px 12px 60px}
+.space-gallery .photo-slot{aspect-ratio:4/3;text-align:center;padding:24px}
+.space-gallery li:last-child .photo-slot{aspect-ratio:1}
+.space-notes{display:grid;grid-template-columns:1fr 1fr;gap:9%}
+.space-notes h3{margin-bottom:16px}
+.space-notes p+p{margin-top:16px}
+.space-notes .text-link{display:inline-flex;margin-top:24px}
+.achievement-list{list-style:none;margin:48px 0 0;padding:0}
+.achievement-list li{display:grid;grid-template-columns:1fr 3fr;gap:24px;padding:32px 0;border-block:1px solid var(--line-strong)}
+.achievement-year{font-family:var(--display);font-size:32px;color:var(--ink-muted)}
+.achievement-list h3{margin-bottom:10px}
+.about-page .about-trial{background:var(--stage);color:var(--on-stage);display:grid;grid-template-columns:1.2fr 1fr;gap:32px 9%;align-items:center}
+.about-trial p{color:var(--on-stage-muted)}
+.about-trial h2{margin-top:16px}
+.about-trial .button{margin-top:28px}
+.about-page .founder-role,.about-page .team-role{font-family:Manrope,Arial,sans-serif;font-size:16px}
+.about-page .founder-name{font-size:clamp(28px,3vw,42px)}
+.about-page .site-footer .copyright{font-size:14px}
+@media(max-width:1000px){
+ .apparatus-lineup{gap:16px}
+ .apparatus-lineup svg{height:150px}
+ .about-page .about-intro{grid-template-columns:1.2fr 1fr;gap:28px 5%}
+ .intro-mark{font-size:200px;top:-80px}
+}
+@media(max-width:760px){
+ .about-page .section{padding:64px 7%}
+ .about-page .about-intro{padding-top:36px;padding-bottom:0;grid-template-columns:1fr;gap:24px}
+ .about-page h1{font-size:clamp(43px,10vw,72px)}
+ .about-page h2{font-size:clamp(32px,8vw,44px)}
+ .about-intro-note{padding-top:0;max-width:100%}
+ .about-intro-note>p{font-size:16px;max-width:38ch}
+ .intro-mark{display:none}
+ .about-contents{gap:8px 22px;margin-top:8px;padding:16px 0}
+ .about-section-heading,.academy-story,.story-manuscript,.space-notes,.about-page .about-trial{grid-template-columns:1fr;gap:28px}
+ .about-section-heading>p:not(.eyebrow){max-width:none}
+ .apparatus-lineup{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px;margin-top:32px}
+ .apparatus-lineup li:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;align-items:center;column-gap:24px}
+ .apparatus-lineup li:last-child svg{grid-row:1/3;height:170px}
+ .apparatus-lineup li:last-child h3{align-self:end;margin-bottom:8px}
+ .apparatus-lineup li:last-child p{align-self:start}
+ .apparatus-lineup svg{height:140px}
+ .apparatus-lineup h3{margin-top:8px}
+ .movement-notes{gap:12px}
+ .story-manuscript{gap:16px}
+ .story-manuscript h3{font-size:26px}
+ .coaches-preview .founder{grid-template-columns:1fr}
+ .coaches-preview .founder-photo{width:min(70%,300px)}
+ .about-page .founder-photo{width:85%;max-width:400px}
+ .space-gallery{display:grid;grid-template-columns:1fr;grid-auto-flow:row;gap:36px;margin:36px 8px 48px;padding:12px 0;overflow:visible}
+ .space-gallery li:last-child{width:80%;justify-self:end}
+ .achievement-list li{grid-template-columns:1fr;gap:16px}
+ .achievement-year{font-size:26px}
+}
+@media(prefers-reduced-motion:reduce){
+ .reveal-ready :is(.gallery-grid li,.founder-photo){opacity:1;scale:1}
+ .gallery-grid li:hover,.founder-photo:hover{translate:none;rotate:var(--tilt)}
+ .button:hover{transform:none}
+}

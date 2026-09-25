@@ -13,8 +13,9 @@ const programs = [
   {name:'Stretching & Flexibility',days:['Friday 7:00 PM']}
 ];
 const age=document.querySelector('#age'),experience=document.querySelector('#experience'),path=document.querySelector('.path');
-path.innerHTML='<span class="path-spark" aria-hidden="true">✦</span>'+levels.map(l=>`<div class="level" data-level="${l.level}"><span class="level-number">${l.level}</span><div class="level-description"><p>${l.label}</p><small>${l.ages}</small><small class="apparatus">${l.apparatus}</small></div></div>`).join('')+'<span class="assessment-stop" hidden>Start with a coach assessment</span>';
+if(age&&experience&&path)path.innerHTML='<span class="path-spark" aria-hidden="true">✦</span>'+levels.map(l=>`<div class="level" data-level="${l.level}"><span class="level-number">${l.level}</span><div class="level-description"><p>${l.label}</p><small>${l.ages}</small><small class="apparatus">${l.apparatus}</small></div></div>`).join('')+'<span class="assessment-stop" hidden>Start with a coach assessment</span>';
 function positionSpark(){
+  if(!path)return;
   const spark=path.querySelector('.path-spark'),target=path.querySelector('.level.active .level-number')||path.querySelector('.assessment-stop:not([hidden])');
   if(!target)return;
   const parent=path.getBoundingClientRect(),rect=target.getBoundingClientRect(),assessment=target.classList.contains('assessment-stop');
@@ -42,7 +43,7 @@ function updateMatch(){
   Object.assign(document.querySelector('#match-cta').dataset,{program:assessment?'Competitive':'Recreational',age:years,experience:experience.value});
   positionSpark();
 }
-age.addEventListener('change',updateMatch);experience.addEventListener('change',updateMatch);updateMatch();
+if(age&&experience&&path){age.addEventListener('change',updateMatch);experience.addEventListener('change',updateMatch);updateMatch();}
 const menu=document.querySelector('.menu-toggle'),nav=document.querySelector('#navigation');
 function closeMenu(){menu.setAttribute('aria-expanded','false');nav.classList.remove('open');}
 menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);});
@@ -65,13 +66,14 @@ const spy=new IntersectionObserver(entries=>entries.forEach(entry=>{
   menuLinks.forEach(a=>{if(a.hash==='#'+sectionOwner[entry.target.id])a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
 }),{rootMargin:'-40% 0px -59% 0px'});
 let owner='home';
-document.querySelectorAll('main > section').forEach(section=>{if(menuLinks.some(a=>a.hash==='#'+section.id))owner=section.id;sectionOwner[section.id]=owner;spy.observe(section);});
+if(document.querySelector('#home'))document.querySelectorAll('main > section').forEach(section=>{if(menuLinks.some(a=>a.hash==='#'+section.id))owner=section.id;sectionOwner[section.id]=owner;spy.observe(section);});
 document.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{const target=document.getElementById(link.hash.slice(1));if(target?.tagName==='DETAILS')target.open=true;}));
 
 // Move the one fallback form into the native dialog; never clone IDs or field values.
 const dialog=document.querySelector('#booking-dialog'),form=document.querySelector('#trial-form'),panel=document.querySelector('#booking-panel');
 const entry=document.querySelector('#booking-entry'),confirmation=document.querySelector('#booking-confirmation'),submit=document.querySelector('#booking-submit');
 const status=document.querySelector('#form-status'),summary=document.querySelector('#error-summary'),program=document.querySelector('#program'),day=document.querySelector('#preferred-day');
+if(dialog&&form&&panel){
 const fields=[...form.querySelectorAll('input:not([type=radio]),select')],hints=new Map(fields.map(field=>[field.id,field.getAttribute('aria-describedby')||'']));
 let initialized=false,submitting=false,submissionVersion=0;
 form.noValidate=true;
@@ -87,16 +89,20 @@ program.addEventListener('change',populateDays);
 function openBooking(link){
   if(submitting)cancelSubmission();
   if(!initialized||link.id==='match-cta'){
-    const match=document.querySelector('#match-cta').dataset;
+    const match=document.querySelector('#match-cta')?.dataset||{};
     program.value=match.program;document.querySelector('#trial-age').value=match.age;document.querySelector('#trial-experience').value=match.experience;
   }
   if(link.dataset.program)program.value=link.dataset.program;
   if(link.dataset.program==='Stretching & Flexibility'&&!initialized)document.querySelector('#trial-age').value='';
   initialized=true;populateDays();
   if(!submitting){entry.hidden=false;confirmation.hidden=true;dialog.setAttribute('aria-labelledby','booking-title');}
-  closeMenu();dialog.showModal();dialog.scrollTop=0;
+  closeMenu();if(!dialog.open)dialog.showModal();dialog.scrollTop=0;
 }
 document.querySelectorAll('a[href="#trial"]').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();openBooking(link);}));
+function openTrialHash(){if(location.hash==='#trial'&&!dialog.open)openBooking(document.querySelector('a[href="#trial"]'));}
+window.addEventListener('hashchange',openTrialHash);
+window.addEventListener('pageshow',openTrialHash);
+openTrialHash();
 document.querySelector('.close-dialog').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('close',()=>{if(!dialog.open&&submitting)cancelSubmission();});
 dialog.addEventListener('click',event=>{if(event.target!==dialog)return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
@@ -170,13 +176,15 @@ form.addEventListener('submit',async event=>{
   }
 });
 
+}
+
 // Layout-only geometry; CSS drives the draw/rewind. No scroll handler.
-const main=document.querySelector('main'),ribbon=document.querySelector('.page-ribbon'),ribbonLine=ribbon.querySelector('path');
-const ribbonTiming=document.createElement('style');document.head.append(ribbonTiming);
+const main=document.querySelector('main'),ribbon=document.querySelector('.page-ribbon'),ribbonLine=ribbon?.querySelector('path');
+const ribbonTiming=document.createElement('style');if(ribbon)document.head.append(ribbonTiming);
 // Satin ribbon along the same path: width follows |cos(twist)| so it narrows where it flips,
 // the back side is paler, edges darken, flats get a highlight. Consecutive quads of one colour share a path,
 // so later parts of the ribbon still draw over earlier ones where it crosses itself.
-const satin=ribbon.querySelector('.ribbon-satin'),MAGENTA=[233,0,141],ORANGE=[253,166,61],WHITE=[255,255,255];
+const satin=ribbon?.querySelector('.ribbon-satin'),MAGENTA=[233,0,141],ORANGE=[253,166,61],WHITE=[255,255,255];
 const mixRgb=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
 // Sample the ribbon path in JS: getPointAtLength() costs ~1 ms per call and blocked page load for seconds.
 // Our paths use only absolute M, C and L commands, so we flatten them into a polyline and walk it by distance.
@@ -240,6 +248,7 @@ function paintSatin(g,d,mobile,fadeEnd=true,ring=null){
   if(ring)ring.g.replaceChildren(...paths(layers[1]));
 }
 function layoutRibbon(){
+  if(!ribbon||!document.querySelector('.hero-photo')||!document.querySelector('.gymnast-art')||!document.querySelector('.ribbon-anchor')||!document.querySelector('.closing'))return;
   const width=main.clientWidth,height=main.offsetHeight,mobile=width<=760,mainTop=main.getBoundingClientRect().top;
   const bounds=el=>{const r=el.getBoundingClientRect();return{x:r.left-main.getBoundingClientRect().left,y:r.top-mainTop,w:r.width,h:r.height};};
   const photo=bounds(document.querySelector('.hero-photo')),left=width*(mobile?.025:.035),right=width*(mobile?.975:.965);
@@ -301,15 +310,15 @@ function layoutRibbon(){
     while(cursor<samples.length-1&&samples[cursor].y<target)cursor++;
     frames.push(`${percent}%{stroke-dashoffset:${percent===100?0:Math.max(0,1000*(1-samples[cursor].distance/length)).toFixed(3)}}`);
   }
-  ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();layoutTeam();
+  ribbonTiming.textContent=`@keyframes ribbon-unfold{${frames.join('')}}`;positionSpark();
 }
 // Gallery photos and the founder's portrait pop in the first time their block comes into view. Video band: the decorative loop plays
 // only while on screen. With reduced motion neither moves: the gallery stands still and the video stays on its poster.
 const calm=matchMedia('(prefers-reduced-motion: reduce)').matches,loop=document.querySelector('.video-loop');
-if(!calm)document.querySelectorAll('.gallery,.coaches').forEach(block=>{block.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){block.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(block.querySelector('.gallery-grid,.founder'));});
+if(!calm)document.querySelectorAll('.gallery,.coaches').forEach(block=>{const target=block.querySelector('.gallery-grid,.founder');if(!target)return;block.classList.add('reveal-ready');new IntersectionObserver(([e],io)=>{if(e.isIntersecting){block.classList.add('is-in');io.disconnect();}},{threshold:.2}).observe(target);});
 if(loop){if(calm){loop.removeAttribute('autoplay');loop.load();}else new IntersectionObserver(([e])=>e.isIntersecting?loop.play().catch(()=>{}):loop.pause()).observe(loop);}
 
-// The team under the founder: one card per coach in the #team-data array ({name, role, focus, photo, alt}; photo paths
+// The team under the founder: one card per coach in the #team-data array ({name, role, focus, photo, alt, bio}; photo paths
 // start with "/" so they work on /ru/ and /uk/ too). Empty array: the block stays hidden. One coach: a wide card over two
 // columns; more: 3 columns on desktop, 2 on tablets, 1 on phones (site.css).
 const teamBlock=document.querySelector('.team-block'),coaches=JSON.parse(document.querySelector('#team-data')?.textContent||'[]');
@@ -319,6 +328,7 @@ if(teamBlock&&coaches.length){
     const li=card.cloneNode(true),photo=li.querySelector('.team-photo');
     if(c.photo){const img=new Image(400,400);img.src=c.photo;img.alt=c.alt||'';img.loading='lazy';photo.append(img);}else photo.classList.add('is-empty');
     li.querySelector('h4').textContent=c.name;li.querySelector('.team-role').textContent=c.role;li.querySelector('.team-focus').textContent=c.focus;
+    const bio=li.querySelector('.team-bio');bio.textContent=c.bio||'';bio.closest('details').hidden=!c.bio;
     return li;
   }));
   teamBlock.hidden=false;
@@ -329,6 +339,7 @@ if(teamBlock&&coaches.length){
 // A named view timeline on .footer-team makes the girls rise in one by one and draws the ribbon from right to left.
 // Girls grow with the width (120–240 px) and the row holds as many as fit (5 at 320 px, 12 from 760 px): docs/footer-team.en.md.
 const team=document.querySelector('.footer-team');
+const teamSprite=new URL('assets/gymnast/team.svg',document.querySelector('link[href$="site.css"]').href).href;
 const KIDS={1:[196,708],2:[414,618],3:[369,649],4:[305,608],5:[401,627],6:[410,693,8,6],7:[323,635],8:[357,626],9:[314,631],10:[347,659],11:[395,659],12:[282,745,24,6]};
 const TEAM_PRIORITY=[12,6,1,3,10,5,7,2,8,11,4,9],TEAM_ORDER=[12,1,3,7,10,2,5,8,11,4,9,6];
 function layoutTeam(){
@@ -351,10 +362,10 @@ function layoutTeam(){
     d+=` C ${(b[0]+(c[0]-a[0])/6).toFixed(1)} ${(b[1]+(c[1]-a[1])/6).toFixed(1)} ${(c[0]-(e[0]-b[0])/6).toFixed(1)} ${(c[1]-(e[1]-b[1])/6).toFixed(1)} ${c[0].toFixed(1)} ${c[1].toFixed(1)}`;}
   team.innerHTML=`<svg class="team" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true" focusable="false">
     <defs><mask id="team-reveal" maskUnits="userSpaceOnUse" x="-80" y="-80" width="${W+160}" height="${H+160}"><path class="team-reveal" pathLength="1" d="${d}"/></mask></defs>
-    ${kids.map((k,i)=>`<use class="team-kid" href="assets/gymnast/team.svg#kid-${k.k}" x="${k.x.toFixed(1)}" y="${k.y.toFixed(1)}" width="${k.w.toFixed(1)}" height="${k.h.toFixed(1)}" style="animation-range:entry ${10+i*4}% entry ${45+i*4}%"/>`).join('')}
+    ${kids.map((k,i)=>`<use class="team-kid" href="${teamSprite}#kid-${k.k}" x="${k.x.toFixed(1)}" y="${k.y.toFixed(1)}" width="${k.w.toFixed(1)}" height="${k.h.toFixed(1)}" style="animation-range:entry ${10+i*4}% entry ${45+i*4}%"/>`).join('')}
     <g class="team-ribbon" mask="url(#team-reveal)"></g></svg>`;
   paintSatin(team.querySelector('.team-ribbon'),d,mobile,false);
 }
 let layoutFrame;
-function scheduleLayout(){cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(layoutRibbon);}
+function scheduleLayout(){cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(()=>{layoutRibbon();layoutTeam();});}
 new ResizeObserver(scheduleLayout).observe(main);window.addEventListener('resize',scheduleLayout);document.fonts.ready.then(scheduleLayout);scheduleLayout();

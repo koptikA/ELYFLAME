@@ -1,26 +1,32 @@
-"""Builds the Russian and Ukrainian pages from the English source.
+"""Build RU/UK pages from English sources registered in PAGES.
 
     python tools/i18n.py
 
-index.html and site.js are the source of truth. The script writes ru/index.html, ru/site.js, uk/index.html and
-uk/site.js: every English string from HTML and JS below is swapped for its translation, relative paths get "../",
-and the language attributes, canonical URL and switcher follow the page. Never edit ru/ or uk/ by hand.
+HTML and ABOUT_HTML are shared translation tables; JS translates the shared script.
+Each row must exist in at least one source. Every translated page is checked for
+English leftovers, including coach JSON fields. Header/footer copies must match
+after normalizing relative URLs and current-page markers. Language menus must
+match their helper output. Checks finish before any generated files are written.
 
-It stops when a source string from the tables is missing (the English copy changed: update the row) and when visible
-English is left on a generated page (a new string: add a row). Program names stay English in option values and in
-site.js, because the form logic and the back end key on them; only the visible text is translated.
-
-In translations "~" is a non-breaking space: after one-letter words, before a dash, between a number and its unit.
+Add a directory to PAGES for the next page; copy the common shell with valid
+relative links and same-page language menus. Assets stay at the site root;
+translated shared scripts stay at each language root. Never edit ru/ or uk/ by hand.
+In translations, ~ is a non-breaking space. Form option values stay English.
 """
 import io
 import os
 import re
 import sys
+import posixpath
+import json
+from urllib.parse import urljoin, urlsplit, urlunsplit
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LANGS = {'ru': 1, 'uk': 2}
 SITE = 'https://elyflame.com/'
+# Add an English source directory here when the next standalone page is ready.
+PAGES = ('', 'about/')
 
 # (English fragment exactly as in index.html, Russian, Ukrainian)
 HTML = [
@@ -330,6 +336,121 @@ KEEP = ['ElyFlame Academy', 'ElyFlame', 'ELYFLAME', 'Buffalo Grove',
         'English', 'Stretching & Flexibility']
 
 
+# Shared page copy; rows are checked across all English sources in PAGES.
+ABOUT_HTML = [('About ElyFlame — Rhythmic Gymnastics Academy',
+  'Об~ElyFlame — академия художественной гимнастики',
+  'Про ElyFlame — академія художньої гімнастики'),
+ ("Meet ElyFlame Academy: rhythmic gymnastics, our coaches, our training space, and your child's path from "
+  'first steps to competition.',
+  'Знакомство с~ElyFlame Academy: художественная гимнастика, тренеры, зал и~путь ребёнка от~первых шагов '
+  'до~соревнований.',
+  'Знайомство з~ElyFlame Academy: художня гімнастика, тренери, зал і~шлях дитини від перших кроків '
+  'до~змагань.'),
+ ('Meet the coaches <span', 'Познакомиться с~тренерами <span', 'Познайомитися з~тренерами <span'),
+ ('About ElyFlame / Buffalo Grove, Illinois',
+  'Об~ElyFlame / Баффало-Гров, Иллинойс',
+  'Про ElyFlame / Баффало-Гров, Іллінойс'),
+ ('<h1>A sport.<br>An art.<br><em>A place to begin.</em></h1>',
+  '<h1>Спорт.<br>Искусство.<br><em>Начало пути.</em></h1>',
+  '<h1>Спорт.<br>Мистецтво.<br><em>Початок шляху.</em></h1>'),
+ ('Movement meets music. A rope, a hoop, a ball, a pair of clubs, a ribbon. And at the center of it all: your '
+  'child.',
+  'Движение под музыку. Скакалка, обруч, мяч, булавы, лента. И~ребёнок, который учится с~ними работать.',
+  'Рух під музику. Скакалка, обруч, м’яч, булави, стрічка. І~дитина, яка вчиться з~ними працювати.'),
+ ('Discover the sport <span', 'Узнать о~гимнастике <span', 'Дізнатися про гімнастику <span'),
+ ('aria-label="On this page"', 'aria-label="На этой странице"', 'aria-label="На цій сторінці"'),
+ ('>The sport<', '>Гимнастика<', '>Гімнастика<'),
+ ('>Our story<', '>Наша история<', '>Наша історія<'),
+ ('>Our coaches<', '>Наши тренеры<', '>Наші тренери<'),
+ ('>Our space<', '>Наш зал<', '>Наш зал<'),
+ ('>Achievements<', '>Достижения<', '>Досягнення<'),
+ ('>Rhythmic gymnastics<', '>Художественная гимнастика<', '>Художня гімнастика<'),
+ ('<h2>Five apparatus.<br>A world of movement.</h2>',
+  '<h2>Пять предметов.<br>Мир движения.</h2>',
+  '<h2>П’ять предметів.<br>Світ руху.</h2>'),
+ ('Rhythmic gymnastics brings together movement, music and apparatus. An Olympic sport since 1984, it makes '
+  'room for both athletic skill and artistic expression.',
+  'Художественная гимнастика соединяет движение, музыку и~работу с~предметами. Олимпийский вид спорта '
+  'с~1984~года, в~котором важны и~спортивное мастерство, и~выразительность.',
+  'Художня гімнастика поєднує рух, музику й~роботу з~предметами. Олімпійський вид спорту з~1984~року, в~якому '
+  'важливі і~спортивна майстерність, і~виразність.'),
+ ('>Rope<', '>Скакалка<', '>Скакалка<'),
+ ('>Hoop<', '>Обруч<', '>Обруч<'),
+ ('>Ball<', '>Мяч<', '>М’яч<'),
+ ('>Clubs<', '>Булавы<', '>Булави<'),
+ ('>Ribbon<', '>Лента<', '>Стрічка<'),
+ ('Jump. Find a rhythm.', 'Прыгать. Чувствовать ритм.', 'Стрибати. Відчувати ритм.'),
+ ('Roll. Turn. Explore space.',
+  'Катить. Вращать. Осваивать пространство.',
+  'Котити. Обертати. Освоювати простір.'),
+ ('Balance. Throw. Catch.', 'Держать равновесие. Бросать. Ловить.', 'Тримати рівновагу. Кидати. Ловити.'),
+ ('Two hands. One movement.', 'Две руки. Одно движение.', 'Дві руки. Один рух.'),
+ ('Draw a shape in the air.', 'Рисовать в~воздухе.', 'Малювати в~повітрі.'),
+ ('Balance and coordination', 'Равновесие и~координация', 'Рівновага й~координація'),
+ ('Strength and flexibility', 'Сила и~гибкость', 'Сила й~гнучкість'),
+ ('Focus and expression', 'Внимание и~выразительность', 'Увага й~виразність'),
+ ('>Why ElyFlame<', '>Почему ElyFlame<', '>Чому ElyFlame<'),
+ ('<h2>First steps.<br>Room to grow.</h2>',
+  '<h2>Первые шаги.<br>Пространство для роста.</h2>',
+  '<h2>Перші кроки.<br>Простір для зростання.</h2>'),
+ ('Six levels connect the first introduction to rhythmic gymnastics with a path toward competition. Your '
+  'child’s starting level is chosen by the coach at the trial.',
+  'Шесть уровней~— от~знакомства с~художественной гимнастикой до~подготовки к~соревнованиям. С~какого уровня '
+  'начнёт ребёнок, решит тренер на~пробном занятии.',
+  'Шість рівнів~— від знайомства з~художньою гімнастикою до~підготовки до~змагань. З~якого рівня почне дитина, '
+  'вирішить тренер на~пробному занятті.'),
+ ('Find your child’s starting point <span',
+  'Подобрать группу для ребёнка <span',
+  'Підібрати групу для дитини <span'),
+ ('A coach-led beginning', 'Начало с~тренером', 'Початок із~тренером'),
+ ('Age is one part of the picture. Skills, experience and abilities help the coach choose a starting point for '
+  'your child.',
+  'Тренер учитывает не~только возраст, но~и~навыки, опыт и~способности ребёнка.',
+  'Тренер враховує не~лише вік, а~й~навички, досвід і~здібності дитини.'),
+ ('A judge’s perspective', 'Взгляд судьи', 'Погляд судді'),
+ ('Our founder is a national judge with USA Gymnastics. ElyFlame Academy is a USA Gymnastics member club.',
+  'Основательница академии~— национальный судья USA Gymnastics. ElyFlame Academy~— клуб~— член USA Gymnastics.',
+  'Засновниця академії~— національна суддя USA Gymnastics. ElyFlame Academy~— клуб~— член USA Gymnastics.'),
+ ('Our story &amp; mission', 'История и~миссия', 'Історія та~місія'),
+ ('[The story behind ElyFlame.]', '[История ElyFlame.]', '[Історія ElyFlame.]'),
+ ('[How the academy began and the mission that guides its coaching.]',
+  '[Как появилась академия и~какая миссия определяет её работу.]',
+  '[Як виникла академія та~яка місія визначає її роботу.]'),
+ ('>Read more<', '>Подробнее<', '>Докладніше<'),
+ ('[Founder biography, experience and achievements.]',
+  '[Биография, опыт и~достижения основательницы.]',
+  '[Біографія, досвід і~досягнення засновниці.]'),
+ ('Coach certifications are available on a parent’s request.',
+  'Сертификаты тренеров предоставляются по~запросу родителя.',
+  'Сертифікати тренерів надаються на~запит батьків.'),
+ ('>Inside the academy.<', '>Внутри академии.<', '>Усередині академії.<'),
+ ('[Training space photo]', '[Фото зала]', '[Фото залу]'),
+ ('[Equipment photo]', '[Фото оборудования]', '[Фото обладнання]'),
+ ('Room to practice', 'Место для тренировок', 'Місце для тренувань'),
+ ('[Training floor, apparatus and equipment details.]',
+  '[Покрытие зала, предметы и~оборудование.]',
+  '[Покриття залу, предмети та~обладнання.]'),
+ ('[Safety arrangements in the training space.]', '[Меры безопасности в~зале.]', '[Заходи безпеки в~залі.]'),
+ ('Your first visit', 'Первый визит', 'Перший візит'),
+ ('Use door #11 for entrance, drop-off and pick-up.',
+  'Вход, высадка и~встреча детей~— дверь №~11.',
+  'Вхід, висадка та~зустріч дітей~— двері №~11.'),
+ ('You can watch your child’s trial. After that, parents attend with the Head Coach’s permission, at open '
+  'practices, or as volunteers.',
+  'Вы можете посмотреть пробное занятие ребёнка. Дальше~— с~разрешения главного тренера, на~открытых '
+  'тренировках или в~качестве волонтёра.',
+  'Ви можете подивитися пробне заняття дитини. Далі~— з~дозволу головного тренера, на~відкритих тренуваннях '
+  'або як~волонтер.'),
+ ('Moments to remember.', 'Моменты, которые запомним.', 'Миті, які запам’ятаємо.'),
+ ('[Year]', '[Год]', '[Рік]'),
+ ('[Competition name]', '[Название соревнования]', '[Назва змагання]'),
+ ('[Result, category and level.]', '[Результат, категория и~уровень.]', '[Результат, категорія та~рівень.]'),
+ ('Your child’s first chapter', 'Начало пути ребёнка', 'Початок шляху дитини'),
+ ('Come meet us.', 'Приходите знакомиться.', 'Приходьте знайомитися.'),
+ ('Meet the coach, explore rhythmic gymnastics, and find a starting point for your child.',
+  'Познакомьтесь с~тренером, попробуйте художественную гимнастику и~узнайте, с~чего начать ребёнку.',
+  'Познайомтеся з~тренером, спробуйте художню гімнастику й~дізнайтеся, з~чого почати дитині.')]
+
 LANGUAGES = [('en', 'English', 'EN'), ('ru', 'Русский', 'RU'), ('uk', 'Українська', 'UA')]
 LANGUAGE = {'en': 'Language', 'ru': 'Язык', 'uk': 'Мова'}
 GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.5"/>'
@@ -337,24 +458,90 @@ GLOBE = ('<svg class="lang-icon" viewBox="0 0 16 16" aria-hidden="true" focusabl
 CHEVRON = '<svg class="lang-chevron" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="m4 6 4 4 4-4"/></svg>'
 
 
-def links(lang, text):
-    here = {'en': {'en': './', 'ru': 'ru/', 'uk': 'uk/'}}.get(lang) or {'en': '../', 'ru': '../ru/', 'uk': '../uk/', lang: './'}
-    return [f'<a href="{here[code]}" hreflang="{code}" lang="{code}"' + (' aria-current="page"' if code == lang else '')
-            + f'>{text(name, label)}</a>' for code, name, label in LANGUAGES]
+def relative_url(target, page):
+    """A site-root path to a page-relative URL, preserving trailing slashes and anchors."""
+    parsed = urlsplit(target)
+    destination = parsed.path
+    if destination == page and parsed.fragment:
+        return '#' + parsed.fragment
+    path = posixpath.relpath(destination or '.', page or '.')
+    if destination.endswith('/') or not destination:
+        path = './' if path == '.' else path + '/'
+    return urlunsplit(('', '', path, parsed.query, parsed.fragment))
 
 
-def lang_menu(lang):
-    """Header: a globe, the current code and a chevron; the list shows the languages by their own names."""
+def links(lang, text, page=''):
+    current = ('' if lang == 'en' else lang + '/') + page
+    return [f'<a href="{relative_url(("" if code == "en" else code + "/") + page, current)}" hreflang="{code}" lang="{code}"'
+            + (' aria-current="page"' if code == lang else '') + f'>{text(name, label)}</a>'
+            for code, name, label in LANGUAGES]
+
+
+def lang_menu(lang, page=''):
     code = {c: label for c, _, label in LANGUAGES}[lang]
-    items = ''.join(f'<li>{a}</li>' for a in links(lang, lambda name, label: name))
+    items = ''.join(f'<li>{a}</li>' for a in links(lang, lambda name, label: name, page))
     return (f'<details class="lang-menu" translate="no"><summary aria-label="{LANGUAGE[lang]}: {code}">{GLOBE}{code}{CHEVRON}'
             f'</summary><ul>{items}</ul></details>')
 
 
-def lang_pills(lang):
-    """Phone menu sheet: a segmented switcher, one tap per language."""
+def lang_pills(lang, page=''):
     return (f'<div class="lang-pills" role="group" aria-label="{LANGUAGE[lang]}" translate="no">'
-            + ''.join(links(lang, lambda name, label: label)) + '</div>')
+            + ''.join(links(lang, lambda name, label: label, page)) + '</div>')
+
+
+def root_urls(html, page):
+    """Normalize source-local references before translation and shared-shell checks."""
+    def rewrite(match):
+        attr, value = match.groups()
+        parsed = urlsplit(value)
+        if parsed.scheme or parsed.netloc or value.startswith('/'):
+            return match[0]
+        resolved = urlsplit(urljoin(SITE + page, value))
+        path = resolved.path.lstrip('/')
+        value = urlunsplit(('', '', path, resolved.query, resolved.fragment))
+        if not path and not resolved.fragment:
+            value = '#'
+        return f'{attr}="{value}"'
+    return re.sub(r'(href|src|poster|action)="([^"]*)"', rewrite, html)
+
+
+def page_urls(html, lang, page):
+    current = lang + '/' + page
+    def rewrite(match):
+        attr, value = match.groups()
+        if urlsplit(value).scheme or value.startswith('//'):
+            return match[0]
+        if value in ('/privacy', '/terms'):
+            return f'{attr}="/{lang}{value}"'
+        parsed = urlsplit(value)
+        # Shared assets live at the site root; shared translated JS lives at the locale root.
+        if parsed.path.startswith('assets/') or parsed.path in ('site.css', 'hero-reveal.js'):
+            target = value
+        elif attr == 'action' or parsed.path.startswith('/'):
+            return match[0]
+        else:
+            target = lang + '/' + value
+        return f'{attr}="{relative_url(target, current)}"'
+    return re.sub(r'(href|src|poster|action)="([^"]*)"', rewrite, html)
+
+
+def source_page(html, page):
+    for fn, token in ((lang_menu, 'LANG_MENU'), (lang_pills, 'LANG_PILLS')):
+        html = replace_once(html, fn('en', page), token)
+    return root_urls(html, page)
+
+
+def check_shared(sources):
+    """Relative URLs and the current-page marker may differ; all other shell markup must match."""
+    for tag in ('header', 'footer'):
+        reference = None
+        for page, html in sources.items():
+            block = re.search(fr'<{tag}\b.*?</{tag}>', html, re.S).group()
+            block = re.sub(r' aria-current="[^"]*"', '', block)
+            if reference is None:
+                reference = block
+            elif block != reference:
+                raise ValueError(f'{page}index.html: shared {tag} differs from index.html')
 
 
 def swap(text, rows, col, nbsp, where):
@@ -413,36 +600,53 @@ def js_leftovers(js):
 
 
 def main():
-    read = lambda name: io.open(os.path.join(ROOT, name), encoding='utf-8').read()
-    html_src, js_src = read('index.html'), read('site.js')
-    for block in (lang_menu('en'), lang_pills('en')):
-        assert block in html_src, 'The language switcher in index.html differs from lang_menu()/lang_pills(); keep them in sync.'
-    problems = []
+    def read(name):
+        with io.open(os.path.join(ROOT, name), encoding='utf-8') as source:
+            return source.read()
+    sources = {page: source_page(read(page + 'index.html'), page) for page in PAGES}
+    check_shared(sources)
+    rows = HTML + ABOUT_HTML
+    for row in rows:
+        if not any(row[0] in html for html in sources.values()):
+            sys.exit(f'HTML source not found, update the table: {row[0]!r}')
+    js_src = read('site.js')
+    problems, outputs = [], {}
     for lang, col in LANGS.items():
-        html = swap(html_src, HTML, col, '&nbsp;', 'index.html')
-        html = replace_once(html, '<html lang="en">', f'<html lang="{lang}">')
-        html = replace_once(html, '<!doctype html>', '<!doctype html>\n<!-- Generated by tools/i18n.py from ../index.html. Edit the English source or the tables in the script, then run it again. -->')
-        html = replace_once(html, f'<link rel="canonical" href="{SITE}">', f'<link rel="canonical" href="{SITE}{lang}/">')
-        html = replace_once(html, lang_menu('en'), lang_menu(lang))
-        html = replace_once(html, lang_pills('en'), lang_pills(lang))
-        html = replace_once(html, 'href="/privacy"', f'href="/{lang}/privacy"')
-        html = replace_once(html, 'href="/terms"', f'href="/{lang}/terms"')
-        html = replace_once(html, 'family=Cinzel:wght@400;500;600&', 'family=Cinzel:wght@400;500;600&family=Spectral+SC:wght@400;500&')
-        html = replace_once(html, 'href="site.css"', 'href="../site.css"')
-        html = replace_once(html, 'src="hero-reveal.js"', 'src="../hero-reveal.js"')
-        html = html.replace('="assets/', '="../assets/')
+        for page, html_src in sources.items():
+            html = html_src
+            for row in sorted(rows, key=lambda r: -len(r[0])):
+                html = html.replace(row[0], row[col].replace('~', '&nbsp;'))
+            # Character entities are not decoded inside JSON script elements.
+            html = re.sub(r'(<script type="application/json" id="team-data">)(.*?)(</script>)',
+                          lambda m: m[1] + m[2].replace('&nbsp;', '\\u00a0') + m[3], html, flags=re.S)
+            html = replace_once(html, '<html lang="en">', f'<html lang="{lang}">')
+            html = replace_once(html, '<!doctype html>', '<!doctype html>\n<!-- Generated by tools/i18n.py. Edit the English source and translation tables. -->')
+            html = replace_once(html, f'<link rel="canonical" href="{SITE}{page}">', f'<link rel="canonical" href="{SITE}{lang}/{page}">')
+            html = replace_once(html, 'family=Cinzel:wght@400;500;600&', 'family=Cinzel:wght@400;500;600&family=Spectral+SC:wght@400;500&')
+            html = page_urls(html, lang, page)
+            html = replace_once(html, 'LANG_MENU', lang_menu(lang, page))
+            html = replace_once(html, 'LANG_PILLS', lang_pills(lang, page))
+            leftovers = Leftovers()
+            leftovers.feed(html)
+            # Script content is skipped by HTMLParser: also inspect visible coach fields in the JSON.
+            for data in re.findall(r'<script type="application/json" id="team-data">(.*?)</script>', html, re.S):
+                for coach in json.loads(data):
+                    for field in ('name', 'role', 'focus', 'alt', 'bio'):
+                        leftovers.check(coach.get(field, ''))
+            problems += [f'{lang}/{page}index.html: {s}' for s in leftovers.found]
+            outputs[f'{lang}/{page}index.html'] = html
         js = swap(js_src, JS, col, '\\u00a0', 'site.js')
-        js = replace_once(js, 'href="assets/', 'href="../assets/')
-        js = f'// Generated by tools/i18n.py from ../site.js. Edit the English source or the tables in the script, then run it again.\n{js}'
-        leftovers = Leftovers()
-        leftovers.feed(html)
-        problems += [f'{lang}/index.html: {s}' for s in leftovers.found] + [f'{lang}/site.js: {s}' for s in js_leftovers(js)]
-        os.makedirs(os.path.join(ROOT, lang), exist_ok=True)
-        for name, text in (('index.html', html), ('site.js', js)):
-            io.open(os.path.join(ROOT, lang, name), 'w', encoding='utf-8', newline='').write(text)
+        outputs[f'{lang}/site.js'] = '// Generated by tools/i18n.py from site.js. Do not edit by hand.\n' + js
+        problems += [f'{lang}/site.js: {s}' for s in js_leftovers(js)]
     if problems:
         sys.exit('English left on the translated pages, add rows to the tables:\n  ' + '\n  '.join(problems))
-    print('ru/ and uk/ are up to date.')
+    # Fail before writing any files if a page or translation is inconsistent.
+    for name, text in outputs.items():
+        destination = os.path.join(ROOT, name)
+        os.makedirs(os.path.dirname(destination), exist_ok=True)
+        with io.open(destination, 'w', encoding='utf-8', newline='') as out:
+            out.write(text)
+    print(f'{len(PAGES)} pages in ru/ and uk/ are up to date; shared header/footer checked.')
 
 
 if __name__ == '__main__':

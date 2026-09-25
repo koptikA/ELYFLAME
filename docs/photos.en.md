@@ -15,8 +15,8 @@ For the team (Kiryl, Ivan, Windy) and, through Kiryl, the client. September 25, 
 |---|---|---|
 | Gallery after "More than movement" | 6 photos of classes and performances | square; 397 px on desktop, 268 px on phones |
 | Video band "On the carpet" | a silent 10–20 s background loop | 16:9, up to 1238 px wide |
-| Coaches | the founder's portrait, framed and tilted like the gallery; square photos for the team (question 14) | portrait 4:5 at 40% of the block (about 495 × 620 on desktop); team 1:1 |
-| Later: the gym | the gym and equipment (question 22) | not placed yet |
+| Coaches: full section on About, short portrait on Home | the founder's portrait, framed and tilted like the gallery; square photos for the team (question 14) | portrait 4:5 at 40% of the block (about 495 × 620 on desktop); team 1:1 |
+| About, `#the-space` | room view and equipment (question 22); two gray slots in tilted cream frames | room view 4:3, equipment 1:1; two desktop columns, stacked on phones |
 
 The hero and the footer stay illustrations: a gymnast silhouette and the "team" of silhouettes. Nobody mistakes an illustration for a student. This departs from SOW 3.1 and needs the client's confirmation (question 29).
 

@@ -23,7 +23,7 @@ Behavior spec for front-end development. Written September 24, 2026, from the pr
 
 **Header** stays on screen while scrolling: logo on the left, navigation Home · About · Parents' Info · Stretching · Contact, the Book a Trial button, and the language to its right. No Login link until the portal launches (project 2). The header button is shorter in Russian and Ukrainian: «Записаться» / «Записатися».
 
-**Current section** is underlined in the menu. A line at 40% of the viewport decides which section is current; sections without their own item (the class finder, coaches, the finale, the form) count toward the item above them. Without JS, Home is underlined.
+**Current section** is underlined in the menu. A line at 40% of the viewport decides which section is current; sections without their own item (the class finder, coaches, the finale, the form) count toward the item above them. On Home without JS, Home is underlined. About always marks About as the current page (`aria-current="page"`); Home section tracking does not run there.
 
 **Language** is a globe, the current language code, and a chevron in the far right corner, after the button: a quiet utility that doesn't compete with the CTA. A click opens the list English / Русский / Українська, with a dot on the current one. Esc or a click elsewhere closes it. The interface codes are EN, RU, UA; the Ukrainian version lives at `/uk/`.
 
@@ -184,11 +184,11 @@ Two blocks after "More than movement". Both carry `data-requires-content` until 
 
 ## 8. Coaches: Founder and Team
 
-A section after the video, built around one person, the founder.
+The full section lives on About (`/about/#coaches`): the founder, expandable biography, and team. Home keeps a short introduction after the video: portrait, name, role, two badges, and “Meet the coaches →” linking to About. The team and biography are not duplicated on Home.
 
-**Founder.** "Portrait + text": on the left the portrait takes 40% of the block (4:5, in the gallery's cream frame with a −2.5° tilt that straightens on hover and a pop-in on first view); on the right the eyebrow "Our coaches", the heading "Guidance with *heart and purpose.*", the name in large Cinzel, the role ("Founder") in small Cinzel, 2–3 lines about her approach, and two credential badges in a row: "National judge, USA Gymnastics" (medal icon) and "Member club, USA Gymnastics" (shield icon). On phones: heading, portrait, then the text. Until the real portrait arrives, the frame shows the ElyFlame monogram on sand, not a gray box. The name and the bio are placeholders `[confirm: question 14]`. Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. The "Content preview" note is gone.
+**Founder.** "Portrait + text": on the left the portrait takes 40% of the block (4:5, in the gallery's cream frame with a −2.5° tilt that straightens on hover and a pop-in on first view); on the right the eyebrow "Our coaches", the heading "Guidance with *heart and purpose.*", the name in large Cinzel, the role ("Founder") in Manrope, 2–3 lines about her approach, and two credential badges in a row: "National judge, USA Gymnastics" (medal icon) and "Member club, USA Gymnastics" (shield icon). On phones: heading, portrait, then the text. Until the real portrait arrives, the frame shows the ElyFlame monogram on sand, not a gray box. The name and the bio are placeholders `[confirm: question 14]`. Certifications (SafeSport, CPR) aren't shown on the site; they're shared on a parent's request. The "Content preview" note is gone.
 
-**Team.** Under the founder, a "The team" block rendered from an array: `<script type="application/json" id="team-data">` holds `[{name, role, focus, photo, alt}]`, and `site.js` builds one card per coach from `<template id="team-card">`. A card: a square photo (the monogram until there's one), the name in Cinzel, the role in small Cinzel, one line of specialization; no frames or shadows, only spacing. Grid: 3 columns on desktop, 2 on tablets (up to 1050 px), 1 on phones. Empty array: the block stays hidden (the case at launch). One coach: one wide card over two columns, photo left, text right. The founder block never changes with the team. Adding a coach means adding an object to the array (photo paths start with `/`) and three translation rows in `tools/i18n.py`; in WordPress it's a repeater field with the same fields.
+**Team.** Under the founder, a "The team" block rendered from an array: `<script type="application/json" id="team-data">` holds `[{name, role, focus, photo, alt, bio}]`, and `site.js` builds one card per coach from `<template id="team-card">`. A card: a square photo (the monogram until there's one), the name in Cinzel, the role in Manrope, one line of specialization; no frames or shadows, only spacing. Grid: 3 columns on desktop, 2 on tablets (up to 1050 px), 1 on phones. Empty array: the block stays hidden (the case at launch). One coach: one wide card over two columns, photo left, text right. The founder block never changes with the team. Adding a coach means adding an object to the array (photo paths start with `/`) and translation rows in `tools/i18n.py`; in WordPress it's a repeater field with the same fields.
 
 ## 8.1 Finale
 
@@ -205,3 +205,22 @@ An accordion built on `<details>`: each question opens and closes on its own, an
 - The real trial slots and the Stripe account.
 - Who translates the Russian and Ukrainian copy.
 - The "she/her" tone is the client's call.
+
+
+## 11. About Page
+
+- URLs: `/about/`, `/ru/about/`, `/uk/about/`. The English source is `about/index.html`. Run `python tools/i18n.py` to build RU/UK; never edit generated pages by hand.
+- Introduction: “A sport. An art. A place to begin.” and links to five page sections. No scrolling Ribbon or Home gymnast here; five static apparatus SVG illustrations give this page its own composition. The shared footer silhouettes remain.
+- The sport: rope, hoop, ball, clubs and ribbon; rhythm, balance, coordination, strength, flexibility and expression; an Olympic sport since 1984.
+- Why ElyFlame: six levels from first steps toward competition, with placement assessed by the coach at the trial. The founder is a USA Gymnastics national judge and the academy is a member club. History and mission have a separate placeholder block (question 21).
+- Coaches: the full section from section 8 moves to About. The founder and team members have native `<details>` disclosures labelled “Read more”, accessible by keyboard. The founder’s disclosure also works without JS; team cards are created by JS. The `bio` field in `#team-data` supplies each detailed biography; an empty field hides that card’s disclosure. An empty array hides the team. Array text uses the shared translation tables and visible JSON fields are checked by the generator. Certifications are available only on a parent's request; no scans or SafeSport/CPR listings are public. The founder's name, biography and photo await question 14.
+- Space (`#the-space`): two photo slots, a 4:3 room view and 1:1 equipment photo, using the gallery's cream frames and tilt. They stack on phones. Equipment and safety arrangements remain placeholders (22). Entrance, drop-off and pick-up use door #11. Parents can watch the trial; afterwards they may attend with the Head Coach's permission, at open practices, or as volunteers.
+- Achievements (`#achievements`): a list with year, competition, result, category and level. One bracketed template row awaits question 17; no invented years, medals or results.
+- Every Book a Trial link goes to the same-language Home with `#trial`. Home opens the single booking dialog on initial load, hash changes and history restoration. Without JS, the link reaches the one ordinary form on Home.
+- Shared `site.js` initializes the finder, booking and Ribbon geometry only when their blocks exist. Navigation, language controls, coaches and the footer work on both pages. Reduced motion keeps images visible and disables entrances and hover lifts.
+
+### Transition to Five Pages
+
+Home, About, Parents’ Info, Stretching and Contact will become separate pages under the SOW. About exists now, so its menu item links to `about/`. The other items still target Home sections (`#parents`, `#stretching`, `#contact`); on About these are `../#parents`, `../#stretching`, `../#contact`. The language stays the same. When the next page is added, update its link in every shared header/footer copy and register its directory in `PAGES` in `tools/i18n.py`.
+
+The generator iterates over registered pages, uses shared translation tables and rebases relative links for any depth. Language switching keeps the current page (About → About); canonical and hreflang URLs target that page’s versions. Headers and footers are copied into each English page. The generator checks them after normalizing URLs and current-item markers, and checks language controls against shared helpers. A mismatch, stale translation row or English leftover fails the build before any files are written.
