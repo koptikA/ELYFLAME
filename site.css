@@ -281,14 +281,17 @@ h2 em,.stage h2 em{color:inherit}
 .gallery .section-heading .text-link{justify-self:end;margin:0 0 7px}
 .gallery-grid{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .photo-slot,.gallery-grid img{display:grid;place-items:center;width:100%;aspect-ratio:1;object-fit:cover;background:var(--placeholder);color:var(--ink-muted);font-size:14px}
-/* Video (#video): a dark band with a 16:9 poster; the real video plays with controls on tap, no autoplay. */
+/* Video (#video): a dark band with a silent 16:9 loop. It plays by itself while on screen; the round button in the
+   bottom-left corner pauses and resumes it. With reduced motion it waits on the poster. */
 .video-section{background:var(--stage);color:var(--on-stage)}
 .video-section>.eyebrow{color:var(--on-stage-muted)}
 .video-section h2{margin-top:20px}
-.video-slot{margin-top:48px;aspect-ratio:16/9;display:grid;place-content:center;justify-items:center;gap:16px;background:color-mix(in srgb,var(--on-stage) 8%,var(--stage));color:var(--on-stage-muted);font-size:14px}
-.video-play{position:relative;width:72px;height:72px;border-radius:50%;background:var(--pink)}
-.video-play::after{content:"";position:absolute;left:29px;top:24px;border-left:20px solid var(--white);border-top:12px solid transparent;border-bottom:12px solid transparent}
-@media(max-width:760px){.gallery .section-heading .text-link{margin:4px 0 0}.gallery-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-top:32px;padding-bottom:4px}.gallery-grid li{scroll-snap-align:start}.video-slot{margin-top:32px}.video-play{width:56px;height:56px}.video-play::after{left:22px;top:18px;border-left-width:16px;border-top-width:10px;border-bottom-width:10px}}
+.video-slot{position:relative;margin-top:48px;aspect-ratio:16/9;display:grid;place-content:center;background:color-mix(in srgb,var(--on-stage) 8%,var(--stage));color:var(--on-stage-muted);font-size:14px}
+.video-toggle{position:absolute;left:24px;bottom:24px;width:44px;height:44px;border-radius:50%;background:var(--pink)}
+.video-toggle::before,.video-toggle::after{content:"";position:absolute;top:15px;width:4px;height:14px;border-radius:1px;background:var(--white)}
+.video-toggle::before{left:16px}
+.video-toggle::after{right:16px}
+@media(max-width:760px){.gallery .section-heading .text-link{margin:4px 0 0}.gallery-grid{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:78%;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-top:32px;padding-bottom:4px}.gallery-grid li{scroll-snap-align:start}.video-slot{margin-top:32px}.video-toggle{left:16px;bottom:16px}}
 
 /* Languages. Cinzel has no Cyrillic, so the Russian and Ukrainian pages set display type in Spectral SC, which also
    turns lowercase into small caps; the ELYFLAME lockup stays in Cinzel. Spectral SC runs wider, so the hero line grows

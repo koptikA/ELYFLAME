@@ -180,7 +180,7 @@ Two blocks after "More than movement". Both carry `data-requires-content` until 
 
 **Gallery.** Eyebrow "Inside the academy", the heading "Practice, play, *perform.*", and a "Follow us on Instagram ↗" link. Six photo slots (the SOW asks for 6–9 tiles): three columns on desktop, a sideways-scrolling row on phones, where a tile is 78% of the width, so the next one peeks in, and the row snaps to tiles. Every photo is cropped square (`object-fit: cover`), so the client can upload any photo in WordPress. Until photos arrive, the slots are gray. Alt text describes the scene and never names a child.
 
-**Video.** A dark band: eyebrow "On the carpet", the heading "See grace *in motion.*", and a 16:9 poster with a magenta play button. The video plays with sound and controls when tapped: no autoplay, `preload="none"`, the poster shows first. Captions if there's speech. Until the video arrives, the poster area is a dark placeholder.
+**Video.** A dark band: eyebrow "On the carpet", the heading "See grace *in motion.*", and a silent 16:9 loop without controls. It starts by itself when the block comes on screen and pauses when it leaves (`muted`, `loop`, `playsinline`; the file loads only when the block is near). A 44 px magenta button in the bottom-left corner pauses and resumes it (`aria-label` "Pause video" / "Play video"): motion longer than 5 seconds must be stoppable. With reduced motion the video doesn't start: the poster shows with the button set to play. The loop is 10–20 s, has no sound and no text, and weighs about 4 MB at most; the poster is its first frame. Until the video arrives, the poster area is a dark placeholder.
 
 ## 8. Coaches and Safety
 
