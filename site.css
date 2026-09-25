@@ -201,6 +201,9 @@ h2 em,.stage h2 em{color:inherit}
    to it from the first frame. Reduced motion shows the final pose. */
 .hero-photo{height:520px;top:96px}
 .gymnast-art{position:relative;height:100%;aspect-ratio:1113/1825}
+/* Between 761 and 1440 px the copy is shorter than the 520 px gymnast, and the scroll cue line ran through her feet.
+   She shrinks to 470 px at 1200 px and below, so her feet and floor shadow always end above the line. */
+@media(min-width:761px){.hero-photo{height:clamp(470px,calc(20.83vw + 220px),520px)}}
 .gymnast{display:block;width:100%;height:100%;overflow:visible;fill:var(--ink)}
 .floor-center{stop-color:var(--ink);stop-opacity:.28}
 .floor-edge{stop-color:var(--ink);stop-opacity:0}

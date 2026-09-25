@@ -170,7 +170,7 @@ The headline "Where Grace Meets Fire" (SOW placeholder, `[confirm: question 23]`
 
 ### 6.1 Gymnast and Hero Entrance
 
-- On the right is a gymnast silhouette (an illustration, not a photo) with a floor shadow. The Ribbon starts at the tip of her stick.
+- On the right is a gymnast silhouette (an illustration, not a photo) with a floor shadow. She is 520 px tall from 1440 px up and shrinks smoothly to 470 px at 1200 px and below, so her feet and the floor shadow always end above the scroll cue line ("Find the right class"), at least 14 px clear. The Ribbon starts at the tip of her stick.
 - Once per load, after fonts are ready: the headline rises letter by letter (Serega Gentle), the gymnast's free leg rises from the hip (1.6 s), "fire." lands with a spring accent (Serega Emotional) as the leg nears the top, then the paragraph, button, and caption rise in.
 - With reduced motion, everything is in place at once. If the script fails to load, the text appears after 4 s and the leg rises after 2.5 s.
 
